@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHistorysTable extends Migration
+class CreatePemeliharaanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateHistorysTable extends Migration
      */
     public function up()
     {
-        Schema::create('history', function (Blueprint $table) {
+        Schema::create('pemeliharaan', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->date('tgl_history');
+            $table->string('kode_pemeliharaan');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->text('tindakan');
-            $table->integer('kategori_id')->unsigned();
-            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
+            $table->text('keterangan')->nullable();
+            $table->integer('biaya');
+            $table->integer('status');
+            $table->string('yang_mengajukan')->nullable();
+            $table->string('keputusan_oleh')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ class CreateHistorysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history');
+        Schema::dropIfExists('pemeliharaan');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHistorysTable extends Migration
+class CreateAsetacTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateHistorysTable extends Migration
      */
     public function up()
     {
-        Schema::create('history', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->date('tgl_history');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->text('tindakan');
+        Schema::create('asetac', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('kode_aset');
+            $table->string('nama_kendaraan');
+            $table->string('nopol');
+            $table->date('masaberlaku_stnk');
+            $table->integer('status_kendarran');
             $table->integer('kategori_id')->unsigned();
             $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
             $table->timestamps();
@@ -32,6 +33,6 @@ class CreateHistorysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history');
+        Schema::dropIfExists('asetac');
     }
 }
