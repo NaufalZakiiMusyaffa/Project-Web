@@ -169,7 +169,7 @@ class UserController extends Controller
         Session::flash('message', 'Berhasil diubah!');
         Session::flash('message_type', 'success');
 
-        if (Auth::user()->level == 'hrd') {
+        if (Auth::user()->level == 'manager') {
             Alert::success('Berhasil diubah!');
             return redirect()->to('user');
         } else {

@@ -100,7 +100,7 @@
                   @endif
                 </td>
                 <td>
-                  @if(Auth::user()->level == 'hrd')
+                  @if(Auth::user()->level == 'manager')
                   <div class="btn-group dropdown">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Aksi

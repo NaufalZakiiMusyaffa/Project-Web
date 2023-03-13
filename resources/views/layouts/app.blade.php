@@ -35,7 +35,7 @@
         $pemeliharaan = \App\Pemeliharaan::where('status', '=', 1)->get();
         ?>
 
-        @if(Auth::user()->level == 'hrd')
+        @if(Auth::user()->level == 'manager')
         <a href="{{route('pemeliharaan.index')}}" style="margin-left: 20px;"><i class="fa fa-bell text-white"> Pengajuan Masuk</i>
           <span class="badge badge-danger">{{$pemeliharaan->count()}}</span>
         </a>

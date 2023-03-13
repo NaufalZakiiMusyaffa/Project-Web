@@ -31,7 +31,7 @@
       <span class="menu-title">Beranda</span>
     </a>
   </li>
-  @if(Auth::user()->level == 'hrd')
+  @if(Auth::user()->level == 'manager')
   <li class="nav-item {{ setActive(['user*']) }}">
     <a class="nav-link" href="{{route('user.index')}}">
       <i class="menu-icon mdi mdi-backup-restore"></i>
@@ -72,7 +72,7 @@
     </div>
   </li>
 
-  @if(Auth::user()->level == 'hrd')
+  @if(Auth::user()->level == 'manager')
   <li class="nav-item {{ setActive(['driver*', 'asetac*']) }}">
     <a class="nav-link " data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-content-copy"></i>
@@ -110,7 +110,7 @@
     </div>
   </li>
 
-  @if(Auth::user()->level == 'hrd')
+  @if(Auth::user()->level == 'manager')
   <li class="nav-item">
     <a class="nav-link" data-toggle="collapse" href="#ui-laporan" aria-expanded="false" aria-controls="ui-laporan">
       <i class="menu-icon mdi mdi-table"></i>

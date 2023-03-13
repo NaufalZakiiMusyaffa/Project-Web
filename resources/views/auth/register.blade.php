@@ -79,8 +79,9 @@
                                     <div class="col-md-12">
                                         <select class="form-control" name="level" required="">
                                             <option value=""></option>
-                                            <option value="hrd">HRD</option>
+                                            <option value="manager">MANAGER</option>
                                             <option value="it">IT</option>
+                                            <option value="autocare">AUTOCARE</option>
                                         </select>
                                     </div>
                             </div>

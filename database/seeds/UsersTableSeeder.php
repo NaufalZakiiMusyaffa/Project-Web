@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
               'email' 			=> '123@gmail.com',
               'password'		=> bcrypt('hrd123'),
               'gambar'			=> NULL,
-              'level'			=> 'hrd',
+              'level'			=> 'manager',
               'remember_token'	=> NULL,
               'created_at'      => \Carbon\Carbon::now(),
               'updated_at'      => \Carbon\Carbon::now()

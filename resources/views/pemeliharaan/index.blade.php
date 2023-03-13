@@ -45,7 +45,7 @@
   </div>
 </div>
 
-@if(Auth::user()->level == 'hrd')
+@if(Auth::user()->level == 'manager')
 <div class="row" style="margin-top: 20px;">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -97,7 +97,7 @@
                   @endif
                 </td>
                 <td>
-                  @if(Auth::user()->level == 'hrd')
+                  @if(Auth::user()->level == 'manager')
                   @if($data->status == '1')
                     <a class="badge badge-primary fa fa-eye" href="{{ route('pemeliharaan.show', $data->id) }}">&nbsp;&nbsp;Lihat Detail Pengajuan</a>
                   </form>

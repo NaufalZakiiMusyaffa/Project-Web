@@ -76,7 +76,11 @@
                             @endif
                                 <p for="kode_aset" class="p-2">Inventaris Kepada :</p>
                                     <div class="p-2" style="margin-top: -3px;">
+                                     @if($data->karyawan != null)
                                      <label class="badge badge-primary"><b>{{$data->karyawan->nama}}</b></label>
+                                     @else
+                                     <label class="badge badge-primary"><b>-</b></label>
+                                     @endif
                                 </div>
                                 <p for="kode_aset" class="p-2">Kode Aset :</p>
                                     <div class="p-2" style="margin-top: -3px;">

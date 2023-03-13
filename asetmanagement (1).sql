@@ -297,7 +297,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gambar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `level` enum('hrd','it') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` enum('manager','it','autocare') COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -308,7 +308,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `gambar`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Naufal Zaki Musyaffa', 'hrd123', 'nouvalzaki78@gmail.com', '$2y$10$nFw0Ake.DQO.hZLFC1tm9OsRwjyXQ.Xnv71udxwjFYZHNB973wewW', NULL, 'hrd', 'fItDTkY6p9dYOyBOCpIXAkbRSAtypOLtWznBPEPvC88o475wrnsjBMfbeC7G', '2022-11-03 07:07:53', '2022-12-02 09:22:58'),
+(1, 'Naufal Zaki Musyaffa', 'hrd123', 'nouvalzaki78@gmail.com', '$2y$10$nFw0Ake.DQO.hZLFC1tm9OsRwjyXQ.Xnv71udxwjFYZHNB973wewW', NULL, 'manager', 'fItDTkY6p9dYOyBOCpIXAkbRSAtypOLtWznBPEPvC88o475wrnsjBMfbeC7G', '2022-11-03 07:07:53', '2022-12-02 09:22:58'),
 (2, 'User IT Example', 'it123', '654321@gmail.com', '$2y$10$Yf7fEk2QBrvAJe4lwau9eO5mDeqY1a7qyuk1gMn9nlNo7N37YOiaG', NULL, 'it', 'fXy6rw5v2vQjnYVsEiMfvJ9bjgDO8dXM9bazn4Q3WmYhczideoVCe2hgliFu', '2022-11-03 07:07:53', '2022-11-29 07:22:29');
 
 --

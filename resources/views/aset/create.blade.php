@@ -91,7 +91,7 @@
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <input id="karyawan_nama" type="text" class="form-control" readonly="" required>
-                                            <input id="karyawan_id" type="hidden" name="karyawan_id" value="{{ 0 }}" required readonly="">
+                                            <input id="karyawan_id" type="hidden" name="karyawan_id" value="" required readonly="">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2"><b>Cari Karyawan</b> <span class="fa fa-search"></span></button>
                                             </span>
