@@ -3,7 +3,7 @@ Note :
 1. <strike>Base awal All Migrations bisa termigrasi ke basis data</strike>
 2. <strike>Perubahan nama role dari hrd menjadi manager</strike>
 3. <strike>Penambahan role autocare</strike>
-2. Notifikasi Pengajuan Masuk (Role: Hrd) + notifikasi muncul juga di Gmail
+2. <strike>Notifikasi Pengajuan Masuk (Role: Hrd) + notifikasi muncul juga di Gmail</strike>
 3. Notifikasi Pengingat masa berlaku STNK (Trigger muncul H-3 sebelum habis) (Role : autocare)
 4. Filter Aset ( dibagian fitur JEJAK ASET IT)
    - filter yang sama (namanya) cuman ingin muncul hanya 1 saja

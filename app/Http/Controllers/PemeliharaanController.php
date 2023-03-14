@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailNotify;
 use App\User;
 use App\Aset;
 use App\Pemeliharaan;
@@ -117,7 +119,10 @@ class PemeliharaanController extends Controller
                 'jumlah_aset' => ($pemeliharaan->aset->jumlah_aset + 0),
             ]);
 
-
+        $akuns = User::where('level','manager')->get();
+        foreach ($akuns as $akun) {
+            Mail::to($akun->email)->send(new MailNotify());
+        };
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
         return redirect()->route('pemeliharaan.index');
     }

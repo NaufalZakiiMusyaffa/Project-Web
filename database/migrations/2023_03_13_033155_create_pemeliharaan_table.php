@@ -16,8 +16,8 @@ class CreatePemeliharaanTable extends Migration
         Schema::create('pemeliharaan', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('kode_pemeliharaan');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('aset_id')->unsigned();
+            $table->foreign('aset_id')->references('id')->on('aset')->onDelete('cascade');
             $table->text('keterangan')->nullable();
             $table->integer('biaya');
             $table->integer('status');
