@@ -7,6 +7,9 @@ Note :
 3. Notifikasi Pengingat masa berlaku STNK (Trigger muncul H-3 sebelum habis) (Role : autocare)
 4. Filter Aset ( dibagian fitur JEJAK ASET IT)
    - filter yang sama (namanya) cuman ingin muncul hanya 1 saja
+5. - Nama Field jumlah_aset (Ditabel Aset IT) dirubah menjadi status_aset & typenya enum
+   - status_kendaraan (ditabel Asetac) type datanya dirubah menjadi enum
+   - status_supir (ditabel supir) type datanya dirubah menjadi enum
 
 5. Halaman Beranda yang diubah tampilan UI :
    1. Pemeliharaan (dibuat grafik & diambil variabelnya berdasarkan bulan)
