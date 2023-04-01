@@ -19,7 +19,7 @@ class CreateAsetacTable extends Migration
             $table->string('nama_kendaraan');
             $table->string('nopol');
             $table->date('masaberlaku_stnk');
-            $table->integer('status_kendarran');
+            $table->integer('status_kendaraan');
             $table->integer('kategori_id')->unsigned();
             $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
             $table->timestamps();

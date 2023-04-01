@@ -88,7 +88,7 @@ class LaporanController extends Controller
                         $data['nama_aset'],
                         $data->kategori->nama_kategori,
                         $data['merk'],
-                        $data['jumlah_aset'],
+                        $data['status_aset'],
                         $data['spesifikasi'],
                         $data['tgl_beli'],
                         $data['harga_beli']

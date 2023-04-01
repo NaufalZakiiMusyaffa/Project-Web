@@ -70,9 +70,9 @@ class TransaksiAutocareController extends Controller
             }
         }
 
-        $autocares = Autocare::where('status_kendaraan', '=', 1)->get();
+        $autocares = Autocare::where('status_kendaraan', '===', 'Siap digunakan')->get();
         $karyawans = Karyawan::where('id', '>', 0)->get();
-        $drivers = Driver::where('status_supir', '=', 1)->get();
+        $drivers = Driver::where('status_supir', '===', 'Siap')->get();
         return view('transaksiac.create', compact('kode', 'autocares', 'karyawans', 'drivers'));
     }
 
@@ -106,12 +106,12 @@ class TransaksiAutocareController extends Controller
 
         $transaksiac->asetac->where('id', $transaksiac->asetac_id)
             ->update([
-                'status_kendaraan' => ($transaksiac->asetac->status_kendaraan - 1),
+                'status_kendaraan' => 'Sedang dipinjam',
             ]);
 
         $transaksiac->supir->where('id', $transaksiac->supir_id)
             ->update([
-                'status_supir' => ($transaksiac->supir->status_supir - 1),
+                'status_supir' => 'Sedang Bertugas',
             ]);
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
@@ -135,12 +135,12 @@ class TransaksiAutocareController extends Controller
 
         $transaksiac->asetac->where('id', $transaksiac->asetac->id)
             ->update([
-                'status_kendaraan' => ($transaksiac->asetac->status_kendaraan + 1),
+                'status_kendaraan' => 'Siap digunakan',
             ]);
 
         $transaksiac->supir->where('id', $transaksiac->supir->id)
             ->update([
-                'status_supir' => ($transaksiac->supir->status_supir + 1),
+                'status_supir' => 'Siap',
             ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');

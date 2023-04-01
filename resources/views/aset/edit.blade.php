@@ -72,15 +72,15 @@
                                     </div>
                                 </div>
 
-                                @if($data->jumlah_aset > '0')
-                                <div class="form-group col-md-3{{ $errors->has('jumlah_aset') ? ' has-error' : '' }}">
-                                    <label for="jumlah_aset" class="col-md-12 control-label">Status Aset *</label>
+                                @if($data->status_aset > '0')
+                                <div class="form-group col-md-3{{ $errors->has('status_aset') ? ' has-error' : '' }}">
+                                    <label for="status_aset" class="col-md-12 control-label">Status Aset *</label>
                                     <div class="col-md-12">
-                                        <select class="form-control" name="jumlah_aset" required="">
-                                            <option value="1" @if($data->jumlah_aset == '1') selected @endif>Siap digunakan</option>
-                                            <option value="2" @if($data->jumlah_aset == '2') selected @endif>Digunakan</option>
-                                            <option value="3" @if($data->jumlah_aset == '3') selected @endif>Rusak(Bisa diperbaiki)</option>
-                                            <option value="5" @if($data->jumlah_aset == '5') selected @endif>Rusak Total</option>
+                                        <select class="form-control" name="status_aset" required="">
+                                            <option value="Siap digunakan" @if($data->status_aset == 'Siap digunakan') selected @endif>Siap digunakan</option>
+                                            <option value="Digunakan" @if($data->status_aset == 'Digunakan') selected @endif>Digunakan</option>
+                                            <option value="Rusak(Bisa diperbaiki)" @if($data->status_aset == 'Rusak(Bisa diperbaiki)') selected @endif>Rusak(Bisa diperbaiki)</option>
+                                            <option value="Rusak Total" @if($data->status_aset == 'Rusak Total') selected @endif>Rusak Total</option>
                                         </select>
                                     </div>
                                 </div>

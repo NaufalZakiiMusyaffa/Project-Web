@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Aset extends Model
 {
     protected $table = 'aset';
-    protected $fillable = ['kode_aset', 'nama_aset', 'kategori_id', 'karyawan_id', 'merk', 'jumlah_aset', 'spesifikasi', 'garansi', 'tgl_beli', 'harga_beli', 'toko_beli', 'alamat', 'gambar'];
+    protected $fillable = ['kode_aset', 'nama_aset', 'kategori_id', 'karyawan_id', 'merk', 'status_aset', 'spesifikasi', 'garansi', 'tgl_beli', 'harga_beli', 'toko_beli', 'alamat', 'gambar'];
 
 
     /**

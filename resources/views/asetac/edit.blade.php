@@ -36,15 +36,15 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Ubah Data Kendaraan <b>[{{$data->nama_kendaraan}}]</b> </h4>
-              @if($data->status_kendaraan > '0')
+              @if($data->status_kendaraan > 'Sedang dipinjam')
               <div class="float-left">
                 <div class="form-group{{ $errors->has('status_kendaraan') ? ' has-error' : '' }}">
                   <label for="status_kendaraan" class="col-md-12 control-label">Status Kendaraan *</label>
                   <div class="col-md-12">
                     <select class="form-control" name="status_kendaraan">
-                      <option value="1" @if($data->status_kendaraan == '1') selected @endif>Siap digunakan</option>
-                      <option value="2" @if($data->status_kendaraan == '2') selected @endif>Digunakan</option>
-                      <option value="3" @if($data->status_kendaraan == '3') selected @endif>Ada Kerusakan</option>
+                      <option value="Siap digunakan" @if($data->status_kendaraan == 'Siap digunakan') selected @endif>Siap digunakan</option>
+                      <option value="Digunakan" @if($data->status_kendaraan == 'Digunakan') selected @endif>Digunakan</option>
+                      <option value="Ada Kerusakan" @if($data->status_kendaraan == 'Ada Kerusakan') selected @endif>Ada Kerusakan</option>
                     </select>
                   </div>
                 </div>

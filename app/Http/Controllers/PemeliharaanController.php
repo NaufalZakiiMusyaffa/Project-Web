@@ -74,7 +74,7 @@ class PemeliharaanController extends Controller
             }
         }
 
-        $asets = Aset::where('jumlah_aset', '=', 3)->get();
+        $asets = Aset::where('status_aset', '===', 'Rusak(Bisa diperbaiki)')->get();
         $users = User::get();
         return view('pemeliharaan.create', compact('asets', 'kode', 'statusx', 'users'));
     }
@@ -116,7 +116,7 @@ class PemeliharaanController extends Controller
 
         $pemeliharaan->aset->where('id', $pemeliharaan->aset_id)
             ->update([
-                'jumlah_aset' => ($pemeliharaan->aset->jumlah_aset + 0),
+                'status_aset' => ($pemeliharaan->aset->status_aset),
             ]);
 
         $akuns = User::where('level','manager')->get();
@@ -162,7 +162,7 @@ class PemeliharaanController extends Controller
 
         $pemeliharaan->aset->where('id', $pemeliharaan->aset->id)
             ->update([
-                'jumlah_aset' => ($pemeliharaan->aset->jumlah_aset + 1),
+                'status_aset' => 'Sedang diperbaiki',
             ]);
 
         alert()->success('Berhasil.', 'Data pengajuan telah di setujui');
@@ -188,7 +188,7 @@ class PemeliharaanController extends Controller
 
         $pemeliharaan->aset->where('id', $pemeliharaan->aset->id)
             ->update([
-                'jumlah_aset' => ($pemeliharaan->aset->jumlah_aset + 0),
+                'status_aset' => ($pemeliharaan->aset->status_aset),
             ]);
 
         alert()->info('Pengajuan ditolak');

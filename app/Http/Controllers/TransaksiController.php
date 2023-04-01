@@ -68,7 +68,7 @@ class TransaksiController extends Controller
             }
         }
 
-        $asets = Aset::where('jumlah_aset', '=', 1)->get();
+        $asets = Aset::where('status_aset', '===', 'Siap digunakan')->get();
         $karyawans = Karyawan::where('id', '>', 0)->get();
         $datas = History::get();
         return view('transaksi.create', compact('asets', 'kode', 'karyawans', 'datas'));
@@ -102,7 +102,7 @@ class TransaksiController extends Controller
 
         $transaksi->aset->where('id', $transaksi->aset_id)
             ->update([
-                'jumlah_aset' => ($transaksi->aset->jumlah_aset - 1),
+                'status_aset' => 'Sedang dipinjam',
             ]);
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
@@ -165,7 +165,7 @@ class TransaksiController extends Controller
 
         $transaksi->aset->where('id', $transaksi->aset->id)
             ->update([
-                'jumlah_aset' => ($transaksi->aset->jumlah_aset + 1),
+                'status_aset' => 'Siap digunakan',
             ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');

@@ -54,7 +54,7 @@ class DriverController extends Controller
         $lastId = $getRow->first();
 
         $kode = "SPR00001";
-        $siap = "1";
+        $siap = "Siap";
 
         if ($rowCount > 0) {
             if ($lastId->id < 9) {

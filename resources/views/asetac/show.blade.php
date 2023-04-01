@@ -47,13 +47,13 @@
                                 </div>
                             </div>
                             <div class="float-right">
-                                <div class="form-group{{ $errors->has('jumlah_aset') ? ' has-error' : '' }}">
-                                    <label for="jumlah_aset" class="col-md-6 control-label">Aset</label>
+                                <div class="form-group{{ $errors->has('status_aset') ? ' has-error' : '' }}">
+                                    <label for="status_aset" class="col-md-6 control-label">Aset</label>
                                     <div class="col-md-12">
-                                        <input id="jumlah_aset" type="number" maxlength="4" class="form-control" name="jumlah_aset" value="{{ $data->jumlah_aset }}" readonly="">
-                                        @if ($errors->has('jumlah_aset'))
+                                        <input id="status_aset" type="number" maxlength="4" class="form-control" name="status_aset" value="{{ $data->status_aset }}" readonly="">
+                                        @if ($errors->has('status_aset'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('jumlah_aset') }}</strong>
+                                            <strong>{{ $errors->first('status_aset') }}</strong>
                                         </span>
                                         @endif
                                     </div>

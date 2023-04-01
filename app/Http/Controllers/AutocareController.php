@@ -62,9 +62,9 @@ class AutocareController extends Controller
         $lastId = $getRow->first();
 
         $kode = "ATC00001";
-        $siappakai = "1";
-        $dipakai = "2";
-        $rusak = "3";
+        $siappakai = "Siap digunakan";
+        $dipakai = "Digunakan";
+        $rusak = "Ada Kerusakan";
 
         if ($rowCount > 0) {
             if ($lastId->id < 9) {
@@ -86,7 +86,7 @@ class AutocareController extends Controller
 
     public function format()
     {
-        $data = [['kode_aset' => null, 'nama_aset' => null, 'kategori' => null, 'merk' => null, 'jumlah_aset' => null, 'spesifikasi' => null, 'tgl_beli' => null, 'harga_beli' => null]];
+        $data = [['kode_aset' => null, 'nama_aset' => null, 'kategori' => null, 'merk' => null, 'status_aset' => null, 'spesifikasi' => null, 'tgl_beli' => null, 'harga_beli' => null]];
         $fileName = 'format-aset';
 
 

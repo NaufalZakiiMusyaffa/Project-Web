@@ -78,11 +78,11 @@
                   {{date('d F Y', strtotime($data->masaberlaku_stnk))}}
                 </td>
                 <td>
-                  @if($data->status_kendaraan == '0')
+                  @if($data->status_kendaraan == 'Sedang dipinjam')
                   <label class="badge badge-primary">Sedang dipinjam</label>
-                  @elseif($data->status_kendaraan == '1')
+                  @elseif($data->status_kendaraan == 'Siap digunakan')
                   <label class="badge badge-success">Siap digunakan</label>
-                  @elseif($data->status_kendaraan == '2')
+                  @elseif($data->status_kendaraan == 'Digunakan')
                   <label class="badge badge-warning">Digunakan</label>
                   @else
                   <label class="badge badge-danger">Ada Kerusakan</label>

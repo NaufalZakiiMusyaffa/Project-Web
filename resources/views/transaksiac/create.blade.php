@@ -190,7 +190,7 @@
               <td>{{$data->nopol}}</td>
               <td>{{$data->masaberlaku_stnk}}</td>
               <td>
-                @if($data->status_kendaraan == '1')
+                @if($data->status_kendaraan == 'Siap Digunakan')
                 <label class="badge badge-success">Siap digunakan</label>
                 @else
                 <label class="badge badge-danger">Ada Kerusakan</label>

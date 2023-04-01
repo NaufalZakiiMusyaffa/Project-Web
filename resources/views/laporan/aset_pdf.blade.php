@@ -115,7 +115,7 @@
           {{$data->merk}}
         </td>
         <td>
-          {{$data->jumlah_aset}}
+          {{$data->status_aset}}
         </td>
         <td>
           {{$data->spesifikasi}}

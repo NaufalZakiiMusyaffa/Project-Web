@@ -48,24 +48,24 @@
                             </div>
 
                             <div class="d-flex flex-row">
-                            <p for="jumlah_aset" class="p-2">Status Aset :</p>
-                            @if($data->jumlah_aset == '0')
+                            <p for="status_aset" class="p-2">Status Aset :</p>
+                            @if($data->status_aset == 'Sedang dipinjam')
                                 <div class="p-2" style="margin-top: -3px;">
                                 <label class="badge badge-primary">Sedang dipinjam</label>
                                 </div>
-                            @elseif($data->jumlah_aset == '1')
+                            @elseif($data->status_aset == 'Siap digunakan')
                                 <div class="p-2" style="margin-top: -3px;">
                                 <label class="badge badge-success">Siap digunakan</label>
                                 </div>
-                            @elseif($data->jumlah_aset == '2')
+                            @elseif($data->status_aset == 'Digunakan')
                                 <div class="p-2" style="margin-top: -3px;">
                                 <label class="badge badge-warning" >Digunakan</label>
                                 </div>
-                            @elseif($data->jumlah_aset == '3')
+                            @elseif($data->status_aset == 'Rusak(Bisa diperbaiki)')
                                 <div class="p-2" style="margin-top: -3px;">
                                 <label class="badge badge-danger">Rusak(Bisa diperbaiki)</label>
                                 </div>
-                            @elseif($data->jumlah_aset == '4')
+                            @elseif($data->status_aset == 'Sedang diperbaiki')
                                 <div class="p-2" style="margin-top: -3px;">
                                 <label class="badge badge-info">Sedang diperbaiki</label>
                                 </div>

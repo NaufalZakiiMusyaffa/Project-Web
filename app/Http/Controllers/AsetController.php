@@ -58,10 +58,10 @@ class AsetController extends Controller
         $lastId = $getRow->first();
 
         $kode = "ASET00001";
-        $siappakai = "1";
-        $dipakai = "2";
-        $bisadiperbaiki = "3";
-        $rusak = "5";
+        $siappakai = "Siap digunakan";
+        $dipakai = "Digunakan";
+        $bisadiperbaiki = "Rusak(Bisa diperbaiki)";
+        $rusak = "Rusak Total";
 
         if ($rowCount > 0) {
             if ($lastId->id < 9) {
@@ -84,7 +84,7 @@ class AsetController extends Controller
 
     public function format()
     {
-        $data = [['kode_aset' => null, 'nama_aset' => null, 'kategori' => null, 'merk' => null, 'jumlah_aset' => null, 'spesifikasi' => null, 'tgl_beli' => null, 'harga_beli' => null]];
+        $data = [['kode_aset' => null, 'nama_aset' => null, 'kategori' => null, 'merk' => null, 'status_aset' => null, 'spesifikasi' => null, 'tgl_beli' => null, 'harga_beli' => null]];
         $fileName = 'format-aset';
 
 
@@ -127,7 +127,7 @@ class AsetController extends Controller
             'kategori_id' => $request->get('kategori_id'),
             'karyawan_id' => $request->get('karyawan_id'),
             'merk'        => $request->get('merk'),
-            'jumlah_aset' => $request->get('jumlah_aset'),
+            'status_aset' => $request->get('status_aset'),
             'spesifikasi' => $request->get('spesifikasi'),
             'garansi'     => $request->get('garansi'),
             'tgl_beli'    => $request->get('tgl_beli'),
@@ -202,7 +202,7 @@ class AsetController extends Controller
             'kategori_id' => $request->get('kategori_id'),
             'karyawan_id' => $request->get('karyawan_id'),
             'merk'        => $request->get('merk'),
-            'jumlah_aset' => $request->get('jumlah_aset'),
+            'status_aset' => $request->get('status_aset'),
             'spesifikasi' => $request->get('spesifikasi'),
             'garansi'     => $request->get('garansi'),
             'tgl_beli'    => $request->get('tgl_beli'),

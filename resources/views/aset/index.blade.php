@@ -113,15 +113,15 @@
                   {{$data->alamat}}
                 </td>
                 <td>
-                  @if($data->jumlah_aset == '0')
+                  @if($data->status_aset == 'Sedang dipinjam')
                   <label class="badge badge-primary">Sedang dipinjam</label>
-                  @elseif($data->jumlah_aset == '1')
+                  @elseif($data->status_aset == 'Siap digunakan')
                   <label class="badge badge-success">Siap digunakan</label>
-                  @elseif($data->jumlah_aset == '2')
+                  @elseif($data->status_aset == 'Digunakan')
                   <label class="badge badge-warning">Digunakan</label>
-                  @elseif($data->jumlah_aset == '3')
+                  @elseif($data->status_aset == 'Rusak(Bisa diperbaiki)')
                   <label class="badge badge-danger">Rusak(Bisa diperbaiki)</label>
-                  @elseif($data->jumlah_aset == '4')
+                  @elseif($data->status_aset == 'Sedang diperbaiki')
                   <label class="badge badge-info">Sedang diperbaiki</label>
                   @else
                   <label class="badge badge-danger">Rusak Total</label>
@@ -135,7 +135,7 @@
                   @endif
                 </td>
                 <td>
-                  @if($data->jumlah_aset > '0')
+                  @if($data->status_aset > 'Sedang dipinjam')
                   <div class="btn-group dropdown">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Aksi

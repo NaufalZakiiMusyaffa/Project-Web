@@ -187,7 +187,7 @@
               <td>{{$data->merk}}</td>
               <td>{{$data->spesifikasi}}</td>
               <td>
-                @if($data->jumlah_aset == '1')
+                @if($data->status_aset == 'Siap digunakan')
                 <label class="badge badge-success">Siap digunakan</label>
                 @else
                 <label class="badge badge-danger">Rusak</label>

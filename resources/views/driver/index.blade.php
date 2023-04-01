@@ -67,14 +67,14 @@
                   {{$data->kontak}}
                 </td>
                 <td>
-                  @if($data->status_supir == '1')
+                  @if($data->status_supir === 'Siap')
                   <label class="badge badge-success">Siap</label>
                   @else
                   <label class="badge badge-danger">Sedang Bertugas</label>
                   @endif
                 </td>
                 <td>
-                  @if($data->status_supir > '0')
+                  @if($data->status_supir === 'Sedang Bertugas')
                   <div class="btn-group dropdown">
                     <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Aksi

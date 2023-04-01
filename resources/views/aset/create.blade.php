@@ -74,10 +74,10 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-3{{ $errors->has('jumlah_aset') ? ' has-error' : '' }}">
-                                    <label for="jumlah_aset" class="col-md-12 control-label">Status Aset *</label>
+                                <div class="form-group col-md-3{{ $errors->has('status_aset') ? ' has-error' : '' }}">
+                                    <label for="status_aset" class="col-md-12 control-label">Status Aset *</label>
                                     <div class="col-md-12">
-                                        <select class="form-control" name="jumlah_aset" required="">
+                                        <select class="form-control" name="status_aset" required="">
                                             <option value="{{ $siappakai }}">Siap digunakan</option>
                                             <option value="{{ $dipakai }}">Digunakan</option>
                                             <option value="{{ $bisadiperbaiki }}">Rusak(Bisa diperbaiki)</option>
