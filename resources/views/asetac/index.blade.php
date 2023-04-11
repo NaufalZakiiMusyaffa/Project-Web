@@ -89,7 +89,11 @@
                   @endif
                 </td>
                 <td>
+                  @if($data->karyawan != null)
                   <label class="badge badge-primary">{{$data->karyawan->nama}}</label>
+                  @else
+                  <label class="badge badge-primary">-</label>
+                  @endif
                 </td>
                 <td>
                   @if($data->status_kendaraan > '0')

@@ -2,12 +2,16 @@
 @section('js')
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#table').DataTable({
+    var table = $('#table').DataTable({
       "language": {
         "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         "sEmptyTable": "Tidak ada data di database"
       }
     });
+    $('#filter-jejak').change(function () {
+      var UserOption  = document.getElementById('filter-jejak').value;
+      table.search(this.value).draw();
+    })
   });
 </script>
 @stop
@@ -27,8 +31,8 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <select id="filter-jejak" class="form-control filter">
       <option value="">Pilih Aset</option>
-      @foreach($datas as $data)
-      <option value="{{$data->id}}">{{$data->aset->nama_aset}}</option>
+      @foreach($datas->unique('aset.nama_aset') as $data)
+      <option value="{{$data->aset->nama_aset}}">{{$data->aset->nama_aset}}</option>
       @endforeach
     </select>
   </div>

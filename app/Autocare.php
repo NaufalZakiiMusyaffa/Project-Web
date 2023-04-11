@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Autocare extends Model
 {
     protected $table = 'asetac';
-    protected $fillable = ['kode_aset', 'nama_kendaraan', 'nopol', 'masaberlaku_stnk', 'status_kendaraan', 'karyawan_id'];
+    protected $fillable = ['kode_aset', 'nama_kendaraan', 'nopol', 'masaberlaku_stnk', 'status_kendaraan', 'karyawan_id','send_notif'];
 
     /**
      * Method One To Many 

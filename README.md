@@ -4,9 +4,9 @@ Note :
 2. <strike>Perubahan nama role dari hrd menjadi manager</strike>
 3. <strike>Penambahan role autocare</strike>
 2. <strike>Notifikasi Pengajuan Masuk (Role: Hrd) + notifikasi muncul juga di Gmail</strike>
-3. Notifikasi Pengingat masa berlaku STNK (Trigger muncul H-3 sebelum habis) (Role : autocare)
-4. Filter Aset ( dibagian fitur JEJAK ASET IT)
-   - filter yang sama (namanya) cuman ingin muncul hanya 1 saja
+3. <strike>Notifikasi Pengingat masa berlaku STNK (Trigger muncul H-3 sebelum habis) (Role : autocare)</strike>
+4. <strike>Filter Aset ( dibagian fitur JEJAK ASET IT)
+   - filter yang sama (namanya) cuman ingin muncul hanya 1 saja</strike>
 5. <strike>  - Nama Field jumlah_aset (Ditabel Aset IT) dirubah menjadi status_aset & typenya enum
    - status_kendaraan (ditabel Asetac) type datanya dirubah menjadi enum
    - status_supir (ditabel supir) type datanya dirubah menjadi enum </strike>

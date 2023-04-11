@@ -69,8 +69,13 @@
                 <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Digunakan ]</b></label>
                 <div class="col-md-12">
                   <div class="input-group">
+                    @if($data->karyawan != null)
                     <input id="karyawan_nama" type="text" class="form-control" value="{{ $data->karyawan->nama }}" required readonly="">
                     <input id="karyawan_id" type="hidden" name="karyawan_id" value="{{ $data->karyawan_id }}" required readonly="">
+                    @else
+                    <input id="karyawan_nama" type="text" class="form-control" value="-"  readonly="" required>
+                    <input id="karyawan_id" type="hidden" name="karyawan_id" value="" required readonly="">
+                    @endif
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2"><b>Cari Karyawan</b> <span class="fa fa-search"></span></button>
                     </span>

@@ -7,18 +7,24 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MailNotify extends Mailable
+class AsetacNotify extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $nama_kendaraan;
+    public $nopol;
+    public $karyawan;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($nama_kendaraan, $nopol, $karyawan)
     {
-        //
+        $this->nama_kendaraan = $nama_kendaraan;
+        $this->nopol = $nopol;
+        $this->karyawan = $karyawan;
     }
 
     /**
@@ -28,7 +34,7 @@ class MailNotify extends Mailable
      */
     public function build()
     {
-        return $this->subject('Notifikasi Pengajuan Masuk')
-                    ->view('register_notify');
+        return $this->subject('Reminder Masa Berlaku STNK')
+                    ->view('email.autocare_notify');
     }
 }
