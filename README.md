@@ -18,7 +18,7 @@ Note :
    3. Sisanya ditambahkan kotak seperti di login (isiannya berupa gambar yang relevan terkait informasinya)
 
 6. Laporan :
-   1) Laporan Data Aset IT(dimunculkan terlebih dahulu di table, terdapat filter export per bulan) sediakan versi pdf dan excel
+   1)<strike> Laporan Data Aset IT(dimunculkan terlebih dahulu di table, terdapat filter export per bulan) sediakan versi pdf dan excel</strike>
    2) Laporan Data Jejak Aset IT(dimunculkan terlebih dahulu di table, terdapat filter export per nama aset) sediakan versi pdf dan excel
    3) Laporan Data Peminjaman Aset IT (dimunculkan terlebih dahulu di table, terdapat filter export per tanggal atau perhari) sediakan versi pdf dan excel
    4) Laporan Data Pengembalian Aset IT (dimunculkan terlebih dahulu di table, terdapat filter export per tanggal atau perhari) sediakan versi pdf dan excel

@@ -39,11 +39,14 @@ class LaporanController extends Controller
         return view('laporan.aset');
     }
 
-    public function asetPdf()
+    public function asetPdf(Request $request)
     {
-
-        $datas = Aset::all();
-        $pdf = PDF::loadView('laporan.aset_pdf', compact('datas'));
+        $month = $request->get('bulan');
+        $year = $request->get('tahun');
+        $datas = Aset::whereYear('tgl_beli', '=', $year)
+                     ->whereMonth('tgl_beli', '=', $month)
+                     ->get();
+        $pdf = PDF::loadView('laporan.aset_pdf', compact('datas','month','year'));
         return $pdf->download('laporan_aset_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
@@ -52,6 +55,9 @@ class LaporanController extends Controller
         $nama = 'laporan_aset_' . date('Y-m-d_H-i-s');
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Data Aset', function ($sheet) use ($request) {
+
+                $month = $request->get('bulan');
+                $year = $request->get('tahun');
 
                 $sheet->mergeCells('A1:H1');
 
@@ -62,15 +68,60 @@ class LaporanController extends Controller
                     $row->setAlignment('center');
                     $row->setFontWeight('bold');
                 });
+                
+                $month_name; 
+                switch ($month) {
+                    case '01':
+                       $month_name = 'Januari';
+                        break;
+                    case '02':
+                        $month_name = 'Februari';
+                        break;
+                    case '03':
+                        $month_name = 'Maret';
+                        break;
+                    case '04':
+                        $month_name = 'April';
+                        break;
+                    case '05':
+                        $month_name = 'Mei';
+                        break;
+                    case '06':
+                        $month_name = 'Juni';
+                        break;
+                    case '07':
+                        $month_name = 'Juli';
+                        break;
+                    case '08':
+                        $month_name = 'Agustus';
+                        break;
+                    case '09':
+                        $month_name = 'September';
+                        break;
+                    case '10':
+                        $month_name = 'Oktober';
+                        break;
+                    case '11':
+                        $month_name = 'November';
+                        break;
+                    case '12':
+                        $month_name = 'Desember';
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
 
-                $sheet->row(1, array('CV.AMANDA'));
+                $sheet->row(1, array('Laporan Aset CV AMANDA Bulan '.$month_name.' Tahun '.$year));
                 $sheet->row(2, function ($row) {
                     $row->setFontFamily('Calibri');
                     $row->setFontSize(10);
                     $row->setFontWeight('bold');
                 });
 
-                $datas = Aset::all();
+                $datas = Aset::whereYear('tgl_beli', '=', $year)
+                ->whereMonth('tgl_beli', '=', $month)
+                ->get();
 
                 $sheet->row($sheet->getHighestRow(), function ($row) {
                     $row->setFontWeight('bold');
@@ -80,21 +131,34 @@ class LaporanController extends Controller
                 $datasheet[0]  =   array("No", "Nama Aset", "Kategori", "Merk",  "Jumlah Aset", "Spesifikasi", "Tanggal Beli", "Harga Beli");
                 $i = 1;
 
-                foreach ($datas as $data) {
-
-                    // $sheet->appendrow($data);
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
+    
+                        // $sheet->appendrow($data);
+                        $datasheet[$i] = array(
+                            $i,
+                            $data['nama_aset'],
+                            $data->kategori->nama_kategori,
+                            $data['merk'],
+                            $data['status_aset'],
+                            $data['spesifikasi'],
+                            $data['tgl_beli'],
+                            $data['harga_beli']
+                        );
+    
+                        $i++;
+                    }
+                } else {
                     $datasheet[$i] = array(
-                        $i,
-                        $data['nama_aset'],
-                        $data->kategori->nama_kategori,
-                        $data['merk'],
-                        $data['status_aset'],
-                        $data['spesifikasi'],
-                        $data['tgl_beli'],
-                        $data['harga_beli']
+                        'Data Tidak ditemukan'
                     );
-
-                    $i++;
+                    $sheet->mergeCells('A3:H3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
                 }
 
                 $sheet->fromArray($datasheet);

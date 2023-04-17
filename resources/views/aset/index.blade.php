@@ -14,7 +14,6 @@
 
 @section('content')
 <div class="row">
-
   <div class="col-lg-8">
     <a href="{{ route('aset.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data Aset</a>
   </div>
@@ -29,9 +28,109 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
 
-      <div class="card-body">
-        <h4 class="card-title pull-left">Data Aset IT</h4>
+      <div class="card-body">        
+        <h4 class="card-title">Data Aset IT</h4>
         <!--      <a href="{{url('format_buku')}}" class="btn btn-xs btn-info pull-right">Format Buku</a> -->
+        <div class="row mb-2">
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-danger btn-rounded btn-fw" data-toggle="modal" data-target="#exportPDFModal">
+              <b><i class="fa fa-download"></i> Export PDF</a></b>
+            </button>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-success btn-rounded btn-fw" data-toggle="modal" data-target="#exportExcelModal">
+              <b><i class="fa fa-download"></i> Export Excel</a></b>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Modal PDF-->
+        <form method="POST" action="laporan/aset/pdf" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          <div class="modal fade" id="exportPDFModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Pilih Bulan dan Tahun</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>Bulan</label>
+                    <select name="bulan" class="form-control" required>
+                      <option value='01'>Januari</option>
+                      <option value='02'>Februari</option>
+                      <option value='03'>Maret</option>
+                      <option value='04'>April</option>
+                      <option value='05'>Mei</option>
+                      <option value='06'>Juni</option>
+                      <option value='07'>Juli</option>
+                      <option value='08'>Agustus</option>
+                      <option value='09'>September</option>
+                      <option value='10'>Oktober</option>
+                      <option value='11'>November</option>
+                      <option value='12'>Desember</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tahun(yyyy)</label>
+                    <input type="text" class="form-control" name="tahun" required placeholder="<?php echo date("Y"); ?>">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutp</button>
+                  <input class="btn btn-primary" type="submit" value="Export Data">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        {{-- Modal Excel --}}
+        <form method="POST" action="laporan/aset/excel" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          <div class="modal fade" id="exportExcelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Pilih Bulan dan Tahun</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>Bulan</label>
+                    <select name="bulan" class="form-control" required>
+                      <option value='01'>Januari</option>
+                      <option value='02'>Februari</option>
+                      <option value='03'>Maret</option>
+                      <option value='04'>April</option>
+                      <option value='05'>Mei</option>
+                      <option value='06'>Juni</option>
+                      <option value='07'>Juli</option>
+                      <option value='08'>Agustus</option>
+                      <option value='09'>September</option>
+                      <option value='10'>Oktober</option>
+                      <option value='11'>November</option>
+                      <option value='12'>Desember</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tahun(yyyy)</label>
+                    <input type="text" class="form-control" name="tahun" required placeholder="<?php echo date("Y"); ?>">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutp</button>
+                  <input class="btn btn-primary" type="submit" value="Export Data">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
         <div class="table-responsive">
           <table class="table table-striped" id="table">
             <thead>

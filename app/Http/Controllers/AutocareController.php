@@ -118,6 +118,7 @@ class AutocareController extends Controller
             'masaberlaku_stnk'    => $request->get('masaberlaku_stnk'),
             'status_kendaraan'    => $request->get('status_kendaraan'),
             'karyawan_id'         => $request->get('karyawan_id'),
+            'send_notif'          => 0  
         ]);
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
@@ -178,7 +179,8 @@ class AutocareController extends Controller
             'nopol'               => $request->get('nopol'),
             'masaberlaku_stnk'    => $request->get('masaberlaku_stnk'),
             'status_kendaraan'    => $request->get('status_kendaraan'),
-            'karyawan_id'         => $request->get('karyawan_id')
+            'karyawan_id'         => $request->get('karyawan_id'),
+            'send_notif'          => 0
         ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');
