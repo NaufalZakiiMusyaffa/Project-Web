@@ -8,6 +8,7 @@ use App\Aset;
 use App\Karyawan;
 use App\Kategori;
 use App\Transaksi;
+use App\History;
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -265,6 +266,92 @@ class LaporanController extends Controller
                     );
 
                     $i++;
+                }
+
+                $sheet->fromArray($datasheet);
+            });
+        })->export('xlsx');
+    }
+
+    public function historyPdf(Request $request)
+    {
+        $nama_aset = $request->get('nama_aset');
+        $datas = History::get();
+        if (!empty($nama_aset)) {
+            $aset_id = Aset::where('nama_aset', $nama_aset)->first()->id;
+            $datas = History::where('aset_id',$aset_id)->get();
+        }
+        $pdf = PDF::loadView('laporan.jejak_aset_pdf', compact('datas','nama_aset'));
+        return $pdf->download('laporan_jejak_aset_' . date('Y-m-d_H-i-s') . '.pdf');;
+    }
+
+    public function historyExcel(Request $request)
+    {
+        $nama = 'laporan_jejak_aset_' . date('Y-m-d_H-i-s');
+        Excel::create($nama, function ($excel) use ($request) {
+            $excel->sheet('Laporan Data Jejak Aset', function ($sheet) use ($request) {
+
+                $nama_aset = $request->get('nama_aset');
+                // error_log($nama_aset);
+
+                $sheet->mergeCells('A1:H1');
+
+                // $sheet->setAllBorders('thin');
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setAlignment('center');
+                    $row->setFontWeight('bold');
+                });
+                
+                
+
+                $sheet->row(1, array('Laporan Jejak Aset CV AMANDA'));
+                $sheet->row(2, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setFontWeight('bold');
+                });
+
+                $datas = History::get();
+                if (!empty($nama_aset)) {
+                    $aset_id = Aset::where('nama_aset', $nama_aset)->first()->id;
+                    $datas = History::where('aset_id',$aset_id)->get();
+                }
+
+                $sheet->row($sheet->getHighestRow(), function ($row) {
+                    $row->setFontWeight('bold');
+                });
+
+                $datasheet = array();
+                $datasheet[0]  =   array("No", "Tanggal Jejak", "Nama Aset", "Tindakan", "Teknisi");
+                $i = 1;
+
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
+    
+                        // $sheet->appendrow($data);
+                        $datasheet[$i] = array(
+                            $i,
+                            date('d F Y', strtotime($data->tgl_history)),
+                            $data->aset->nama_aset,
+                            $data->tindakan,
+                            $data->karyawan->nama,
+                        );
+    
+                        $i++;
+                    }
+                } else {
+                    $datasheet[$i] = array(
+                        'Data Tidak ditemukan'
+                    );
+                    $sheet->mergeCells('A3:H3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
                 }
 
                 $sheet->fromArray($datasheet);

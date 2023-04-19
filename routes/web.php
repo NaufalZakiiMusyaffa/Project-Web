@@ -48,5 +48,7 @@ Route::get('/laporan/trs/excel', 'LaporanController@transaksiExcel');
 Route::get('/laporan/aset', 'LaporanController@aset');
 Route::post('/laporan/aset/pdf', 'LaporanController@asetPdf');
 Route::post('/laporan/aset/excel', 'LaporanController@asetExcel');
+Route::post('/laporan/history/pdf', 'LaporanController@historyPdf');
+Route::post('/laporan/history/excel', 'LaporanController@historyExcel');
 
 
