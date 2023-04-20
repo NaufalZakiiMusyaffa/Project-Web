@@ -7,7 +7,14 @@
         "sEmptyTable": "Tidak ada data di database"
       }
     });
-
+    $('.option-export').change(function() {
+        if( $(this).val() == 1) {
+            $('.date-choice').prop( "disabled", true );
+            document.getElementsByClassName('date-choice').value = "";
+        } else {       
+            $('.date-choice').prop( "disabled", false )
+        }
+    });
   });
 </script>
 @stop
@@ -30,7 +37,98 @@
     <div class="card">
 
       <div class="card-body">
-        <h4 class="card-title">Data Keseluruhan Peminjaman / Pengembalian Aset IT</h4>
+        <h4 class="card-title pull-left">Data Keseluruhan Peminjaman / Pengembalian Aset IT</h4>
+        <div class="card-title pull-right">
+          <button type="button" class="btn btn-danger btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportPDFModal">
+            <b><i class="fa fa-download"></i> Export PDF</a></b>
+          </button>
+          <button type="button" class="btn btn-success btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportExcelModal">
+            <b><i class="fa fa-download"></i> Export Excel</a></b>
+          </button>
+        </div>
+
+        <!-- Modal PDF-->
+        <form method="POST" action="laporan/trs/pdf" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          <div class="modal fade" id="exportPDFModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Pilihan Export</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>Status Transaksi</label>
+                    <select name="status" class="form-control">
+                      <option value="">Semua Transaksi</option>
+                      <option value="pinjam">Pinjam</option>
+                      <option value="kembali">Kembali</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Jenis Export</label>
+                    <select name="export-type" class="form-control option-export">
+                      <option value="1">Export Semua Data</option>
+                      <option value="2">Export Berdasarkan Tanggal</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tanggal Pinjam</label>
+                    <input type="date" class="form-control date-choice" name="tgl_pinjam" disabled>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutp</button>
+                  <input class="btn btn-primary" type="submit" value="Export Data">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        {{-- Modal Excel --}}
+        <form method="POST" action="laporan/trs/excel" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          <div class="modal fade" id="exportExcelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Pilihan Export</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>Status Transaksi</label>
+                    <select name="status" class="form-control">
+                      <option value="">Semua Transaksi</option>
+                      <option value="pinjam">Pinjam</option>
+                      <option value="kembali">Kembali</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Jenis Export</label>
+                    <select name="export-type" class="form-control option-export">
+                      <option value="1">Export Semua Data</option>
+                      <option value="2">Export Berdasarkan Tanggal</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tanggal Pinjam</label>
+                    <input type="date" class="form-control date-choice" name="tgl_pinjam" disabled>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutp</button>
+                  <input class="btn btn-primary" type="submit" value="Export Data">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
 
         <div class="table-responsive">
           <table class="table table-striped" id="table">

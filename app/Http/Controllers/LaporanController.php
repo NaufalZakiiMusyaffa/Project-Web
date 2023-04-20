@@ -207,14 +207,16 @@ class LaporanController extends Controller
 
     public function transaksiPdf(Request $request)
     {
+        $status = $request->get('status');
+        $tgl_pinjam = $request->get('tgl_pinjam');
         $q = Transaksi::query();
 
-        if ($request->get('status')) {
-            if ($request->get('status') == 'pinjam') {
-                $q->where('status', 'pinjam');
-            } else {
-                $q->where('status', 'kembali');
-            }
+        if (!empty($status)) {
+            $q->where('status', $status);
+        }
+
+        if (!empty($tgl_pinjam)) {
+            $q->where('tgl_pinjam', $tgl_pinjam);
         }
 
         if (Auth::user()->level == 'it') {
@@ -224,7 +226,7 @@ class LaporanController extends Controller
         $datas = $q->get();
 
         // return view('laporan.transaksi_pdf', compact('datas'));
-        $pdf = PDF::loadView('laporan.transaksi_pdf', compact('datas'));
+        $pdf = PDF::loadView('laporan.transaksi_pdf', compact('datas','tgl_pinjam'));
         return $pdf->download('laporan_transaksi_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
@@ -253,14 +255,16 @@ class LaporanController extends Controller
                     $row->setFontWeight('bold');
                 });
 
+                $status = $request->get('status');
+                $tgl_pinjam = $request->get('tgl_pinjam');
                 $q = Transaksi::query();
 
-                if ($request->get('status')) {
-                    if ($request->get('status') == 'pinjam') {
-                        $q->where('status', 'pinjam');
-                    } else {
-                        $q->where('status', 'kembali');
-                    }
+                if (!empty($status)) {
+                    $q->where('status', $status);
+                }
+
+                if (!empty($tgl_pinjam)) {
+                    $q->where('tgl_pinjam', $tgl_pinjam);
                 }
 
                 if (Auth::user()->level == 'it') {
@@ -278,21 +282,34 @@ class LaporanController extends Controller
                 $datasheet[0]  =   array("NO", "KODE TRANSAKSI", "NAMA ASET", "PEMINJAM",  "TGL PINJAM", "TGL KEMBALI", "STATUS", "KET");
                 $i = 1;
 
-                foreach ($datas as $data) {
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
 
-                    // $sheet->appendrow($data);
+                        // $sheet->appendrow($data);
+                        $datasheet[$i] = array(
+                            $i,
+                            $data['kode_transaksi'],
+                            $data->aset->nama_aset,
+                            $data->karyawan->nama,
+                            date('d/m/y', strtotime($data['tgl_pinjam'])),
+                            date('d/m/y', strtotime($data['tgl_kembali'])),
+                            $data['status'],
+                            $data['ket']
+                        );
+    
+                        $i++;
+                    }
+                } else {
                     $datasheet[$i] = array(
-                        $i,
-                        $data['kode_transaksi'],
-                        $data->aset->nama_aset,
-                        $data->karyawan->nama,
-                        date('d/m/y', strtotime($data['tgl_pinjam'])),
-                        date('d/m/y', strtotime($data['tgl_kembali'])),
-                        $data['status'],
-                        $data['ket']
+                        'Data Tidak ditemukan'
                     );
-
-                    $i++;
+                    $sheet->mergeCells('A3:H3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
                 }
 
                 $sheet->fromArray($datasheet);

@@ -42,8 +42,8 @@ Route::post('/import_buku', 'BukuController@import');
 Route::resource('transaksiac', 'TransaksiAutocareController');
 Route::resource('transaksi', 'TransaksiController');
 Route::get('/laporan/trs', 'LaporanController@transaksi');
-Route::get('/laporan/trs/pdf', 'LaporanController@transaksiPdf');
-Route::get('/laporan/trs/excel', 'LaporanController@transaksiExcel');
+Route::post('/laporan/trs/pdf', 'LaporanController@transaksiPdf');
+Route::post('/laporan/trs/excel', 'LaporanController@transaksiExcel');
 
 Route::get('/laporan/aset', 'LaporanController@aset');
 Route::post('/laporan/aset/pdf', 'LaporanController@asetPdf');

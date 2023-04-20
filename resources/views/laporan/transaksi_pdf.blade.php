@@ -15,7 +15,6 @@
       background: linear-gradient(#687587, #404853);
       border-left: 1px solid rgba(0, 0, 0, 0.2);
       border-right: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
       padding: 8px;
       text-align: left;
       text-transform: uppercase;
@@ -114,6 +113,11 @@
 
 <body>
   <h1 class="center">LAPORAN DATA TRANSAKSI</h1>
+  <h3 class="center">
+    {{-- @if ($tgl_pinjam != NULL)
+        Tanggal Pinjam {{$tgl_pinjam}}
+    @endif --}}
+  </h3>
   <table id="pseudo-demo">
     <thead>
       <tr>
@@ -138,35 +142,40 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($datas as $data)
-      <tr>
-        <td class="py-1">
-          {{$data->kode_transaksi}}
-        </td>
-        <td>
-
-          {{$data->aset->nama_aset}}
-
-        </td>
-
-        <td>
-          {{$data->karyawan->nama}}
-        </td>
-        <td>
-          {{date('d/m/y', strtotime($data->tgl_pinjam))}}
-        </td>
-        <td>
-          {{date('d/m/y', strtotime($data->tgl_kembali))}}
-        </td>
-        <td>
-          @if($data->status == 'pinjam')
-          <label class="badge badge-warning">Pinjam</label>
-          @else
-          <label class="badge badge-success">Kembali</label>
-          @endif
-        </td>
-      </tr>
-      @endforeach
+      @if (count($datas) > 0)
+        @foreach($datas as $data)
+        <tr>
+          <td class="py-1">
+            {{$data->kode_transaksi}}
+          </td>
+          <td>
+            {{$data->aset->nama_aset}}
+          </td>
+          <td>
+            {{$data->karyawan->nama}}
+          </td>
+          <td>
+            {{date('d/m/y', strtotime($data->tgl_pinjam))}}
+          </td>
+          <td>
+            {{date('d/m/y', strtotime($data->tgl_kembali))}}
+          </td>
+          <td>
+            @if($data->status == 'pinjam')
+            <label class="badge badge-warning">Pinjam</label>
+            @else
+            <label class="badge badge-success">Kembali</label>
+            @endif
+          </td>
+        </tr>
+        @endforeach 
+      @else
+        <tr>
+          <td colspan="6" class="center">
+            Data Tdak Ditemukan
+          </td>
+        </tr>  
+      @endif
     </tbody>
   </table>
 </body>
