@@ -44,9 +44,16 @@ class LaporanController extends Controller
     {
         $month = $request->get('bulan');
         $year = $request->get('tahun');
-        $datas = Aset::whereYear('tgl_beli', '=', $year)
-                     ->whereMonth('tgl_beli', '=', $month)
-                     ->get();
+        $datas;
+        if (!empty($year) && !empty($month)) {
+            $datas = Aset::whereYear('tgl_beli', '=', $year)->whereMonth('tgl_beli', '=', $month)->get();
+        }elseif (!empty($year)) {
+            $datas = Aset::whereYear('tgl_beli', '=', $year)->get();
+        }elseif (!empty($month)) {
+            $datas = Aset::whereMonth('tgl_beli', '=', $month)->get();
+        } else {
+            $datas = Aset::get();
+        }
         $pdf = PDF::loadView('laporan.aset_pdf', compact('datas','month','year'));
         return $pdf->download('laporan_aset_' . date('Y-m-d_H-i-s') . '.pdf');
     }
@@ -71,58 +78,78 @@ class LaporanController extends Controller
                 });
                 
                 $month_name; 
-                switch ($month) {
-                    case '01':
-                       $month_name = 'Januari';
-                        break;
-                    case '02':
-                        $month_name = 'Februari';
-                        break;
-                    case '03':
-                        $month_name = 'Maret';
-                        break;
-                    case '04':
-                        $month_name = 'April';
-                        break;
-                    case '05':
-                        $month_name = 'Mei';
-                        break;
-                    case '06':
-                        $month_name = 'Juni';
-                        break;
-                    case '07':
-                        $month_name = 'Juli';
-                        break;
-                    case '08':
-                        $month_name = 'Agustus';
-                        break;
-                    case '09':
-                        $month_name = 'September';
-                        break;
-                    case '10':
-                        $month_name = 'Oktober';
-                        break;
-                    case '11':
-                        $month_name = 'November';
-                        break;
-                    case '12':
-                        $month_name = 'Desember';
-                        break;
-                    default:
-                        # code...
-                        break;
+                if ($month != NULL) {
+                    switch ($month) {
+                        case '01':
+                           $month_name = 'Januari';
+                            break;
+                        case '02':
+                            $month_name = 'Februari';
+                            break;
+                        case '03':
+                            $month_name = 'Maret';
+                            break;
+                        case '04':
+                            $month_name = 'April';
+                            break;
+                        case '05':
+                            $month_name = 'Mei';
+                            break;
+                        case '06':
+                            $month_name = 'Juni';
+                            break;
+                        case '07':
+                            $month_name = 'Juli';
+                            break;
+                        case '08':
+                            $month_name = 'Agustus';
+                            break;
+                        case '09':
+                            $month_name = 'September';
+                            break;
+                        case '10':
+                            $month_name = 'Oktober';
+                            break;
+                        case '11':
+                            $month_name = 'November';
+                            break;
+                        case '12':
+                            $month_name = 'Desember';
+                            break;
+                        default:
+                            # code...
+                            break;
+                    }
                 }
 
-                $sheet->row(1, array('Laporan Aset CV AMANDA Bulan '.$month_name.' Tahun '.$year));
+                $reportTitle; 
+                if ($month != NULL && $year != NULL) {
+                    $reportTitle = 'Laporan Aset CV AMANDA Bulan '.$month_name.' Tahun '.$year;
+                } elseif ($year != NULL) {
+                    $reportTitle = 'Laporan Aset CV AMANDA Tahun '.$year;
+                } elseif ($month != NULL) {
+                    $reportTitle = 'Laporan Aset CV AMANDA Bulan '.$month_name;
+                } else {
+                    $reportTitle = 'Laporan Aset CV AMANDA';
+                }
+                
+                $sheet->row(1, array($reportTitle));
                 $sheet->row(2, function ($row) {
                     $row->setFontFamily('Calibri');
                     $row->setFontSize(10);
                     $row->setFontWeight('bold');
                 });
 
-                $datas = Aset::whereYear('tgl_beli', '=', $year)
-                ->whereMonth('tgl_beli', '=', $month)
-                ->get();
+                $datas;
+                if (!empty($year) && !empty($month)) {
+                    $datas = Aset::whereYear('tgl_beli', '=', $year)->whereMonth('tgl_beli', '=', $month)->get();
+                }elseif (!empty($year)) {
+                    $datas = Aset::whereYear('tgl_beli', '=', $year)->get();
+                }elseif (!empty($month)) {
+                    $datas = Aset::whereMonth('tgl_beli', '=', $month)->get();
+                } else {
+                    $datas = Aset::get();
+                }
 
                 $sheet->row($sheet->getHighestRow(), function ($row) {
                     $row->setFontWeight('bold');

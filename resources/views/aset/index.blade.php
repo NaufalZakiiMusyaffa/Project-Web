@@ -7,6 +7,17 @@
         "sEmptyTable": "Tidak ada data di database"
       }
     });
+    $('.option-export').change(function() {
+        if( $(this).val() == 1) {
+            $('.month-choice').prop( "disabled", true );
+            $('.year-choice').prop( "disabled", true );
+            document.getElementsByClassName('month-choice').value = "";
+            document.getElementsByClassName('year-choice').value = "";
+        } else {       
+            $('.month-choice').prop( "disabled", false );
+            $('.year-choice').prop( "disabled", false )
+        }
+    });
   });
 </script>
 @stop
@@ -29,19 +40,15 @@
     <div class="card">
 
       <div class="card-body">        
-        <h4 class="card-title">Data Aset IT</h4>
+        <h4 class="card-title pull-left">Data Aset IT</h4>
         <!--      <a href="{{url('format_buku')}}" class="btn btn-xs btn-info pull-right">Format Buku</a> -->
-        <div class="row mb-2">
-          <div class="col-lg-2">
-            <button type="button" class="btn btn-danger btn-rounded btn-fw" data-toggle="modal" data-target="#exportPDFModal">
-              <b><i class="fa fa-download"></i> Export PDF</a></b>
-            </button>
-          </div>
-          <div class="col-lg-2">
-            <button type="button" class="btn btn-success btn-rounded btn-fw" data-toggle="modal" data-target="#exportExcelModal">
-              <b><i class="fa fa-download"></i> Export Excel</a></b>
-            </button>
-          </div>
+        <div class="card-title pull-right">
+          <button type="button" class="btn btn-danger btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportPDFModal">
+            <b><i class="fa fa-download"></i> Export PDF</a></b>
+          </button>
+          <button type="button" class="btn btn-success btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportExcelModal">
+            <b><i class="fa fa-download"></i> Export Excel</a></b>
+          </button>
         </div>
         
         <!-- Modal PDF-->
@@ -58,8 +65,15 @@
                 </div>
                 <div class="modal-body">
                   <div class="form-group">
+                    <select name="export-type" class="form-control option-export">
+                      <option value="1">Export Semua Data</option>
+                      <option value="2">Export Berdasarkan Tanggal</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label>Bulan</label>
-                    <select name="bulan" class="form-control" required>
+                    <select name="bulan" class="form-control month-choice" disabled>
+                      <option value="">Pilih Bulan</option>
                       <option value='01'>Januari</option>
                       <option value='02'>Februari</option>
                       <option value='03'>Maret</option>
@@ -76,7 +90,7 @@
                   </div>
                   <div class="form-group">
                     <label>Tahun(yyyy)</label>
-                    <input type="text" class="form-control" name="tahun" required placeholder="<?php echo date("Y"); ?>">
+                    <input type="text" class="form-control year-choice" name="tahun" disabled placeholder="<?php echo date("Y"); ?>">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -101,8 +115,15 @@
                 </div>
                 <div class="modal-body">
                   <div class="form-group">
+                    <select name="export-type" class="form-control option-export">
+                      <option value="1">Export Semua Data</option>
+                      <option value="2">Export Berdasarkan Tanggal</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label>Bulan</label>
-                    <select name="bulan" class="form-control" required>
+                    <select name="bulan" class="form-control month-choice" disabled>
+                      <option value="">Pilih Bulan</option>
                       <option value='01'>Januari</option>
                       <option value='02'>Februari</option>
                       <option value='03'>Maret</option>
@@ -119,7 +140,7 @@
                   </div>
                   <div class="form-group">
                     <label>Tahun(yyyy)</label>
-                    <input type="text" class="form-control" name="tahun" required placeholder="<?php echo date("Y"); ?>">
+                    <input type="text" class="form-control year-choice" name="tahun" disabled placeholder="<?php echo date("Y"); ?>">
                   </div>
                 </div>
                 <div class="modal-footer">

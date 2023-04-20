@@ -73,48 +73,52 @@
 <body>
   <h1 class="center">LAPORAN DATA ASET</h1>
   <h3 class="center">
-    Bulan 
-    @switch($month)
-        @case('01')
-            <span>Januari</span>
-            @break
-        @case('02')
-            <span>Februari</span>
-            @break
-        @case('03')
-            <span>Maret</span>
-            @break
-        @case('04')
-            <span>April</span>
-            @break
-        @case('05')
-            <span>Mei</span>
-            @break
-        @case('06')
-            <span>Juni</span>
-            @break
-        @case('07')
-            <span>Juli</span>
-            @break
-        @case('08')
-            <span>Agustus</span>
-            @break
-        @case('09')
-            <span>September</span>
-            @break
-        @case('10')
-            <span>Oktober</span>
-            @break
-        @case('11')
-            <span>November</span>
-            @break
-        @case('12')
-            <span>Desemberx</span>
-            @break
-        @default
-            
-    @endswitch 
-    Tahun {{$year}}
+    @if ($month != NULL)
+      Bulan 
+      @switch($month)
+          @case('01')
+              <span>Januari</span>
+              @break
+          @case('02')
+              <span>Februari</span>
+              @break
+          @case('03')
+              <span>Maret</span>
+              @break
+          @case('04')
+              <span>April</span>
+              @break
+          @case('05')
+              <span>Mei</span>
+              @break
+          @case('06')
+              <span>Juni</span>
+              @break
+          @case('07')
+              <span>Juli</span>
+              @break
+          @case('08')
+              <span>Agustus</span>
+              @break
+          @case('09')
+              <span>September</span>
+              @break
+          @case('10')
+              <span>Oktober</span>
+              @break
+          @case('11')
+              <span>November</span>
+              @break
+          @case('12')
+              <span>Desemberx</span>
+              @break
+          @default
+              
+      @endswitch
+    @endif 
+    @if ($year != NULL)
+      Tahun {{$year}}  
+    @endif
   </h3>
   <table id="pseudo-demo">
     <thead>

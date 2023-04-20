@@ -68,7 +68,7 @@ class TransaksiController extends Controller
             }
         }
 
-        $asets = Aset::where('status_aset', '===', 'Siap digunakan')->get();
+        $asets = Aset::where('status_aset', 'Siap digunakan')->get();
         $karyawans = Karyawan::where('id', '>', 0)->get();
         $datas = History::get();
         return view('transaksi.create', compact('asets', 'kode', 'karyawans', 'datas'));
@@ -160,6 +160,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::find($id);
 
         $transaksi->update([
+            'tgl_kembali' => date('Y-m-d'),
             'status' => 'kembali'
         ]);
 
