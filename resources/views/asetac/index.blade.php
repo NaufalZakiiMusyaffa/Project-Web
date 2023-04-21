@@ -33,6 +33,14 @@
       <div class="card-body">
         <h4 class="card-title pull-left">Data Aset Autocare</h4>
         <!--      <a href="{{url('format_buku')}}" class="btn btn-xs btn-info pull-right">Format Buku</a> -->
+        <div class="card-title pull-right">
+          <a href="{{ url('laporan/asetac/pdf') }}" class="btn btn-danger btn-rounded btn-fw mt-2">
+            <b><i class="fa fa-download"></i> Export PDF</b>
+          </a>
+          <a href="{{ url('laporan/asetac/excel') }}" class="btn btn-success btn-rounded btn-fw mt-2">
+            <b><i class="fa fa-download"></i> Export Excel</b>
+          </a>
+        </div>
         <div class="table-responsive">
           <table class="table table-striped" id="table">
             <thead>

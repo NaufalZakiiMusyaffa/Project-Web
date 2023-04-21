@@ -50,5 +50,9 @@ Route::post('/laporan/aset/pdf', 'LaporanController@asetPdf');
 Route::post('/laporan/aset/excel', 'LaporanController@asetExcel');
 Route::post('/laporan/history/pdf', 'LaporanController@historyPdf');
 Route::post('/laporan/history/excel', 'LaporanController@historyExcel');
+Route::get('/laporan/karyawan/pdf', 'LaporanController@karyawanPdf');
+Route::get('/laporan/karyawan/excel', 'LaporanController@karyawanExcel');
+Route::get('/laporan/asetac/pdf', 'LaporanController@asetacPdf');
+Route::get('/laporan/asetac/excel', 'LaporanController@asetacExcel');
 
 

@@ -9,6 +9,7 @@ use App\Karyawan;
 use App\Kategori;
 use App\Transaksi;
 use App\History;
+use App\Autocare;
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -346,9 +347,8 @@ class LaporanController extends Controller
             $excel->sheet('Laporan Data Jejak Aset', function ($sheet) use ($request) {
 
                 $nama_aset = $request->get('nama_aset');
-                // error_log($nama_aset);
-
-                $sheet->mergeCells('A1:H1');
+                
+                $sheet->mergeCells('A1:E1');
 
                 // $sheet->setAllBorders('thin');
                 $sheet->row(1, function ($row) {
@@ -399,7 +399,157 @@ class LaporanController extends Controller
                     $datasheet[$i] = array(
                         'Data Tidak ditemukan'
                     );
-                    $sheet->mergeCells('A3:H3');
+                    $sheet->mergeCells('A3:E3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
+                }
+
+                $sheet->fromArray($datasheet);
+            });
+        })->export('xlsx');
+    }
+
+    public function karyawanPdf(Request $request)
+    {
+        $datas = Karyawan::get();
+        $pdf = PDF::loadView('laporan.karyawan_pdf', compact('datas'));
+        return $pdf->download('laporan_karyawan_' . date('Y-m-d_H-i-s') . '.pdf');;
+    }
+
+    public function karyawanExcel(Request $request)
+    {
+        $nama = 'laporan_karyawan_' . date('Y-m-d_H-i-s');
+        Excel::create($nama, function ($excel) use ($request) {
+            $excel->sheet('Laporan Data Karyawan', function ($sheet) use ($request) {
+
+                $sheet->mergeCells('A1:E1');
+
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setAlignment('center');
+                    $row->setFontWeight('bold');
+                });
+                
+                
+
+                $sheet->row(1, array('Laporan Data Karyawan CV AMANDA'));
+                $sheet->row(2, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setFontWeight('bold');
+                });
+
+                $datas = Karyawan::get();
+
+                $sheet->row($sheet->getHighestRow(), function ($row) {
+                    $row->setFontWeight('bold');
+                });
+
+                $datasheet = array();
+                $datasheet[0]  =   array("No", "NIK", "Nama Karyawan", "Jenis Kelamin", "Jabatan");
+                $i = 1;
+
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
+                        if ($data->jk == 'L') {
+                            $jenis = "Laki-Laki";
+                        } elseif ($data->jk == 'P') {
+                            $jenis = "Perempuan";
+                        }
+    
+                        $datasheet[$i] = array(
+                            $i,
+                            $data->nik,
+                            $data->nama,
+                            $jenis,
+                            $data->jabatan,
+                        );
+    
+                        $i++;
+                    }
+                } else {
+                    $datasheet[$i] = array(
+                        'Data Tidak ditemukan'
+                    );
+                    $sheet->mergeCells('A3:E3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
+                }
+
+                $sheet->fromArray($datasheet);
+            });
+        })->export('xlsx');
+    }
+
+    public function asetacPdf(Request $request)
+    {
+        $datas = Autocare::get();
+        $pdf = PDF::loadView('laporan.autocare_pdf', compact('datas'));
+        return $pdf->download('laporan_autocare_' . date('Y-m-d_H-i-s') . '.pdf');;
+    }
+
+    public function asetacExcel(Request $request)
+    {
+        $nama = 'laporan_autocare_' . date('Y-m-d_H-i-s');
+        Excel::create($nama, function ($excel) use ($request) {
+            $excel->sheet('Laporan Data Aset Autocare', function ($sheet) use ($request) {
+
+                $sheet->mergeCells('A1:G1');
+
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setAlignment('center');
+                    $row->setFontWeight('bold');
+                });
+                                
+
+                $sheet->row(1, array('Laporan Data Aset Autocare CV AMANDA'));
+                $sheet->row(2, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setFontWeight('bold');
+                });
+
+                $datas = Autocare::get();
+
+                $sheet->row($sheet->getHighestRow(), function ($row) {
+                    $row->setFontWeight('bold');
+                });
+
+                $datasheet = array();
+                $datasheet[0]  =   array("No", "Kode Aset", "Nama Kendaraan", "Nomor Polisi", "Masa Berlaku STNK", "Status Kendaraan", "Inventaris Kepada");
+                $i = 1;
+
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
+    
+                        $datasheet[$i] = array(
+                            $i,
+                            $data->kode_aset,
+                            $data->nama_kendaraan,
+                            $data->nopol,
+                            date('d F Y', strtotime($data->masaberlaku_stnk)),
+                            $data->status_kendaraan,
+                            $data->karyawan_id ? $data->karyawan->nama : '-',
+                        );
+    
+                        $i++;
+                    }
+                } else {
+                    $datasheet[$i] = array(
+                        'Data Tidak ditemukan'
+                    );
+                    $sheet->mergeCells('A3:G3');
                     $sheet->row(3, function ($row) {
                         $row->setFontFamily('Calibri');
                         $row->setFontSize(10);

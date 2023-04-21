@@ -30,7 +30,15 @@
     <div class="card">
 
       <div class="card-body">
-        <h4 class="card-title">Data Karyawan</h4>
+        <h4 class="card-title pull-left">Data Karyawan</h4>
+        <div class="card-title pull-right">
+          <a href="{{ url('laporan/karyawan/pdf') }}" class="btn btn-danger btn-rounded btn-fw mt-2">
+            <b><i class="fa fa-download"></i> Export PDF</b>
+          </a>
+          <a href="{{ url('laporan/karyawan/excel') }}" class="btn btn-success btn-rounded btn-fw mt-2">
+            <b><i class="fa fa-download"></i> Export Excel</b>
+          </a>
+        </div>
 
         <div class="table-responsive">
           <table class="table table-striped" id="table">

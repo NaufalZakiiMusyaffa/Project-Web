@@ -62,10 +62,10 @@
         <h4 class="card-title pull-left">Data Keseluruhan Peminjaman / Pengembalian Aset IT</h4>
         <div class="card-title pull-right">
           <button type="button" class="btn btn-danger btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportPDFModal">
-            <b><i class="fa fa-download"></i> Export PDF</a></b>
+            <b><i class="fa fa-download"></i> Export PDF</b>
           </button>
           <button type="button" class="btn btn-success btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportExcelModal">
-            <b><i class="fa fa-download"></i> Export Excel</a></b>
+            <b><i class="fa fa-download"></i> Export Excel</b>
           </button>
         </div>
 

@@ -46,13 +46,13 @@
           <form action="laporan/history/pdf" method="POST" class="d-inline" id="reportForm" enctype="multipart/form-data">
             {{ csrf_field() }}
             <button type="submit" class="btn btn-danger btn-rounded btn-fw mt-2">
-              <b><i class="fa fa-download"></i> Export PDF</a></b>
+              <b><i class="fa fa-download"></i> Export PDF</b>
             </button>
           </form>
           <form action="laporan/history/excel" method="POST" class="d-inline" id="reportFormExcel" enctype="multipart/form-data">
             {{ csrf_field() }}
             <button type="submit" class="btn btn-success btn-rounded btn-fw mt-2">
-              <b><i class="fa fa-download"></i> Export Excel</a></b>
+              <b><i class="fa fa-download"></i> Export Excel</b>
             </button>
           </form>
         </div>
