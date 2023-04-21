@@ -209,6 +209,7 @@ class LaporanController extends Controller
     {
         $status = $request->get('status');
         $tgl_pinjam = $request->get('tgl_pinjam');
+        $tgl_kembali = $request->get('tgl_kembali');
         $q = Transaksi::query();
 
         if (!empty($status)) {
@@ -217,6 +218,10 @@ class LaporanController extends Controller
 
         if (!empty($tgl_pinjam)) {
             $q->where('tgl_pinjam', $tgl_pinjam);
+        }
+
+        if (!empty($tgl_kembali)) {
+            $q->where('tgl_kembali', $tgl_kembali);
         }
 
         if (Auth::user()->level == 'it') {
@@ -257,6 +262,7 @@ class LaporanController extends Controller
 
                 $status = $request->get('status');
                 $tgl_pinjam = $request->get('tgl_pinjam');
+                $tgl_kembali = $request->get('tgl_kembali');
                 $q = Transaksi::query();
 
                 if (!empty($status)) {
@@ -265,6 +271,10 @@ class LaporanController extends Controller
 
                 if (!empty($tgl_pinjam)) {
                     $q->where('tgl_pinjam', $tgl_pinjam);
+                }
+
+                if (!empty($tgl_kembali)) {
+                    $q->where('tgl_kembali', $tgl_kembali);
                 }
 
                 if (Auth::user()->level == 'it') {

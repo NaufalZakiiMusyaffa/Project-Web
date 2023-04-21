@@ -15,6 +15,28 @@
             $('.date-choice').prop( "disabled", false )
         }
     });
+    $('.status-transaksi').change(function() {
+        if( $(this).val() == 'pinjam') {
+            $('.loan-label').attr("hidden", false);
+            $('.loan-date').attr("hidden", false);
+            $('.return-label').attr("hidden", true);
+            $('.return-date').attr("hidden", true);
+            document.getElementsByClassName('return-date').value = "";
+        } else if( $(this).val() == 'kembali') {
+            $('.loan-label').attr("hidden", true);
+            $('.loan-date').attr("hidden", true);
+            $('.return-label').attr("hidden", false);
+            $('.return-date').attr("hidden", false);
+            document.getElementsByClassName('loan-date').value = "";
+        } else {
+            $('.loan-label').attr("hidden", true);
+            $('.loan-date').attr("hidden", true);
+            $('.return-label').attr("hidden", true);
+            $('.return-date').attr("hidden", true);
+            document.getElementsByClassName('loan-date').value = "";
+            document.getElementsByClassName('return-date').value = "";
+        }
+    });
   });
 </script>
 @stop
@@ -62,7 +84,7 @@
                 <div class="modal-body">
                   <div class="form-group">
                     <label>Status Transaksi</label>
-                    <select name="status" class="form-control">
+                    <select name="status" class="form-control status-transaksi">
                       <option value="">Semua Transaksi</option>
                       <option value="pinjam">Pinjam</option>
                       <option value="kembali">Kembali</option>
@@ -76,8 +98,12 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Tanggal Pinjam</label>
-                    <input type="date" class="form-control date-choice" name="tgl_pinjam" disabled>
+                    <label class="loan-label" hidden>Tanggal Pinjam</label>
+                    <input type="date" class="form-control date-choice loan-date" name="tgl_pinjam" hidden disabled>
+                  </div>
+                  <div class="form-group">
+                    <label class="return-label" hidden>Tanggal Kembali</label>
+                    <input type="date" class="form-control date-choice return-date" name="tgl_kembali" hidden disabled>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -103,7 +129,7 @@
                 <div class="modal-body">
                   <div class="form-group">
                     <label>Status Transaksi</label>
-                    <select name="status" class="form-control">
+                    <select name="status" class="form-control status-transaksi">
                       <option value="">Semua Transaksi</option>
                       <option value="pinjam">Pinjam</option>
                       <option value="kembali">Kembali</option>
@@ -117,8 +143,12 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Tanggal Pinjam</label>
-                    <input type="date" class="form-control date-choice" name="tgl_pinjam" disabled>
+                    <label class="loan-label">Tanggal Pinjam</label>
+                    <input type="date" class="form-control date-choice loan-date" name="tgl_pinjam" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label class="return-label" hidden>Tanggal Kembali</label>
+                    <input type="date" class="form-control date-choice return-date" name="tgl_kembali" hidden disabled>
                   </div>
                 </div>
                 <div class="modal-footer">
