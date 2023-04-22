@@ -60,7 +60,7 @@
                 <div class="form-group{{ $errors->has('tgl_kembali') ? ' has-error' : '' }}">
                   <label for="tgl_kembali" class="col-md-12 control-label">Tanggal Kembali *</label>
                   <div class="col-md-12">
-                    <input id="tgl_kembali" type="date" class="form-control" name="tgl_kembali" value="{{ old('tgl_kembali') }}" required="">
+                    <input id="tgl_kembali" type="date" class="form-control" name="tgl_kembali" value="{{ old('tgl_kembali') }}" readonly>
                     @if ($errors->has('tgl_kembali'))
                     <span class="help-block">
                       <strong>{{ $errors->first('tgl_kembali') }}</strong>

@@ -70,9 +70,9 @@ class TransaksiAutocareController extends Controller
             }
         }
 
-        $autocares = Autocare::where('status_kendaraan', '===', 'Siap digunakan')->get();
-        $karyawans = Karyawan::where('id', '>', 0)->get();
-        $drivers = Driver::where('status_supir', '===', 'Siap')->get();
+        $autocares = Autocare::where('status_kendaraan', 'Siap digunakan')->get();
+        $karyawans = Karyawan::get();
+        $drivers = Driver::where('status_supir','Siap')->get();
         return view('transaksiac.create', compact('kode', 'autocares', 'karyawans', 'drivers'));
     }
 
@@ -130,6 +130,7 @@ class TransaksiAutocareController extends Controller
         $transaksiac = TransaksiAutocare::find($id);
 
         $transaksiac->update([
+            'tgl_kembali' => date('Y-m-d'),
             'status' => 'kembali'
         ]);
 

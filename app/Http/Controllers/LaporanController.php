@@ -10,6 +10,7 @@ use App\Kategori;
 use App\Transaksi;
 use App\History;
 use App\Autocare;
+use App\TransaksiAutocare;
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -327,6 +328,128 @@ class LaporanController extends Controller
             });
         })->export('xlsx');
     }
+
+    public function transaksiacPdf(Request $request)
+    {
+        $status = $request->get('status');
+        $tgl_pinjam = $request->get('tgl_pinjam');
+        $tgl_kembali = $request->get('tgl_kembali');
+        $q = TransaksiAutocare::query();
+
+        if (!empty($status)) {
+            $q->where('status', $status);
+        }
+
+        if (!empty($tgl_pinjam)) {
+            $q->where('tgl_pinjam', $tgl_pinjam);
+        }
+
+        if (!empty($tgl_kembali)) {
+            $q->where('tgl_kembali', $tgl_kembali);
+        }
+
+        if (Auth::user()->level == 'it') {
+            $q->where('karyawan_id', Auth::user()->karyawan->id);
+        }
+
+        $datas = $q->get();
+
+        $pdf = PDF::loadView('laporan.transaksi_aset_autocare_pdf', compact('datas'))->setPaper('a4', 'landscape');
+        return $pdf->download('laporan_transaksi_aset_autocare_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+
+
+    public function transaksiacExcel(Request $request)
+    {
+        $nama = 'laporan_transaksi_aset_autocare' . date('Y-m-d_H-i-s');
+        Excel::create($nama, function ($excel) use ($request) {
+            $excel->sheet('Laporan Transaksi Aset Autocare', function ($sheet) use ($request) {
+
+                $sheet->mergeCells('A1:I1');
+
+                // $sheet->setAllBorders('thin');
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setAlignment('center');
+                    $row->setFontWeight('bold');
+                });
+
+                $sheet->row(1, array('LAPORAN DATA TRANSAKSI ASET AUTOCARE'));
+
+                $sheet->row(2, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setFontWeight('bold');
+                });
+
+                $status = $request->get('status');
+                $tgl_pinjam = $request->get('tgl_pinjam');
+                $tgl_kembali = $request->get('tgl_kembali');
+                $q = TransaksiAutocare::query();
+
+                if (!empty($status)) {
+                    $q->where('status', $status);
+                }
+
+                if (!empty($tgl_pinjam)) {
+                    $q->where('tgl_pinjam', $tgl_pinjam);
+                }
+
+                if (!empty($tgl_kembali)) {
+                    $q->where('tgl_kembali', $tgl_kembali);
+                }
+
+                if (Auth::user()->level == 'it') {
+                    $q->where('karyawan_id', Auth::user()->karyawan->id);
+                }
+
+                $datas = $q->get();
+
+                $sheet->row($sheet->getHighestRow(), function ($row) {
+                    $row->setFontWeight('bold');
+                });
+
+                $datasheet = array();
+                $datasheet[0]  =   array("NO", "KODE PEMINJAMAN", "NAMA KENDARAAN", "PEMINJAM",  "SUPIR", "TANGGAL PINJAM", "TANGGAL KEMBALI", "KETERANGAN", "STATUS");
+                $i = 1;
+
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
+
+                        // $sheet->appendrow($data);
+                        $datasheet[$i] = array(
+                            $i,
+                            $data->kode_peminjaman,
+                            $data->asetac->nama_kendaraan,
+                            $data->karyawan->nama,
+                            $data->supir->nama_supir,
+                            date('d/m/y', strtotime($data->tgl_pinjam)),
+                            date('d/m/y', strtotime($data->tgl_kembali)),
+                            $data->ket,
+                            $data->status
+                        );
+    
+                        $i++;
+                    }
+                } else {
+                    $datasheet[$i] = array(
+                        'Data Tidak ditemukan'
+                    );
+                    $sheet->mergeCells('A3:I3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
+                }
+
+                $sheet->fromArray($datasheet);
+            });
+        })->export('xlsx');
+    }
+
 
     public function historyPdf(Request $request)
     {
