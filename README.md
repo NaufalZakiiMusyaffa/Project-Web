@@ -27,4 +27,4 @@ Note :
    7)<strike> Laporan Data Peminjaman Aset Autocare (dimunculkan terlebih dahulu di table, terdapat filter export per tanggal atau perhari) sediakan versi pdf dan excel</strike>
    8)<strike> Laporan Data Pengembalian Aset Autocare (dimunculkan terlebih dahulu di table, terdapat filter export per tanggal atau perhari) sediakan versi pdf dan excel</strike>
    
--> Mantap Ham tinggal bagian UI nu no 5 na nya
+-> Mantap Ham tinggal bagian UI nu no 8 na nya
