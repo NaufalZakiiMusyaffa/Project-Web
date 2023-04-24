@@ -26,5 +26,18 @@ Note :
    6)<strike> Laporan Data Aset Autocare (dimunculkan terlebih dahulu di table, terdapat filter export all)</strike>
    7)<strike> Laporan Data Peminjaman Aset Autocare (dimunculkan terlebih dahulu di table, terdapat filter export per tanggal atau perhari) sediakan versi pdf dan excel</strike>
    8)<strike> Laporan Data Pengembalian Aset Autocare (dimunculkan terlebih dahulu di table, terdapat filter export per tanggal atau perhari) sediakan versi pdf dan excel</strike>
-   
--> Mantap Ham tinggal bagian UI nu no 8 na nya
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+After Google Meet
+
+Catatan:
+-> Output Export untuk Data Pengguna & Data Karyawan berbentuk Portrait, sisanya berbentuk Landscape
+-> UI untuk laporan pdf dan excelnya (Menunggu Mockup dikirimkan), untuk file referensi UI nya sudah diupload digithub 
+-> Output Export untuk tanggal harus lengkap contoh : 20 April 2023, jangan seperti ini 20-04-23
+-> Filter Table seperti pada jejak Aset IT, ini harus ada di fitur peminjaman Aset IT & Autocare, filternya itu ada 2: Sedang dipinjam, Sudah Kembali
+-> Untuk Data Aset IT:
+   1) Ouput pada saat Export Tabel atau Excel, Field Jumlah Aset dirubah menjadi Status Aset
+   2) Penambahan Filter Data Aset IT, filternya itu : Siap Digunakan, Digunakan, Rusak (Bisa diperbaiki), Rusak Total. (Setiap Filter Data Aset IT setelah datanya      muncul ditabel harus bisa diexport sama seperti di filter jejak aset IT)
+-> Untuk Data Aset Autocare:
+   1) Ouput pada saat Export Tabel atau Excel, Field Status Kendaraan dihilangkan.
