@@ -41,3 +41,6 @@ Catatan:
    2) Penambahan Filter Data Aset IT, filternya itu : Siap Digunakan, Digunakan, Rusak (Bisa diperbaiki), Rusak Total. (Setiap Filter Data Aset IT setelah datanya      muncul ditabel harus bisa diexport sama seperti di filter jejak aset IT)
 -> Untuk Data Aset Autocare:
    1) Ouput pada saat Export Tabel atau Excel, Field Status Kendaraan dihilangkan.
+
+-> Penambahan Filter di Peminjaman Aset IT dan Peminjaman Aset Autocare, Filternya : Sedang dipinjam dan Sudah Kembali
+-> Tiap Form inputan (Tambah data * Update Data) UInya Responsive
