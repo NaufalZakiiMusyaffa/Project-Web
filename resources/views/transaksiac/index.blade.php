@@ -197,7 +197,9 @@
               @foreach($datas as $data)
               <tr>
                 <td>
-                  {{$data->kode_peminjaman}}
+                  {{-- <a href="{{route('transaksiac.show', $data->id)}}"> --}}
+                    {{$data->kode_peminjaman}}
+                  {{-- </a> --}}
                 </td>
                 <td>
 
@@ -254,7 +256,7 @@
                   </div>
                   @else
                   @if($data->status == 'pinjam')
-                  <form action="{{ route('transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data">
+                  <form action="{{ route('transaksiac.update', $data->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('put') }}
                     <button class="btn btn-info btn-xs" onclick="return confirm('Anda yakin aset ini sudah kembali?')">Sudah Kembali

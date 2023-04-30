@@ -43,9 +43,9 @@
     {{ csrf_field() }}
     {{ method_field('put') }}
     <div class="row">
-        <div class="col-md-9 d-flex align-items-stretch grid-margin">
+        <div class="col d-flex align-items-stretch grid-margin">
             <div class="row flex-grow">
-                <div class="col-9">
+                <div class="col">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Ubah Data Pengguna <b>[{{$data->name}}]</b> </h4>
@@ -128,13 +128,19 @@
                                     <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
                                 </div>
                             </div>
+                            </div>
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" id="submit">
-                                    Perbaharui Data
-                                </button>
-
-                                <a href="{{route('user.index')}}" class="btn btn-light pull-right">Kembali</a>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-4 mt-2">
+                                        <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                            Perbaharui Data
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-4 mt-2">
+                                        <a href="{{route('user.index')}}" class="btn btn-light pull-right">Kembali</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

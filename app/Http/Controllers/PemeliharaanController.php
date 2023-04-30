@@ -74,7 +74,7 @@ class PemeliharaanController extends Controller
             }
         }
 
-        $asets = Aset::where('status_aset', '===', 'Rusak(Bisa diperbaiki)')->get();
+        $asets = Aset::where('status_aset', 'Rusak(Bisa diperbaiki)')->get();
         $users = User::get();
         return view('pemeliharaan.create', compact('asets', 'kode', 'statusx', 'users'));
     }

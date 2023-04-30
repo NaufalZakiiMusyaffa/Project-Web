@@ -27,7 +27,7 @@
 
                             <div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }}">
                                 <label for="nama" class="col-md-4 control-label">Nama</label>
-                                <div class="col-md-6">
+                                <div class="col">
                                     <input id="nama" type="text" class="form-control" name="nama" value="{{ $data->nama }}" readonly>
                                     @if ($errors->has('nama'))
                                     <span class="help-block">
@@ -39,7 +39,7 @@
 
                             <div class="form-group{{ $errors->has('nik') ? ' has-error' : '' }}">
                                 <label for="nik" class="col-md-4 control-label">NIK</label>
-                                <div class="col-md-6">
+                                <div class="col">
                                     <input id="nik" type="text" class="form-control" name="nik" value="{{ $data->nik }}" maxlength="8" readonly>
                                     @if ($errors->has('nik'))
                                     <span class="help-block">
@@ -51,7 +51,7 @@
 
                             <div class="form-group{{ $errors->has('level') ? ' has-error' : '' }}">
                                 <label for="level" class="col-md-4 control-label">Jenis Kelamin</label>
-                                <div class="col-md-6">
+                                <div class="col">
                                     <select class="form-control" name="jk" required="" disabled="">
                                         <option value=""></option>
                                         <option value="L" {{$data->jk === "L" ? "selected" : ""}}>Laki - Laki</option>
@@ -62,7 +62,7 @@
 
                             <div class="form-group{{ $errors->has('jabatan') ? ' has-error' : '' }}">
                                 <label for="jabatan" class="col-md-4 control-label">Jabatan</label>
-                                <div class="col-md-6">
+                                <div class="col">
                                     <input id="jabatan" type="text" class="form-control" name="jabatan" value="{{ $data->jabatan }}" required readonly="">
                                     @if ($errors->has('jabatan'))
                                     <span class="help-block">
@@ -74,7 +74,7 @@
 
                             <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }} " style="margin-bottom: 20px;">
                                 <label for="user_id" class="col-md-4 control-label">User yang Menginputkan Data</label>
-                                <div class="col-md-6">
+                                <div class="col">
                                     <input id="tgl_lahir" type="text" class="form-control" name="tgl_lahir" value="{{ $data->user->name }}" readonly="">
                                 </div>
                             </div>

@@ -38,29 +38,27 @@
 <form method="POST" action="{{ route('history.store') }}" enctype="multipart/form-data">
   {{ csrf_field() }}
   <div class="row">
-    <div class="col-md-8 d-flex align-items-stretch grid-margin">
+    <div class="col d-flex align-items-stretch grid-margin">
       <div class="row flex-grow">
-        <div class="col-8">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Tambah Jejak Aset</h4>
 
-              <div class="float-right">
-                <div class="form-group{{ $errors->has('tgl_history') ? ' has-error' : '' }}">
-                  <label for="tgl_history" class="col-md-12 control-label">Tanggal Jejak</label>
-                  <div class="col-md-12">
-                    <input id="tgl_history" type="date" class="form-control" name="tgl_history" value="{{ date('Y-m-d', strtotime(Carbon\Carbon::today()->toDateString())) }}" required readonly="">
-                    @if ($errors->has('tgl_history'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('tgl_history') }}</strong>
-                    </span>
-                    @endif
-                  </div>
+              <div class="form-group{{ $errors->has('tgl_history') ? ' has-error' : '' }}">
+                <label for="tgl_history" class="col-md-12 control-label">Tanggal Jejak</label>
+                <div class="col-md-12">
+                  <input id="tgl_history" type="date" class="form-control" name="tgl_history" value="{{ date('Y-m-d', strtotime(Carbon\Carbon::today()->toDateString())) }}" required readonly="">
+                  @if ($errors->has('tgl_history'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('tgl_history') }}</strong>
+                  </span>
+                  @endif
                 </div>
               </div>
               <div class="form-group{{ $errors->has('aset_id') ? ' has-error' : '' }}">
                 <label for="aset_id" class="col-md-8 control-label">Nama Aset</label>
-                <div class="col-md-8">
+                <div class="col-md-12">
                   <div class="input-group">
                     <input id="aset_nama" type="text" class="form-control" readonly="" required>
                     <input id="aset_id" type="hidden" name="aset_id" value="{{ old('aset_id') }}" required readonly="">
@@ -104,15 +102,27 @@
 
                 </div>
               </div>
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-primary" id="submit">
-                  Kirim
-                </button>
-                <button type="reset" class="btn btn-danger">
-                  Hapus Data Inputan
-                </button>
-                <a href="{{route('history.index')}}" class="btn btn-light pull-right">Kembali</a>
-              </div>
+              <div class="col-md-12 col-sm-12">
+                <div class="row justify-content-between">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-4 mt-1">
+                                <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                    Kirim
+                                </button>
+                            </div>
+                            <div class="col-sm-6 mt-1">
+                                <button type="reset" class="btn btn-danger btn-block text-truncate">
+                                    Hapus Data Inputan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{route('history.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
+                    </div>
+                </div>
+            </div>
             </div>
           </div>
         </div>
@@ -132,7 +142,7 @@
           <span aria-hidden="true\">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body table-responsive">
         <table id="lookup" class="table table-bordered table-hover table-striped">
           <thead>
             <tr>
@@ -172,7 +182,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body table-responsive">
         <table id="lookup" class="table table-bordered table-hover table-striped">
           <thead>
             <tr>

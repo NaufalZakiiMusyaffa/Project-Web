@@ -235,10 +235,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary" id="submit">
-                                        Perbaharui Data
-                                    </button>
-                                    <a href="{{route('aset.index')}}" class="btn btn-light pull-right">Kembali</a>
+                                    <div class="row justify-content-between">
+                                        <div class="col-sm-4 mt-2">
+                                            <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                                Perbaharui Data
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-4 mt-2">
+                                            <a href="{{route('aset.index')}}" class="btn btn-light pull-right">Kembali</a>
+                                        </div>
+                                    </div>
                                 </div>
                         </div>
                     </div>
@@ -258,7 +264,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body table-responsive">
                 <table id="lookup" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>

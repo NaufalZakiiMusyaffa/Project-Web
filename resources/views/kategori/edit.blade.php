@@ -13,10 +13,10 @@
 <form action="{{ route('kategori.update', $data->id) }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     {{ method_field('put') }}
-    <div class="row">
-        <div class="col-md-8 d-flex align-items-stretch grid-margin">
+    {{-- <div class="row">
+        <div class="col-md-8 d-flex align-items-stretch grid-margin"> --}}
             <div class="row flex-grow">
-                <div class="col-8">
+                <div class="col">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Ubah Data Kategori <b>[{{$data->nama_kategori}}]</b> </h4>
@@ -31,17 +31,21 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" id="submit">
-                                    Perbaharui Data
-                                </button>
-                                <a href="{{route('kategori.index')}}" class="btn btn-light pull-right">Kembali</a>
+                            <div class="row justify-content-between">
+                                <div class="col-sm-4 mt-2">
+                                    <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                        Perbaharui Data
+                                    </button>
+                                </div>
+                                <div class="col-sm-4 mt-2">
+                                    <a href="{{route('kategori.index')}}" class="btn btn-light pull-right">Kembali</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
 </form>
 @endsection

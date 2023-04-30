@@ -38,14 +38,14 @@
 <form method="POST" action="{{ route('transaksi.store') }}" enctype="multipart/form-data">
   {{ csrf_field() }}
   <div class="row">
-    <div class="col-md-9 d-flex align-items-stretch grid-margin">
+    <div class="col d-flex align-items-stretch grid-margin">
       <div class="row flex-grow">
-        <div class="col-9">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Peminjaman Aset</h4>
-              <div class="float-left">
-                <div class="form-group{{ $errors->has('kode_transaksi') ? ' has-error' : '' }}">
+              <div class="form-row">
+                <div class="form-group col-md-6{{ $errors->has('kode_transaksi') ? ' has-error' : '' }}">
                   <label for="kode_transaksi" class="col-md-12 control-label">Kode Peminjaman</label>
                   <div class="col-md-12">
                     <input id="kode_transaksi" type="text" class="form-control" name="kode_transaksi" value="{{ $kode }}" required readonly="">
@@ -56,23 +56,7 @@
                     @endif
                   </div>
                 </div>
-              </div>
-
-              <div class="float-right">
-                <div class="form-group{{ $errors->has('tgl_kembali') ? ' has-error' : '' }}">
-                  <label for="tgl_kembali" class="col-md-12 control-label">Tanggal Kembali</label>
-                  <div class="col-md-12">
-                    <input id="tgl_kembali" type="date" class="form-control" name="tgl_kembali" value="{{ old('tgl_kembali') }}" @if(Auth::user()->level == 'it') readonly @endif>
-                    @if ($errors->has('tgl_kembali'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('tgl_kembali') }}</strong>
-                    </span>
-                    @endif
-                  </div>
-                </div>
-              </div>
-              <div class="float-right">
-                <div class="form-group{{ $errors->has('tgl_pinjam') ? ' has-error' : '' }}">
+                <div class="form-group col-md-6{{ $errors->has('tgl_pinjam') ? ' has-error' : '' }}">
                   <label for="tgl_pinjam" class="col-md-12 control-label">Tanggal Pinjam</label>
                   <div class="col-md-12">
                     <input id="tgl_pinjam" type="date" class="form-control" name="tgl_pinjam" value="{{ date('Y-m-d', strtotime(Carbon\Carbon::today()->toDateString())) }}" required @if(Auth::user()->level == 'user') readonly @endif>
@@ -84,7 +68,6 @@
                   </div>
                 </div>
               </div>
-
 
               <div class="form-group{{ $errors->has('aset_id') ? ' has-error' : '' }}">
                 <label for="aset_id" class="col-md-6 control-label">Aset</label>
@@ -136,13 +119,25 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <button type="submit" class="btn btn-primary" id="submit">
-                  Kirim
-                </button>
-                <button type="reset" class="btn btn-danger">
-                  Hapus Data Inputan
-                </button>
-                <a href="{{route('transaksi.index')}}" class="btn btn-light pull-right">Kembali</a>
+                <div class="row justify-content-between">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-4 mt-1">
+                                <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                    Kirim
+                                </button>
+                            </div>
+                            <div class="col-sm-6 mt-1">
+                                <button type="reset" class="btn btn-danger btn-block text-truncate">
+                                    Hapus Data Inputan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{route('transaksi.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -163,7 +158,7 @@
           <span aria-hidden="true\">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body table-responsive">
         <table id="lookup" class="table table-bordered table-hover table-striped">
           <thead>
             <tr>
@@ -213,7 +208,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body table-responsive">
         <table id="lookup" class="table table-bordered table-hover table-striped">
           <thead>
             <tr>

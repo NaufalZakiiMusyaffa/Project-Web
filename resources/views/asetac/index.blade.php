@@ -88,8 +88,8 @@
                 <td>
                   @if($data->status_kendaraan == 'Sedang dipinjam')
                   <label class="badge badge-primary">Sedang dipinjam</label>
-                  @elseif($data->status_kendaraan == 'Siap digunakan')
-                  <label class="badge badge-success">Siap digunakan</label>
+                  @elseif($data->status_kendaraan == 'Siap Digunakan')
+                  <label class="badge badge-success">Siap Digunakan</label>
                   @elseif($data->status_kendaraan == 'Digunakan')
                   <label class="badge badge-warning">Digunakan</label>
                   @else

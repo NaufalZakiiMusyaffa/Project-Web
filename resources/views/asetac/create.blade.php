@@ -34,28 +34,15 @@
 <form method="POST" action="{{ route('asetac.store') }}" enctype="multipart/form-data">
   {{ csrf_field() }}
   <div class="row">
-    <div class="col-md-8 d-flex align-items-stretch grid-margin">
+    <div class="col d-flex align-items-stretch grid-margin">
       <div class="row flex-grow">
-        <div class="col-8">
+        <div class="col">
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Tambah Data Aset Autocare</h4>
 
-              <div class="float-left">
-                <div class="form-group{{ $errors->has('status_kendaraan') ? ' has-error' : '' }}">
-                  <label for="status_kendaraan" class="col-md-12 control-label">Status Kendaraan *</label>
-                  <div class="col-md-12">
-                    <select class="form-control" name="status_kendaraan" required="">
-                      <option value="{{ $siappakai }}">Siap digunakan</option>
-                      <option value="{{ $dipakai }}">Digunakan</option>
-                      <option value="{{ $rusak }}">Ada Kerusakan</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="float-left">
-                <div class="form-group{{ $errors->has('kode_aset') ? ' has-error' : '' }}">
+              <div class="form-row">
+                <div class="form-group col-md-6{{ $errors->has('kode_aset') ? ' has-error' : '' }}">
                   <label for="kode_aset" class="col-md-12 control-label">Kode Aset Kendaraan</label>
                   <div class="col-md-12">
                     <input id="kode_aset" type="text" class="form-control" name="kode_aset" value="{{ $kode }}" required readonly="">
@@ -64,6 +51,16 @@
                       <strong>{{ $errors->first('kode_aset') }}</strong>
                     </span>
                     @endif
+                  </div>
+                </div>
+                <div class="form-group col-md-6{{ $errors->has('status_kendaraan') ? ' has-error' : '' }}">
+                  <label for="status_kendaraan" class="col-md-12 control-label">Status Kendaraan *</label>
+                  <div class="col-md-12">
+                    <select class="form-control" name="status_kendaraan" required="">
+                      <option value="{{ $siappakai }}">Siap digunakan</option>
+                      <option value="{{ $dipakai }}">Digunakan</option>
+                      <option value="{{ $rusak }}">Ada Kerusakan</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -87,21 +84,20 @@
                 </div>
               </div>
 
-              <div class="form-group{{ $errors->has('nama_kendaraan') ? ' has-error' : '' }}">
-                <label for="nama_kendaraan" class="col-md-4 control-label">Nama Kendaraan *</label>
-                <div class="col-md-12">
-                  <input id="nama_kendaraan" type="text" class="form-control" name="nama_kendaraan" value="{{ old('nama_kendaraan') }}" required>
-                  @if ($errors->has('nama_kendaraan'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('nama_kendaraan') }}</strong>
-                  </span>
-                  @endif
+              <div class="form-row">  
+                <div class="form-group col-md-6{{ $errors->has('nama_kendaraan') ? ' has-error' : '' }}">
+                  <label for="nama_kendaraan" class="col-md-6 control-label">Nama Kendaraan *</label>
+                  <div class="col-md-12">
+                    <input id="nama_kendaraan" type="text" class="form-control" name="nama_kendaraan" value="{{ old('nama_kendaraan') }}" required>
+                    @if ($errors->has('nama_kendaraan'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('nama_kendaraan') }}</strong>
+                    </span>
+                    @endif
+                  </div>
                 </div>
-              </div>
-
-              <div class="float-right">
-                <div class="form-group{{ $errors->has('nopol') ? ' has-error' : '' }}">
-                  <label for="nopol" class="col-md-8 control-label">No. Polisi *</label>
+                <div class="form-group col-md-6{{ $errors->has('nopol') ? ' has-error' : '' }}">
+                  <label for="nopol" class="col-md-6 control-label">No. Polisi *</label>
                   <div class="col-md-12">
                     <input id="nopol" type="text" class="form-control" name="nopol" value="{{ old('nopol') }}" maxlength="10" required>
                     @if ($errors->has('nopol'))
@@ -114,7 +110,7 @@
               </div>
               <div class="form-group{{ $errors->has('masaberlaku_stnk') ? ' has-error' : '' }}">
                 <label for="masaberlaku_stnk" class="col-md-4 control-label">Masa Berlaku STNK *</label>
-                <div class="col-md-7">
+                <div class="col-md-12">
                   <input id="masaberlaku_stnk" type="date" class="form-control" name="masaberlaku_stnk" value="{{ old('masaberlaku_stnk') }}" required="">
                   @if ($errors->has('masaberlaku_stnk'))
                   <span class="help-block">
@@ -123,15 +119,27 @@
                   @endif
                 </div>
               </div>
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-primary" id="submit">
-                  Kirim
-                </button>
-                <button type="reset" class="btn btn-danger">
-                  Hapus Data Inputan
-                </button>
-                <a href="{{route('asetac.index')}}" class="btn btn-light pull-right">Kembali</a>
-              </div>
+              <div class="col-md-12 col-sm-12">
+                <div class="row justify-content-between">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-4 mt-1">
+                                <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                    Kirim
+                                </button>
+                            </div>
+                            <div class="col-sm-6 mt-1">
+                                <button type="reset" class="btn btn-danger btn-block text-truncate">
+                                    Hapus Data Inputan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{route('asetac.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
+                    </div>
+                </div>
+            </div>
             </div>
           </div>
         </div>
@@ -151,7 +159,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body table-responsive">
         <table id="lookup" class="table table-bordered table-hover table-striped">
           <thead>
             <tr>

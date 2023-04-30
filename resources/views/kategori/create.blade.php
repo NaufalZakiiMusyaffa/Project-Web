@@ -12,10 +12,10 @@
 @section('content')
 <form method="POST" action="{{ route('kategori.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
-    <div class="row">
-        <div class="col-md-8 d-flex align-items-stretch grid-margin">
+    {{-- <div class="row">
+        <div class="col d-flex align-items-stretch grid-margin"> --}}
             <div class="row flex-grow">
-                <div class="col-8">
+                <div class="col">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Tambah Data Kategori</h4>
@@ -30,20 +30,32 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" id="submit">
-                                    Kirim
-                                </button>
-                                <button type="reset" class="btn btn-danger">
-                                    Hapus Data Inputan
-                                </button>
-                                <a href="{{route('kategori.index')}}" class="btn btn-light pull-right">Kembali</a>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-4 mt-1">
+                                                <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                                    Kirim
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-6 mt-1">
+                                                <button type="reset" class="btn btn-danger btn-block text-truncate">
+                                                    Hapus Data Inputan
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <a href="{{route('kategori.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
 </form>
 @endsection

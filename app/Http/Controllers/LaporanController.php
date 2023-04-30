@@ -158,7 +158,7 @@ class LaporanController extends Controller
                 });
 
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "Nama Aset", "Kategori", "Merk",  "Jumlah Aset", "Spesifikasi", "Tanggal Beli", "Harga Beli");
+                $datasheet[0]  =   array("No", "Nama Aset", "Kategori", "Merk",  "Status Aset", "Spesifikasi", "Tanggal Beli", "Harga Beli");
                 $i = 1;
 
                 if (count($datas) > 0) {

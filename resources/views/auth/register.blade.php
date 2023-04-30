@@ -42,9 +42,9 @@
 <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row">
-        <div class="col-md-9 d-flex align-items-stretch grid-margin">
+        <div class="col d-flex align-items-stretch grid-margin">
             <div class="row flex-grow">
-                <div class="col-9">
+                <div class="col">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Tambah Pengguna Baru</h4>
@@ -119,6 +119,7 @@
                                         <span id='message'></span>
                                     </div>
                             </div>
+                            </div>
 
                             <div class="form-group">
                                 <label for="email" class="col-md-4 control-label">Gambar</label>
@@ -129,13 +130,25 @@
                             </div>
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" id="submit">
-                                    Kirim
-                                </button>
-                                <button type="reset" class="btn btn-danger">
-                                    Hapus Data Inputan
-                                </button>
-                                <a href="{{route('user.index')}}" class="btn btn-light pull-right">Kembali</a>
+                                <div class="row justify-content-between">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-4 mt-1">
+                                                <button type="submit" class="btn btn-primary btn-block" id="submit">
+                                                    Kirim
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-6 mt-1">
+                                                <button type="reset" class="btn btn-danger btn-block text-truncate">
+                                                    Hapus Data Inputan
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <a href="{{route('user.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
