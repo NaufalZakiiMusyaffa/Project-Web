@@ -56,7 +56,7 @@ class LaporanController extends Controller
         } else {
             $datas = Aset::get();
         }
-        $pdf = PDF::loadView('laporan.aset_pdf', compact('datas','month','year'));
+        $pdf = PDF::loadView('laporan.aset_pdf', compact('datas','month','year'))->setPaper('a4', 'landscape');
         return $pdf->download('laporan_aset_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
@@ -172,7 +172,7 @@ class LaporanController extends Controller
                             $data['merk'],
                             $data['status_aset'],
                             $data['spesifikasi'],
-                            $data['tgl_beli'],
+                            date('d F Y', strtotime($data['tgl_beli'])),
                             $data['harga_beli']
                         );
     
@@ -233,7 +233,7 @@ class LaporanController extends Controller
         $datas = $q->get();
 
         // return view('laporan.transaksi_pdf', compact('datas'));
-        $pdf = PDF::loadView('laporan.transaksi_pdf', compact('datas','tgl_pinjam'));
+        $pdf = PDF::loadView('laporan.transaksi_pdf', compact('datas','tgl_pinjam'))->setPaper('a4', 'landscape');
         return $pdf->download('laporan_transaksi_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
@@ -303,8 +303,8 @@ class LaporanController extends Controller
                             $data['kode_transaksi'],
                             $data->aset->nama_aset,
                             $data->karyawan->nama,
-                            date('d/m/y', strtotime($data['tgl_pinjam'])),
-                            date('d/m/y', strtotime($data['tgl_kembali'])),
+                            date('d F Y', strtotime($data['tgl_pinjam'])),
+                            date('d F Y', strtotime($data['tgl_kembali'])),
                             $data['status'],
                             $data['ket']
                         );
@@ -424,8 +424,8 @@ class LaporanController extends Controller
                             $data->asetac->nama_kendaraan,
                             $data->karyawan->nama,
                             $data->supir->nama_supir,
-                            date('d/m/y', strtotime($data->tgl_pinjam)),
-                            date('d/m/y', strtotime($data->tgl_kembali)),
+                            date('d F Y', strtotime($data->tgl_pinjam)),
+                            date('d F Y', strtotime($data->tgl_kembali)),
                             $data->ket,
                             $data->status
                         );
@@ -459,8 +459,8 @@ class LaporanController extends Controller
             $aset_id = Aset::where('nama_aset', $nama_aset)->first()->id;
             $datas = History::where('aset_id',$aset_id)->get();
         }
-        $pdf = PDF::loadView('laporan.jejak_aset_pdf', compact('datas','nama_aset'));
-        return $pdf->download('laporan_jejak_aset_' . date('Y-m-d_H-i-s') . '.pdf');;
+        $pdf = PDF::loadView('laporan.jejak_aset_pdf', compact('datas','nama_aset'))->setPaper('a4', 'landscape');
+        return $pdf->download('laporan_jejak_aset_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
     public function historyExcel(Request $request)
@@ -540,7 +540,7 @@ class LaporanController extends Controller
     {
         $datas = Karyawan::get();
         $pdf = PDF::loadView('laporan.karyawan_pdf', compact('datas'));
-        return $pdf->download('laporan_karyawan_' . date('Y-m-d_H-i-s') . '.pdf');;
+        return $pdf->download('laporan_karyawan_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
     public function karyawanExcel(Request $request)
@@ -616,8 +616,8 @@ class LaporanController extends Controller
     public function asetacPdf(Request $request)
     {
         $datas = Autocare::get();
-        $pdf = PDF::loadView('laporan.autocare_pdf', compact('datas'));
-        return $pdf->download('laporan_autocare_' . date('Y-m-d_H-i-s') . '.pdf');;
+        $pdf = PDF::loadView('laporan.autocare_pdf', compact('datas'))->setPaper('a4', 'landscape');
+        return $pdf->download('laporan_autocare_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
     public function asetacExcel(Request $request)
@@ -650,7 +650,7 @@ class LaporanController extends Controller
                 });
 
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "Kode Aset", "Nama Kendaraan", "Nomor Polisi", "Masa Berlaku STNK", "Status Kendaraan", "Inventaris Kepada");
+                $datasheet[0]  =   array("No", "Kode Aset", "Nama Kendaraan", "Nomor Polisi", "Masa Berlaku STNK", "Inventaris Kepada");
                 $i = 1;
 
                 if (count($datas) > 0) {
@@ -662,7 +662,6 @@ class LaporanController extends Controller
                             $data->nama_kendaraan,
                             $data->nopol,
                             date('d F Y', strtotime($data->masaberlaku_stnk)),
-                            $data->status_kendaraan,
                             $data->karyawan_id ? $data->karyawan->nama : '-',
                         );
     
@@ -673,6 +672,77 @@ class LaporanController extends Controller
                         'Data Tidak ditemukan'
                     );
                     $sheet->mergeCells('A3:G3');
+                    $sheet->row(3, function ($row) {
+                        $row->setFontFamily('Calibri');
+                        $row->setFontSize(10);
+                        $row->setAlignment('center');
+                        $row->setFontWeight('bold');
+                    });
+                }
+
+                $sheet->fromArray($datasheet);
+            });
+        })->export('xlsx');
+    }
+
+    public function penggunaPdf(Request $request)
+    {
+        $datas = User::get();
+        $pdf = PDF::loadView('laporan.pengguna_pdf', compact('datas'));
+        return $pdf->download('laporan_pengguna_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+
+    public function penggunaExcel(Request $request)
+    {
+        $nama = 'laporan_pengguna_' . date('Y-m-d_H-i-s');
+        Excel::create($nama, function ($excel) use ($request) {
+            $excel->sheet('Laporan Data Pengguna', function ($sheet) use ($request) {
+
+                $sheet->mergeCells('A1:E1');
+
+                $sheet->row(1, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setAlignment('center');
+                    $row->setFontWeight('bold');
+                });
+                
+                
+
+                $sheet->row(1, array('Laporan Data Pengguna CV AMANDA'));
+                $sheet->row(2, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(10);
+                    $row->setFontWeight('bold');
+                });
+
+                $datas = User::get();
+
+                $sheet->row($sheet->getHighestRow(), function ($row) {
+                    $row->setFontWeight('bold');
+                });
+
+                $datasheet = array();
+                $datasheet[0]  =   array("No", "Nama", "Username", "Emal", "Tanggal Buat");
+                $i = 1;
+
+                if (count($datas) > 0) {
+                    foreach ($datas as $data) {
+                        $datasheet[$i] = array(
+                            $i,
+                            $data->name,
+                            $data->username,
+                            $data->email,
+                            date('d F Y h:i a', strtotime($data->created_at)),
+                        );
+    
+                        $i++;
+                    }
+                } else {
+                    $datasheet[$i] = array(
+                        'Data Tidak ditemukan'
+                    );
+                    $sheet->mergeCells('A3:E3');
                     $sheet->row(3, function ($row) {
                         $row->setFontFamily('Calibri');
                         $row->setFontSize(10);

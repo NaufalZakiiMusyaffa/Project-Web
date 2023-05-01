@@ -56,5 +56,7 @@ Route::get('/laporan/karyawan/pdf', 'LaporanController@karyawanPdf');
 Route::get('/laporan/karyawan/excel', 'LaporanController@karyawanExcel');
 Route::get('/laporan/asetac/pdf', 'LaporanController@asetacPdf');
 Route::get('/laporan/asetac/excel', 'LaporanController@asetacExcel');
+Route::get('/laporan/pengguna/pdf', 'LaporanController@penggunaPdf');
+Route::get('/laporan/pengguna/excel', 'LaporanController@penggunaExcel');
 
 

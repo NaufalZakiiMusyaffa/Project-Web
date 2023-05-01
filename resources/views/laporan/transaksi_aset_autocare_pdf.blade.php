@@ -162,10 +162,10 @@
               {{$data->supir->nama_supir}}
             </td>
             <td>
-              {{$data->tgl_pinjam}}
+              {{date('d F Y', strtotime($data->tgl_pinjam))}}
             </td>
             <td>
-              {{$data->tgl_kembali}}
+              {{date('d F Y', strtotime($data->tgl_kembali))}}
             </td>
             <td>
               {{$data->ket}}

@@ -32,15 +32,15 @@ Note :
 After Google Meet
 
 Catatan:
--> Output Export untuk Data Pengguna & Data Karyawan berbentuk Portrait, sisanya berbentuk Landscape
+-><strike> Output Export untuk Data Pengguna & Data Karyawan berbentuk Portrait, sisanya berbentuk Landscape</strike>
 -> UI untuk laporan pdf dan excelnya (Menunggu Mockup dikirimkan), untuk file referensi UI nya sudah diupload digithub 
--> Output Export untuk tanggal harus lengkap contoh : 20 April 2023, jangan seperti ini 20-04-23
+-><strike> Output Export untuk tanggal harus lengkap contoh : 20 April 2023, jangan seperti ini 20-04-23 </strike>
 -> Filter Table seperti pada jejak Aset IT, ini harus ada di fitur peminjaman Aset IT & Autocare, filternya itu ada 2: Sedang dipinjam, Sudah Kembali
 -> Untuk Data Aset IT:
    1)<strike> Ouput pada saat Export Tabel atau Excel, Field Jumlah Aset dirubah menjadi Status Aset</strike>
    2) Penambahan Filter Data Aset IT, filternya itu : Siap Digunakan, Digunakan, Rusak (Bisa diperbaiki), Rusak Total. (Setiap Filter Data Aset IT setelah datanya      muncul ditabel harus bisa diexport sama seperti di filter jejak aset IT)
 -> Untuk Data Aset Autocare:
-   1) Ouput pada saat Export Tabel atau Excel, Field Status Kendaraan dihilangkan.
+   1)<strike> Ouput pada saat Export Tabel atau Excel, Field Status Kendaraan dihilangkan.</strike>
 
 -> Penambahan Filter di Peminjaman Aset IT dan Peminjaman Aset Autocare, Filternya : Sedang dipinjam dan Sudah Kembali
 -><strike> Tiap Form inputan (Tambah data * Update Data) UInya Responsive</strike>

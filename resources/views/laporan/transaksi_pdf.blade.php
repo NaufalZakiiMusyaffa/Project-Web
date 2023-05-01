@@ -155,10 +155,10 @@
             {{$data->karyawan->nama}}
           </td>
           <td>
-            {{date('d/m/y', strtotime($data->tgl_pinjam))}}
+            {{date('d F Y', strtotime($data->tgl_pinjam))}}
           </td>
           <td>
-            {{date('d/m/y', strtotime($data->tgl_kembali))}}
+            {{date('d F Y', strtotime($data->tgl_kembali))}}
           </td>
           <td>
             @if($data->status == 'pinjam')

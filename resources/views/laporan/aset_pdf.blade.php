@@ -166,7 +166,7 @@
             {{$data->spesifikasi}}
           </td>
           <td>
-            {{$data->tgl_beli}}
+            {{date('d F Y', strtotime($data->tgl_beli))}}
           </td>
           <td>
             {{$data->harga_beli}}
