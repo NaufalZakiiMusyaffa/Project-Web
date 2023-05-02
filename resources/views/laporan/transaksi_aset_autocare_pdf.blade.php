@@ -5,62 +5,67 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <style type="text/css">
+    @page { margin: 0px; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .body-report {
+      margin: 5px 40px;
+    }
+    .header-logo {
+      float:left;
+    }
+
+    .header-title {
+      margin-left: 15px;
+    }
+
+    .title-report {
+      font-weight: bolder;
+      font-size: 22px;
+      color: #5D4540;
+    }
     table {
       border-spacing: 0;
       width: 100%;
+      font-size: 11px;
     }
 
     th {
-      background: #404853;
-      background: linear-gradient(#687587, #404853);
-      border-left: 1px solid rgba(0, 0, 0, 0.2);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      background: #5D4540;
       padding: 8px;
       text-align: left;
       text-transform: uppercase;
+      color: white
     }
 
     th:first-child {
       border-top-left-radius: 4px;
       border-left: 0;
     }
-
     th:last-child {
       border-top-right-radius: 4px;
       border-right: 0;
     }
-
     td {
-      border-right: 1px solid #c6c9cc;
-      border-bottom: 1px solid #c6c9cc;
       padding: 8px;
     }
-
-    td:first-child {
-      border-left: 1px solid #c6c9cc;
-    }
-
     tr:first-child td {
       border-top: 0;
+      padding-top: 16px;
     }
 
     tr:nth-child(even) td {
       background: #e8eae9;
     }
 
-    tr:last-child td:first-child {
-      border-bottom-left-radius: 4px;
-    }
-
-    tr:last-child td:last-child {
-      border-bottom-right-radius: 4px;
-    }
-
-    img {
+    /* img {
       width: 40px;
       height: 40px;
       border-radius: 100%;
-    }
+    } */
 
     .center {
       text-align: center;
@@ -112,82 +117,103 @@
 </head>
 
 <body>
-  <h1 class="center">LAPORAN DATA TRANSAKSI</h1>
-  <table id="pseudo-demo">
-    <thead>
-        <tr>
-          <th>
-            Kode Peminjaman
-          </th>
-          <th>
-            Nama Kendaraan
-          </th>
-          <th>
-            Peminjam
-          </th>
-          <th>
-            Supir
-          </th>
-          <th>
-            Tgl Pinjam
-          </th>
-          <th>
-            Tgl Kembali
-          </th>
-          <th>
-            Keterangan
-          </th>
-          <th>
-            Status
-          </th>
-        </tr>
-    </thead>
-    <tbody>
-      @if (count($datas) > 0)
-        @foreach($datas as $data)
-        <tr>
-            <td>
-              {{$data->kode_peminjaman}}
-            </td>
-            <td>
-
-              {{$data->asetac->nama_kendaraan}}
-
-            </td>
-
-            <td>
-              {{$data->karyawan->nama}}
-            </td>
-            <td>
-              {{$data->supir->nama_supir}}
-            </td>
-            <td>
-              {{date('d F Y', strtotime($data->tgl_pinjam))}}
-            </td>
-            <td>
-              {{date('d F Y', strtotime($data->tgl_kembali))}}
-            </td>
-            <td>
-              {{$data->ket}}
-            </td>
-            <td>
-              @if($data->status == 'pinjam')
-              <label class="badge badge-warning">Sedang dipinjam</label>
-              @else
-              <label class="badge badge-success">Sudah Kembali</label>
-              @endif
-            </td>
+  <img src="{{public_path('images/laporan/bagian_atas.png')}}" style="max-width: 100%">
+  
+  <div class="body-report">
+    <div class="header-report">
+      <div class="header-logo">
+        <img src="{{public_path('images/laporan/logo.png')}}" style="height: 120px;">
+      </div>
+      <div class="header-title">
+        <p class="title-report">
+          DATA PEMINJAMAN/PENGEMBALIAN ASET AUTOCARE
+        </p>
+        <p style="margin-top: -10px">System Management Aset</p>
+      </div>
+    </div>
+    
+    <img src="{{public_path('images/laporan/garis_dibawah_logo.png')}}" style="max-width: 100%; clear:both; margin-top:-35px">
+    
+    <table id="pseudo-demo">
+      <thead>
+          <tr>
+            <th>
+              Kode Peminjaman
+            </th>
+            <th>
+              Nama Kendaraan
+            </th>
+            <th>
+              Peminjam
+            </th>
+            <th>
+              Supir
+            </th>
+            <th>
+              Tgl Pinjam
+            </th>
+            <th>
+              Tgl Kembali
+            </th>
+            <th>
+              Keterangan
+            </th>
+            <th>
+              Status
+            </th>
           </tr>
-        @endforeach 
-      @else
-        <tr>
-          <td colspan="8" class="center">
-            Data Tdak Ditemukan
-          </td>
-        </tr>  
-      @endif
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @if (count($datas) > 0)
+          @foreach($datas as $data)
+          <tr>
+              <td>
+                {{$data->kode_peminjaman}}
+              </td>
+              <td>
+  
+                {{$data->asetac->nama_kendaraan}}
+  
+              </td>
+  
+              <td>
+                {{$data->karyawan->nama}}
+              </td>
+              <td>
+                {{$data->supir->nama_supir}}
+              </td>
+              <td>
+                {{date('d F Y', strtotime($data->tgl_pinjam))}}
+              </td>
+              <td>
+                {{date('d F Y', strtotime($data->tgl_kembali))}}
+              </td>
+              <td>
+                {{$data->ket}}
+              </td>
+              <td>
+                @if($data->status == 'pinjam')
+                <label class="badge badge-warning">Sedang dipinjam</label>
+                @else
+                <label class="badge badge-success">Sudah Kembali</label>
+                @endif
+              </td>
+            </tr>
+          @endforeach 
+        @else
+          <tr>
+            <td colspan="8" class="center">
+              Data Tdak Ditemukan
+            </td>
+          </tr>  
+        @endif
+      </tbody>
+    </table>
+  </div>
+  
+  <div style="position: absolute; bottom: 0;">
+    <img src="{{public_path('images/laporan/bagian_bawah.png')}}" style="max-width: 100%;">
+  </div>  
 </body>
 
 </html>
