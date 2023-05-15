@@ -19,6 +19,7 @@ use DB;
 use Excel;
 use PDF;
 use RealRashid\SweetAlert\Facades\Alert;
+use PHPExcel_Worksheet_Drawing;
 
 class LaporanController extends Controller
 {
@@ -66,18 +67,28 @@ class LaporanController extends Controller
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Data Aset', function ($sheet) use ($request) {
 
+                $sheet->setAutoSize(array('B','C','D','E','F','G','H'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
+
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
+                });
+
                 $month = $request->get('bulan');
                 $year = $request->get('tahun');
-
-                $sheet->mergeCells('A1:H1');
-
-                // $sheet->setAllBorders('thin');
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
-                });
+                
+                $sheet->mergeCells('B3:C3');
                 
                 $month_name; 
                 if ($month != NULL) {
@@ -124,22 +135,49 @@ class LaporanController extends Controller
                     }
                 }
 
-                $reportTitle; 
+                global $reportTitle; 
                 if ($month != NULL && $year != NULL) {
-                    $reportTitle = 'Laporan Aset CV AMANDA Bulan '.$month_name.' Tahun '.$year;
+                    $reportTitle = 'Laporan Data Aset IT Bulan '.$month_name.' Tahun '.$year;
                 } elseif ($year != NULL) {
-                    $reportTitle = 'Laporan Aset CV AMANDA Tahun '.$year;
+                    $reportTitle = 'Laporan Data Aset IT Tahun '.$year;
                 } elseif ($month != NULL) {
-                    $reportTitle = 'Laporan Aset CV AMANDA Bulan '.$month_name;
+                    $reportTitle = 'Laporan Data Aset IT Bulan '.$month_name;
                 } else {
-                    $reportTitle = 'Laporan Aset CV AMANDA';
+                    $reportTitle = 'Laporan Data Aset IT';
                 }
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    global $reportTitle;
+                    $cell->setValue($reportTitle);
+                });
                 
-                $sheet->row(1, array($reportTitle));
-                $sheet->row(2, function ($row) {
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
+                });
+
+                $sheet->mergeCells('A5:H5');
+                $sheet->row(6, function ($row) {
                     $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
+                });
+
+                $sheet->setBorder('A6:H6', 'thin');
+                $range = "A6:H6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
                 $datas;
@@ -153,13 +191,18 @@ class LaporanController extends Controller
                     $datas = Aset::get();
                 }
 
-                $sheet->row($sheet->getHighestRow(), function ($row) {
-                    $row->setFontWeight('bold');
-                });
-
+                $sheet->row(6, array("No", "Nama Aset", "Kategori", "Merk",  "Status Aset", "Spesifikasi", "Tanggal Beli", "Harga Beli"));
+                 
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "Nama Aset", "Kategori", "Merk",  "Status Aset", "Spesifikasi", "Tanggal Beli", "Harga Beli");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -175,7 +218,6 @@ class LaporanController extends Controller
                             date('d F Y', strtotime($data['tgl_beli'])),
                             $data['harga_beli']
                         );
-    
                         $i++;
                     }
                 } else {
@@ -183,15 +225,20 @@ class LaporanController extends Controller
                         'Data Tidak ditemukan'
                     );
                     $sheet->mergeCells('A3:H3');
-                    $sheet->row(3, function ($row) {
+                    $sheet->row(7, function ($row) {
                         $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
+                        $row->setFontSize(14);
                         $row->setAlignment('center');
                         $row->setFontWeight('bold');
                     });
                 }
-
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":H".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
