@@ -33,7 +33,7 @@ After Google Meet
 
 Catatan:
 -><strike> Output Export untuk Data Pengguna & Data Karyawan berbentuk Portrait, sisanya berbentuk Landscape</strike>
--> UI untuk laporan pdf dan excelnya (Menunggu Mockup dikirimkan), untuk file referensi UI nya sudah diupload digithub 
+-><strike> UI untuk laporan pdf dan excelnya (Menunggu Mockup dikirimkan), untuk file referensi UI nya sudah diupload digithub</strike>
 -><strike> Output Export untuk tanggal harus lengkap contoh : 20 April 2023, jangan seperti ini 20-04-23 </strike>
 -> Filter Table seperti pada jejak Aset IT, ini harus ada di fitur peminjaman Aset IT & Autocare, filternya itu ada 2: Sedang dipinjam, Sudah Kembali
 -> Untuk Data Aset IT:

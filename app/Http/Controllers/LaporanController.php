@@ -221,17 +221,18 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:H3');
-                    $sheet->row(7, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(14);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:H7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
+
                 $sheet->rows($datasheet);
                 $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
                 $datarange =  "A".$row_excel.":H".$get_range;
@@ -291,22 +292,42 @@ class LaporanController extends Controller
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Data Transaksi', function ($sheet) use ($request) {
 
-                $sheet->mergeCells('A1:H1');
+                $sheet->setAutoSize(array('B','C','D','E','F','G','H'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
 
-                // $sheet->setAllBorders('thin');
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
                 });
 
-                $sheet->row(1, array('LAPORAN DATA TRANSAKSI'));
+                $sheet->mergeCells('B3:C3');
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('Laporan Data Transaksi');
+                });
 
-                $sheet->row(2, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
                 });
 
                 $status = $request->get('status');
@@ -332,14 +353,33 @@ class LaporanController extends Controller
 
                 $datas = $q->get();
 
-                // $sheet->appendRow(array_keys($datas[0]));
-                $sheet->row($sheet->getHighestRow(), function ($row) {
+                $sheet->mergeCells('A5:H5');
+                $sheet->row(6, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
                 });
 
+                $sheet->setBorder('A6:H6', 'thin');
+                $range = "A6:H6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->row(6, array("No", "Kode Transaksi", "Nama Aset", "Peminjam",  "Tanggal Pinjam", "Tanggal Kembali", "Status", "Keterangan"));
+
                 $datasheet = array();
-                $datasheet[0]  =   array("NO", "KODE TRANSAKSI", "NAMA ASET", "PEMINJAM",  "TGL PINJAM", "TGL KEMBALI", "STATUS", "KET");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -359,19 +399,25 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:H3');
-                    $sheet->row(3, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:H7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
 
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":H".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
@@ -412,22 +458,42 @@ class LaporanController extends Controller
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Transaksi Aset Autocare', function ($sheet) use ($request) {
 
-                $sheet->mergeCells('A1:I1');
+                $sheet->setAutoSize(array('B','C','D','E','F','G','H','I'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
 
-                // $sheet->setAllBorders('thin');
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
                 });
 
-                $sheet->row(1, array('LAPORAN DATA TRANSAKSI ASET AUTOCARE'));
+                $sheet->mergeCells('B3:C3');
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('Laporan Data Transaksi Aset Autocare');
+                });
 
-                $sheet->row(2, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
                 });
 
                 $status = $request->get('status');
@@ -453,13 +519,33 @@ class LaporanController extends Controller
 
                 $datas = $q->get();
 
-                $sheet->row($sheet->getHighestRow(), function ($row) {
+                $sheet->mergeCells('A5:I5');
+                $sheet->row(6, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
                 });
 
+                $sheet->setBorder('A6:I6', 'thin');
+                $range = "A6:I6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->row(6, array("No", "Kode Peminjaman", "Nama Kendaraan", "Peminjam", "Supir", "Tanggal Pinjam", "Tanggal Kembali", "Keterangan", "Status"));
+
                 $datasheet = array();
-                $datasheet[0]  =   array("NO", "KODE PEMINJAMAN", "NAMA KENDARAAN", "PEMINJAM",  "SUPIR", "TANGGAL PINJAM", "TANGGAL KEMBALI", "KETERANGAN", "STATUS");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -480,19 +566,25 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:I3');
-                    $sheet->row(3, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:I7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
 
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":I".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
@@ -518,23 +610,42 @@ class LaporanController extends Controller
 
                 $nama_aset = $request->get('nama_aset');
                 
-                $sheet->mergeCells('A1:E1');
+                $sheet->setAutoSize(array('B','C','D','E'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
 
-                // $sheet->setAllBorders('thin');
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
                 });
-                
-                
 
-                $sheet->row(1, array('Laporan Jejak Aset CV AMANDA'));
-                $sheet->row(2, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B3:C3');
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('Laporan Jejak Aset');
+                });
+
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
                 });
 
                 $datas = History::get();
@@ -543,13 +654,33 @@ class LaporanController extends Controller
                     $datas = History::where('aset_id',$aset_id)->get();
                 }
 
-                $sheet->row($sheet->getHighestRow(), function ($row) {
+                $sheet->mergeCells('A5:E5');
+                $sheet->row(6, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
                 });
 
+                $sheet->setBorder('A6:E6', 'thin');
+                $range = "A6:E6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->row(6, array("No", "Tanggal Jejak", "Nama Aset", "Tindakan", "Teknisi"));
+
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "Tanggal Jejak", "Nama Aset", "Tindakan", "Teknisi");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -566,19 +697,25 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:E3');
-                    $sheet->row(3, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:E7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
 
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":E".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
@@ -596,33 +733,73 @@ class LaporanController extends Controller
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Data Karyawan', function ($sheet) use ($request) {
 
-                $sheet->mergeCells('A1:E1');
+                $sheet->setAutoSize(array('B','C','D','E'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
 
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
                 });
-                
-                
 
-                $sheet->row(1, array('Laporan Data Karyawan CV AMANDA'));
-                $sheet->row(2, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B3:C3');
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('Laporan Data Karyawan');
+                });
+
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
                 });
 
                 $datas = Karyawan::get();
 
-                $sheet->row($sheet->getHighestRow(), function ($row) {
+                $sheet->mergeCells('A5:E5');
+                $sheet->row(6, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
                 });
 
+                $sheet->setBorder('A6:E6', 'thin');
+                $range = "A6:E6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->row(6, array("No", "NIK", "Nama Karyawan", "Jenis Kelamin", "Jabatan"));
+
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "NIK", "Nama Karyawan", "Jenis Kelamin", "Jabatan");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -643,19 +820,25 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:E3');
-                    $sheet->row(3, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:E7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
 
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":E".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
@@ -673,32 +856,73 @@ class LaporanController extends Controller
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Data Aset Autocare', function ($sheet) use ($request) {
 
-                $sheet->mergeCells('A1:G1');
+                $sheet->setAutoSize(array('B','C','D','E','F'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
 
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
                 });
-                                
 
-                $sheet->row(1, array('Laporan Data Aset Autocare CV AMANDA'));
-                $sheet->row(2, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B3:C3');
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('Laporan Data Karyawan');
+                });
+
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
                 });
 
                 $datas = Autocare::get();
 
-                $sheet->row($sheet->getHighestRow(), function ($row) {
+                $sheet->mergeCells('A5:F5');
+                $sheet->row(6, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
                 });
 
+                $sheet->setBorder('A6:F6', 'thin');
+                $range = "A6:F6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->row(6, array("No", "Kode Aset", "Nama Kendaraan", "Nomor Polisi", "Masa Berlaku STNK", "Inventaris Kepada"));
+
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "Kode Aset", "Nama Kendaraan", "Nomor Polisi", "Masa Berlaku STNK", "Inventaris Kepada");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -715,19 +939,25 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:G3');
-                    $sheet->row(3, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:F7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
 
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":F".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
@@ -745,33 +975,73 @@ class LaporanController extends Controller
         Excel::create($nama, function ($excel) use ($request) {
             $excel->sheet('Laporan Data Pengguna', function ($sheet) use ($request) {
 
-                $sheet->mergeCells('A1:E1');
+                $sheet->setAutoSize(array('B','C','D','E'));
+                $sheet->setWidth('A', 15);
+                $objDrawing = new PHPExcel_Worksheet_Drawing;
+                $objDrawing->setPath(public_path('images/laporan/logo.png')); //your image path
+                $objDrawing->setCoordinates('A2');
+                $objDrawing->setHeight(100);
+                $objDrawing->setWorksheet($sheet);
 
-                $sheet->row(1, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setAlignment('center');
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B2:C2');
+                $sheet->cell('B2', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '18',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('CV AMANDA');
                 });
-                
-                
 
-                $sheet->row(1, array('Laporan Data Pengguna CV AMANDA'));
-                $sheet->row(2, function ($row) {
-                    $row->setFontFamily('Calibri');
-                    $row->setFontSize(10);
-                    $row->setFontWeight('bold');
+                $sheet->mergeCells('B3:C3');
+                $sheet->cell('B3', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('Laporan Data Pengguna');
+                });
+
+                $sheet->mergeCells('B4:C4');
+                $sheet->cell('B4', function($cell) {
+                    $cell->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '14',
+                        'bold'       =>  true
+                    ));
+                    $cell->setValue('System Management Aset');
                 });
 
                 $datas = User::get();
 
-                $sheet->row($sheet->getHighestRow(), function ($row) {
+                $sheet->mergeCells('A5:E5');
+                $sheet->row(6, function ($row) {
+                    $row->setFontFamily('Calibri');
+                    $row->setFontSize(14);
                     $row->setFontWeight('bold');
+                    $row->setBackground('#fcd966');
+                    $row->setAlignment('center');
                 });
 
+                $sheet->setBorder('A6:E6', 'thin');
+                $range = "A6:E6";
+                $sheet->cells($range, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
+
+                $sheet->row(6, array("No", "Nama", "Username", "Email", "Tanggal Buat"));
+
                 $datasheet = array();
-                $datasheet[0]  =   array("No", "Nama", "Username", "Emal", "Tanggal Buat");
                 $i = 1;
+                $row_excel = 7;
+
+                $sheet->setStyle(array(
+                    'font' => array(
+                        'name'      =>  'Calibri',
+                        'size'      =>  14,
+                    )
+                ));
 
                 if (count($datas) > 0) {
                     foreach ($datas as $data) {
@@ -786,19 +1056,25 @@ class LaporanController extends Controller
                         $i++;
                     }
                 } else {
-                    $datasheet[$i] = array(
-                        'Data Tidak ditemukan'
-                    );
-                    $sheet->mergeCells('A3:E3');
-                    $sheet->row(3, function ($row) {
-                        $row->setFontFamily('Calibri');
-                        $row->setFontSize(10);
-                        $row->setAlignment('center');
-                        $row->setFontWeight('bold');
+                    $sheet->mergeCells('A7:E7');
+                    $sheet->cell('A7', function($cell) {
+                        $cell->setFont(array(
+                            'family'     => 'Calibri',
+                            'size'       => '14',
+                            'bold'       =>  true
+                        ));
+                        $cell->setAlignment('center');
+                        $cell->setValue('Data Tidak ditemukan');
                     });
                 }
 
-                $sheet->fromArray($datasheet);
+                $sheet->rows($datasheet);
+                $get_range = (count($datas)> 0) ? $row_excel+count($datas)-1 : $row_excel+count($datas);
+                $datarange =  "A".$row_excel.":E".$get_range;
+                $sheet->setBorder($datarange, 'thin');
+                $sheet->cells($datarange, function($cells) {
+                    $cells->setBorder('thin', 'thin', 'thin', 'thin');
+                });
             });
         })->export('xlsx');
     }
