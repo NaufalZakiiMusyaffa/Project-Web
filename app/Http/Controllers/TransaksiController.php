@@ -121,10 +121,10 @@ class TransaksiController extends Controller
         $data = Transaksi::findOrFail($id);
 
 
-        if ((Auth::user()->level == 'it') && (Auth::user()->karyawan->id != $data->karyawan_id)) {
-            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
-            return redirect()->to('/');
-        }
+        // if ((Auth::user()->level == 'it') && (Auth::user()->karyawan->id != $data->karyawan_id)) {
+        //     Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+        //     return redirect()->to('/');
+        // }
 
 
         return view('transaksi.show', compact('data'));

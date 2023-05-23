@@ -45,18 +45,23 @@ class LaporanController extends Controller
 
     public function asetPdf(Request $request)
     {
+        $status_aset = $request->get('status_aset');
         $month = $request->get('bulan');
         $year = $request->get('tahun');
-        $datas;
-        if (!empty($year) && !empty($month)) {
-            $datas = Aset::whereYear('tgl_beli', '=', $year)->whereMonth('tgl_beli', '=', $month)->get();
-        }elseif (!empty($year)) {
-            $datas = Aset::whereYear('tgl_beli', '=', $year)->get();
-        }elseif (!empty($month)) {
-            $datas = Aset::whereMonth('tgl_beli', '=', $month)->get();
-        } else {
-            $datas = Aset::get();
+        $q = Aset::query();
+
+        if (!empty($status_aset)) {
+            $q->where('status_aset',$status_aset);
         }
+
+        if (!empty($year)) {
+            $q->whereYear('tgl_beli', '=', $year);
+        }
+        
+        if (!empty($month)) {
+            $q->whereMonth('tgl_beli', '=', $month);
+        } 
+        $datas = $q->get();
         $pdf = PDF::loadView('laporan.aset_pdf', compact('datas','month','year'))->setPaper('a4', 'landscape');
         return $pdf->download('laporan_aset_' . date('Y-m-d_H-i-s') . '.pdf');
     }
@@ -85,6 +90,7 @@ class LaporanController extends Controller
                     $cell->setValue('CV AMANDA');
                 });
 
+                $status_aset = $request->get('status_aset');
                 $month = $request->get('bulan');
                 $year = $request->get('tahun');
                 
@@ -180,16 +186,20 @@ class LaporanController extends Controller
                     $cells->setBorder('thin', 'thin', 'thin', 'thin');
                 });
 
-                $datas;
-                if (!empty($year) && !empty($month)) {
-                    $datas = Aset::whereYear('tgl_beli', '=', $year)->whereMonth('tgl_beli', '=', $month)->get();
-                }elseif (!empty($year)) {
-                    $datas = Aset::whereYear('tgl_beli', '=', $year)->get();
-                }elseif (!empty($month)) {
-                    $datas = Aset::whereMonth('tgl_beli', '=', $month)->get();
-                } else {
-                    $datas = Aset::get();
+                $q = Aset::query();
+
+                if (!empty($status_aset)) {
+                    $q->where('status_aset',$status_aset);
                 }
+
+                if (!empty($year)) {
+                    $q->whereYear('tgl_beli', '=', $year);
+                }
+                
+                if (!empty($month)) {
+                    $q->whereMonth('tgl_beli', '=', $month);
+                } 
+                $datas = $q->get();
 
                 $sheet->row(6, array("No", "Nama Aset", "Kategori", "Merk",  "Status Aset", "Spesifikasi", "Tanggal Beli", "Harga Beli"));
                  

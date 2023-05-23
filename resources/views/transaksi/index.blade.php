@@ -1,7 +1,7 @@
 @section('js')
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#table').DataTable({
+    var table = $('#table').DataTable({
       "language": {
         "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         "sEmptyTable": "Tidak ada data di database"
@@ -37,6 +37,13 @@
             document.getElementsByClassName('return-date').value = "";
         }
     });
+    $('#filter-transaksi').change(function () {
+      var UserOption  = document.getElementById('filter-transaksi').value;
+      table.search(this.value).draw();
+      document.getElementById('get_status').value = this.value;
+      document.getElementsByClassName('status-transaksi')[0].value = this.value;
+      document.getElementsByClassName('status-transaksi')[1].value = this.value;
+    });
   });
 </script>
 @stop
@@ -44,7 +51,6 @@
 
 @section('content')
 <div class="row">
-
   <div class="col-lg-2">
     <a href="{{ route('transaksi.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Peminjaman</a>
   </div>
@@ -55,6 +61,17 @@
   </div>
 </div>
 <div class="row" style="margin-top: 20px;">
+  <div class="col-md-12">
+    <label class="badge badge-primary">Filter Transaksi</label>
+  </div>
+  <div class="col-lg-12 grid-margin stretch-card">
+    <select id="filter-transaksi" class="form-control filter" name="status_transaksi" form="reportForm">
+      <option value="">Pilih Status Transaksi</option>
+      <option value="pinjam">Sedang Dipinjam</option>
+      <option value="kembali">Sudah Kembali</option>
+    </select>
+    <input type="hidden" id="get_status" name="status_transaksi" form="reportFormExcel"/>
+  </div>
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
 

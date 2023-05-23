@@ -1,7 +1,7 @@
 @section('js')
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#table').DataTable({
+    var table = $('#table').DataTable({
       "language": {
         "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
         "sEmptyTable": "Tidak ada data di database"
@@ -18,6 +18,11 @@
             $('.year-choice').prop( "disabled", false )
         }
     });
+    $('#filter-aset').change(function () {
+      var UserOption  = document.getElementById('filter-aset').value;
+      table.search(this.value).draw();
+      document.getElementById('get_status').value = this.value;
+    });
   });
 </script>
 @stop
@@ -28,7 +33,6 @@
   <div class="col-lg-8">
     <a href="{{ route('aset.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data Aset</a>
   </div>
-
   <div class="col-lg-12">
     @if (Session::has('message'))
     <div class="alert alert-{{ Session::get('message_type') }}" id="waktu2" style="margin-top:10px;">{{ Session::get('message') }}</div>
@@ -36,6 +40,21 @@
   </div>
 </div>
 <div class="row" style="margin-top: 20px;">
+  <div class="col-md-12">
+    <label class="badge badge-primary">Filter Aset</label>
+  </div>
+  <div class="col-lg-12 grid-margin stretch-card">
+    <select id="filter-aset" class="form-control filter" name="status_aset" form="reportForm">
+      <option value="">Pilih Status Aset</option>
+      <option value="Sedang dipinjam">Sedang Dipinjam</option>
+      <option value="Siap digunakan">Siap Digunakan</option>
+      <option value="Digunakan">Digunakan</option>
+      <option value="Rusak(Bisa diperbaiki)">Rusak(Bisa Diperbaiki)</option>
+      <option value="Sedang diperbaiki">Sedang Diperbaiki</option>
+      <option value="Rusak Total">Rusak Total</option>
+    </select>
+    <input type="hidden" id="get_status" name="status_aset" form="reportFormExcel"/>
+  </div>
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
 
@@ -52,7 +71,7 @@
         </div>
         
         <!-- Modal PDF-->
-        <form method="POST" action="laporan/aset/pdf" enctype="multipart/form-data">
+        <form method="POST" action="laporan/aset/pdf" enctype="multipart/form-data" id="reportForm">
           {{ csrf_field() }}
           <div class="modal fade" id="exportPDFModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -102,7 +121,7 @@
           </div>
         </form>
         {{-- Modal Excel --}}
-        <form method="POST" action="laporan/aset/excel" enctype="multipart/form-data">
+        <form method="POST" action="laporan/aset/excel" enctype="multipart/form-data" id="reportFormExcel">
           {{ csrf_field() }}
           <div class="modal fade" id="exportExcelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
