@@ -226,7 +226,7 @@ class LaporanController extends Controller
                             $data['status_aset'],
                             $data['spesifikasi'],
                             date('d F Y', strtotime($data['tgl_beli'])),
-                            $data['harga_beli']
+                            "Rp " . number_format($data['harga_beli'],0,',','.')
                         );
                         $i++;
                     }

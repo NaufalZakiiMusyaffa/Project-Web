@@ -87,7 +87,7 @@
         <p class="title-report">
           DATA ASET AUTOCARE
         </p>
-        <p style="margin-top: -10px">System Management Aset</p>
+        <p style="margin-top: -10px; letter-spacing: 3px; ">System Management Aset</p>
       </div>
     </div>
     

@@ -128,7 +128,7 @@
         <p class="title-report">
           DATA PEMINJAMAN/PENGEMBALIAN ASET IT
         </p>
-        <p style="margin-top: -10px">System Management Aset</p>
+        <p style="margin-top: -10px; letter-spacing: 3px; ">System Management Aset</p>
       </div>
     </div>
 

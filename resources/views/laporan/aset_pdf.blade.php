@@ -133,7 +133,7 @@
               Tahun {{$year}}  
             @endif
         </p>
-        <p style="margin-top: -10px">System Management Aset</p>
+        <p style="margin-top: -10px; letter-spacing: 3px;">System Management Aset</p>
       </div>
     </div>
 
@@ -188,7 +188,7 @@
               {{date('d F Y', strtotime($data->tgl_beli))}}
             </td>
             <td>
-              {{$data->harga_beli}}
+              @currency($data->harga_beli)
             </td>
           </tr>
           @endforeach    
