@@ -174,7 +174,11 @@
               {{date('d F Y', strtotime($data->tgl_pinjam))}}
             </td>
             <td>
-              {{date('d F Y', strtotime($data->tgl_kembali))}}
+              @if ($data->tgl_kembali)
+                {{date('d F Y', strtotime($data->tgl_kembali))}}
+              @else
+                -  
+              @endif
             </td>
             <td>
               @if($data->status == 'pinjam')

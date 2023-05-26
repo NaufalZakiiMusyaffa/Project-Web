@@ -118,6 +118,12 @@ class TransaksiAutocareController extends Controller
         return redirect()->route('transaksiac.index');
     }
 
+    public function show($id)
+    {
+        $data = TransaksiAutocare::findOrFail($id);
+        return view('transaksiac.show', compact('data'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

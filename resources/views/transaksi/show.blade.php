@@ -24,13 +24,13 @@
                             <div class="form-group col-md-6{{ $errors->has('tgl_pinjam') ? ' has-error' : '' }}">
                                 <label for="tgl_pinjam" class="col-md-4 control-label">Tanggal Pinjam</label>
                                 <div class="col-md-12">
-                                    <input id="tgl_pinjam" type="date" class="form-control" name="tgl_pinjam" value="{{ date('d F Y', strtotime($data->tgl_pinjam)) }}" readonly="">
+                                    <input id="tgl_pinjam" type="text" class="form-control" name="tgl_pinjam" value="{{ date('d F Y', strtotime($data->tgl_pinjam)) }}" readonly="">
                                 </div>
                             </div>
                             <div class="form-group col-md-6{{ $errors->has('tgl_kembali') ? ' has-error' : '' }}">
                                 <label for="tgl_kembali" class="col-md-4 control-label">Tanggal Kembali</label>
                                 <div class="col-md-12">
-                                    <input id="tgl_kembali" type="date" class="form-control" name="tgl_kembali" value="{{ date('d F Y', strtotime($data->tgl_kembali)) }}" readonly="">
+                                    <input id="tgl_kembali" type="text" class="form-control" name="tgl_kembali" value="{{ date('d F Y', strtotime($data->tgl_kembali)) }}" readonly="">
                                 </div>
                             </div>
                         </div>
@@ -52,6 +52,13 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('ket') ? ' has-error' : '' }}">
+                            <label for="ket" class="col-md-4 control-label">Keterangan</label>
+                            <div class="col-md-12">
+                                <textarea id="ket" class="form-control" name="ket" readonly="">{{ $data->ket }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('ket') ? ' has-error' : '' }}">
                             <label for="ket" class="col-md-4 control-label">Status</label>
                             <div class="col-md-12">
                                 @if($data->status == 'pinjam')
@@ -62,14 +69,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('ket') ? ' has-error' : '' }}">
-                            <label for="ket" class="col-md-4 control-label">Keterangan</label>
-                            <div class="col-md-12">
-                                <input id="ket" type="text" class="form-control" name="ket" value="{{ $data->ket }}" readonly="">
-                            </div>
-                        </div>
-
-                        <a href="{{route('transaksi.index')}}" class="btn btn-light pull-right">Back</a>
+                        <a href="{{route('transaksi.index')}}" class="btn btn-light pull-right">Kembali</a>
                     </div>
                 </div>
             </div>

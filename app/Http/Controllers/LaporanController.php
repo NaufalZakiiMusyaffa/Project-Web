@@ -270,6 +270,8 @@ class LaporanController extends Controller
         $status = $request->get('status');
         $tgl_pinjam = $request->get('tgl_pinjam');
         $tgl_kembali = $request->get('tgl_kembali');
+        $month_year_loan = $request->get('month_year_loan'); 
+        $month_year_return = $request->get('month_year_return');
         $q = Transaksi::query();
 
         if (!empty($status)) {
@@ -282,6 +284,16 @@ class LaporanController extends Controller
 
         if (!empty($tgl_kembali)) {
             $q->where('tgl_kembali', $tgl_kembali);
+        }
+
+        if (!empty($month_year_loan)) {
+            $q->whereYear('tgl_pinjam', '=', substr($month_year_loan, 0, -3));
+            $q->whereMonth('tgl_pinjam', '=', substr($month_year_loan, 5));
+        }
+
+        if (!empty($month_year_return)) {
+            $q->whereYear('tgl_kembali', '=', substr($month_year_return, 0, -3));
+            $q->whereMonth('tgl_kembali', '=', substr($month_year_return, 5));
         }
 
         if (Auth::user()->level == 'it') {
@@ -343,6 +355,8 @@ class LaporanController extends Controller
                 $status = $request->get('status');
                 $tgl_pinjam = $request->get('tgl_pinjam');
                 $tgl_kembali = $request->get('tgl_kembali');
+                $month_year_loan = $request->get('month_year_loan'); 
+                $month_year_return = $request->get('month_year_return');
                 $q = Transaksi::query();
 
                 if (!empty($status)) {
@@ -355,6 +369,16 @@ class LaporanController extends Controller
 
                 if (!empty($tgl_kembali)) {
                     $q->where('tgl_kembali', $tgl_kembali);
+                }
+
+                if (!empty($month_year_loan)) {
+                    $q->whereYear('tgl_pinjam', '=', substr($month_year_loan, 0, -3));
+                    $q->whereMonth('tgl_pinjam', '=', substr($month_year_loan, 5));
+                }
+        
+                if (!empty($month_year_return)) {
+                    $q->whereYear('tgl_kembali', '=', substr($month_year_return, 0, -3));
+                    $q->whereMonth('tgl_kembali', '=', substr($month_year_return, 5));
                 }
 
                 if (Auth::user()->level == 'it') {
@@ -401,7 +425,7 @@ class LaporanController extends Controller
                             $data->aset->nama_aset,
                             $data->karyawan->nama,
                             date('d F Y', strtotime($data['tgl_pinjam'])),
-                            date('d F Y', strtotime($data['tgl_kembali'])),
+                            $data['tgl_kembali'] ? date('d F Y', strtotime($data['tgl_kembali'])) : '-',
                             $data['status'],
                             $data['ket']
                         );
@@ -437,6 +461,8 @@ class LaporanController extends Controller
         $status = $request->get('status');
         $tgl_pinjam = $request->get('tgl_pinjam');
         $tgl_kembali = $request->get('tgl_kembali');
+        $month_year_loan = $request->get('month_year_loan'); 
+        $month_year_return = $request->get('month_year_return');
         $q = TransaksiAutocare::query();
 
         if (!empty($status)) {
@@ -449,6 +475,16 @@ class LaporanController extends Controller
 
         if (!empty($tgl_kembali)) {
             $q->where('tgl_kembali', $tgl_kembali);
+        }
+
+        if (!empty($month_year_loan)) {
+            $q->whereYear('tgl_pinjam', '=', substr($month_year_loan, 0, -3));
+            $q->whereMonth('tgl_pinjam', '=', substr($month_year_loan, 5));
+        }
+
+        if (!empty($month_year_return)) {
+            $q->whereYear('tgl_kembali', '=', substr($month_year_return, 0, -3));
+            $q->whereMonth('tgl_kembali', '=', substr($month_year_return, 5));
         }
 
         if (Auth::user()->level == 'it') {
@@ -509,6 +545,8 @@ class LaporanController extends Controller
                 $status = $request->get('status');
                 $tgl_pinjam = $request->get('tgl_pinjam');
                 $tgl_kembali = $request->get('tgl_kembali');
+                $month_year_loan = $request->get('month_year_loan'); 
+                $month_year_return = $request->get('month_year_return');
                 $q = TransaksiAutocare::query();
 
                 if (!empty($status)) {
@@ -521,6 +559,16 @@ class LaporanController extends Controller
 
                 if (!empty($tgl_kembali)) {
                     $q->where('tgl_kembali', $tgl_kembali);
+                }
+       
+                if (!empty($month_year_loan)) {
+                    $q->whereYear('tgl_pinjam', '=', substr($month_year_loan, 0, -3));
+                    $q->whereMonth('tgl_pinjam', '=', substr($month_year_loan, 5));
+                }
+
+                if (!empty($month_year_return)) {
+                    $q->whereYear('tgl_kembali', '=', substr($month_year_return, 0, -3));
+                    $q->whereMonth('tgl_kembali', '=', substr($month_year_return, 5));
                 }
 
                 if (Auth::user()->level == 'it') {
@@ -568,7 +616,7 @@ class LaporanController extends Controller
                             $data->karyawan->nama,
                             $data->supir->nama_supir,
                             date('d F Y', strtotime($data->tgl_pinjam)),
-                            date('d F Y', strtotime($data->tgl_kembali)),
+                            $data['tgl_kembali'] ? date('d F Y', strtotime($data['tgl_kembali'])) : '-',
                             $data->ket,
                             $data->status
                         );
