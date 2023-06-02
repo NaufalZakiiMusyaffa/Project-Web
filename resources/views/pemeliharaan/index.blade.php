@@ -192,9 +192,6 @@
             <thead>
               <tr>
                 <th>
-                  Kode Pemeliharaan
-                </th>
-                <th>
                   Tanggal Pengajuan
                 </th>
                 <th>
@@ -205,9 +202,6 @@
                 </th>
                 <th>
                   Biaya
-                </th>
-                <th>
-                  Keterangan Pengajuan
                 </th>
                 <th>
                   Status
@@ -221,24 +215,16 @@
               @foreach($datas as $data)
               <tr>
                 <td>
-                  {{$data->kode_pemeliharaan}}
-                </td>
-                <td>
-                  {{$data->created_at}}
+                  {{date('d F Y, H:i', strtotime($data->created_at))}} WIB
                 </td>
                 <td>
                   {{$data->aset->kode_aset}}
                 </td>
                 <td>
                   {{$data->aset->nama_aset}}
-
                 </td>
-
                 <td>
                   @currency($data->biaya)
-                </td>
-                <td>
-                  {{$data->keterangan}}
                 </td>
                 <td>
                   @if($data->status == '1')

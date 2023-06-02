@@ -33,9 +33,9 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-10 d-flex align-items-stretch grid-margin">
+    <div class="col-md-12 d-flex align-items-stretch grid-margin">
         <div class="row flex-grow">
-            <div class="col-10">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Detail Aset <b>[{{$data->nama_aset}}]</b> </h4>
@@ -47,103 +47,119 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-row">
-                            <p for="status_aset" class="p-2">Status Aset :</p>
-                            @if($data->status_aset == 'Sedang dipinjam')
-                                <div class="p-2" style="margin-top: -3px;">
-                                <label class="badge badge-primary">Sedang dipinjam</label>
+                            <div class="form-row">
+                                <div class="d-flex flex-row col-md-4">
+                                    <p for="status_aset" class="col-md-4 p-2">Status Aset</p>
+                                    @if($data->status_aset == 'Sedang dipinjam')
+                                        <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                            <label class="badge badge-primary">Sedang dipinjam</label>
+                                        </div>
+                                    @elseif($data->status_aset == 'Siap digunakan')
+                                        <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                            <label class="badge badge-success">Siap digunakan</label>
+                                        </div>
+                                    @elseif($data->status_aset == 'Digunakan')
+                                        <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                            <label class="badge badge-warning" >Digunakan</label>
+                                        </div>
+                                    @elseif($data->status_aset == 'Rusak(Bisa diperbaiki)')
+                                        <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                            <label class="badge badge-danger">Rusak(Bisa diperbaiki)</label>
+                                        </div>
+                                    @elseif($data->status_aset == 'Sedang diperbaiki')
+                                        <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                            <label class="badge badge-info">Sedang diperbaiki</label>
+                                        </div>
+                                    @else
+                                        <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                        <label class="badge badge-danger">Rusak Total</label>
+                                        </div>
+                                    @endif
                                 </div>
-                            @elseif($data->status_aset == 'Siap digunakan')
-                                <div class="p-2" style="margin-top: -3px;">
-                                <label class="badge badge-success">Siap digunakan</label>
+                                <div class="d-flex flex-row col-md-4">
+                                    <p for="kode_aset" class="col-md-6 p-2">Inventaris Kepada</p>
+                                    <div class="col-md-6 p-2" style="margin-top: -3px;">
+                                        @if($data->karyawan != null)
+                                        <label class="badge badge-primary"><b>{{$data->karyawan->nama}}</b></label>
+                                        @else
+                                        <label class="badge badge-primary"><b>-</b></label>
+                                        @endif
+                                    </div>
                                 </div>
-                            @elseif($data->status_aset == 'Digunakan')
-                                <div class="p-2" style="margin-top: -3px;">
-                                <label class="badge badge-warning" >Digunakan</label>
-                                </div>
-                            @elseif($data->status_aset == 'Rusak(Bisa diperbaiki)')
-                                <div class="p-2" style="margin-top: -3px;">
-                                <label class="badge badge-danger">Rusak(Bisa diperbaiki)</label>
-                                </div>
-                            @elseif($data->status_aset == 'Sedang diperbaiki')
-                                <div class="p-2" style="margin-top: -3px;">
-                                <label class="badge badge-info">Sedang diperbaiki</label>
-                                </div>
-                            @else
-                                <div class="p-2" style="margin-top: -3px;">
-                                <label class="badge badge-danger">Rusak Total</label>
-                                </div>
-                            @endif
-                                <p for="kode_aset" class="p-2">Inventaris Kepada :</p>
-                                    <div class="p-2" style="margin-top: -3px;">
-                                     @if($data->karyawan != null)
-                                     <label class="badge badge-primary"><b>{{$data->karyawan->nama}}</b></label>
-                                     @else
-                                     <label class="badge badge-primary"><b>-</b></label>
-                                     @endif
-                                </div>
-                                <p for="kode_aset" class="p-2">Kode Aset :</p>
-                                    <div class="p-2" style="margin-top: -3px;">
-                                     <label class="badge badge-danger"><b>{{ $data->kode_aset }}</b></label>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Nama Aset :</p>
-                                <div class="p-2">
-                                <p><b>{{ $data->nama_aset }}</b></p>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Merk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
-                                <div class="p-2">
-                                <p><b>{{ $data->merk }}</b></p>
+                                <div class="d-flex flex-row col-md-4">
+                                    <p for="kode_aset" class="col-md-4 p-2">Kode Aset</p>
+                                    <div class="col-md-8 p-2" style="margin-top: -3px;">
+                                         <label class="badge badge-danger"><b>{{ $data->kode_aset }}</b></label>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Kategori&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
-                                <div class="p-2">
-                                <p><b>{{ $data->kategori->nama_kategori }}</b></p>
+                            <div class="form-row">
+                                <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
+                                <p for="nama_aset" class="col-md-4 p-2">Nama Aset</p>
+                                    <div class="col-md-8 p-2">
+                                    <p><b>{{ $data->nama_aset }}</b></p>
+                                    </div>
+                                </div>
+    
+                                <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
+                                <p for="nama_aset" class="col-md-6 p-2">Merk</p>
+                                    <div class="col-md-6 p-2">
+                                    <p><b>{{ $data->merk }}</b></p>
+                                    </div>
+                                </div>
+    
+                                <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
+                                <p for="nama_aset" class="col-md-4 p-2">Kategori</p>
+                                    <div class="col-md-8 p-2">
+                                    <p><b>{{ $data->kategori->nama_kategori }}</b></p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Spesifikasi&nbsp;&nbsp;:</p>
-                                <div class="col-md-10" style="margin-top: 7px; margin-left: -4px;">
-                                <p><b>{{ $data->spesifikasi }}</b></p>
+                            <div class="form-row">
+                                <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
+                                    <p for="nama_aset" class="col-md-4 p-2">Harga Beli</p>
+                                        <div class="col-md-8 p-2">
+                                        <p><b>@currency($data->harga_beli)</b></p>
+                                        </div>
+                                </div>
+
+                                <div class="d-flex flex-row col-md-8" style="margin-top: -20px;">
+                                <p for="nama_aset" class="col-md-3 p-2">Spesifikasi</p>
+                                    <div class="col-md-9" style="margin-top: 7px;">
+                                    <p><b>{{ $data->spesifikasi }}</b></p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Harga Beli&nbsp; :</p>
-                                <div class="p-2" style="margin-left: 2px;">
-                                <p><b>@currency($data->harga_beli)</b></p>
+                            <div class="form-row">
+                                <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
+                                <p for="nama_aset" class="col-md-4 p-2">Tgl Beli</p>
+                                    <div class="col-md-8" style="margin-top: 7px;">
+                                    <p><b>{{date('d F Y', strtotime($data->tgl_beli))}}</b></p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row col-md-8" style="margin-top: -20px;">
+                                    <p for="nama_aset" class="col-md-3 p-2">Garansi</p>
+                                    <div class="col-md-9" style="margin-top: 7px;">
+                                    <p><b>{{date('d F Y', strtotime($data->garansi))}}</b></p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Tgl Beli&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
-                                <div class="col-md-4" style="margin-top: 7px; margin-left: -2px;">
-                                <p><b>{{ $data->tgl_beli }}</b></p>
+                            <div class="form-row">
+                                <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
+                                    <p for="nama_aset" class="col-md-4 p-2">Vendor</p>
+                                        <div class="col-md-8" style="margin-top: 7px;">
+                                        <p><b>{{ $data->toko_beli }}</b></p>
+                                        </div>
                                 </div>
-
-                                <p for="nama_aset" class="p-2">Garansi :</p>
-                                <div class="col-md-4" style="margin-top: 7px;">
-                                <p><b>{{ $data->garansi }}</b></p>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-row" style="margin-top: -20px;">
-                            <p for="nama_aset" class="p-2">Vendor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :</p>
-                                <div class="col-md-4" style="margin-top: 7px;">
-                                <p><b>{{ $data->toko_beli }}</b></p>
-                                </div>
-
-                                <p for="nama_aset" class="p-2">Alamat :</p>
-                                <div class="col-md-4" style="margin-top: 7px;">
-                                <p><b>{{ $data->alamat }}</b></p>
+                                <div class="d-flex flex-row col-md-8" style="margin-top: -20px;">
+                                        <p for="nama_aset" class="col-md-3 p-2">Alamat</p>
+                                        <div class="col-md-9" style="margin-top: 7px;">
+                                        <p><b>{{ $data->alamat }}</b></p>
+                                        </div>
                                 </div>
                             </div>
 

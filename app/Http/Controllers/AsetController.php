@@ -150,10 +150,10 @@ class AsetController extends Controller
      */
     public function show($id)
     {
-        if (Auth::user()->level == 'it') {
-            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
-            return redirect()->to('/');
-        }
+        // if (Auth::user()->level == 'it') {
+        //     Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+        //     return redirect()->to('/');
+        // }
 
         $kategoris = Kategori::get();
         $data = Aset::findOrFail($id);

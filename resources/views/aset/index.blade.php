@@ -185,27 +185,6 @@
                   Kategori
                 </th>
                 <th>
-                  Merk
-                </th>
-                <th>
-                  Spesifikasi
-                </th>
-                <th>
-                  Tanggal Beli
-                </th>
-                <th>
-                  Garansi
-                </th>
-                <th>
-                  Harga Beli
-                </th>
-                <th>
-                  Vendor
-                </th>
-                <th>
-                  Alamat Vendor
-                </th>
-                <th>
                   Status Aset
                 </th>
                 <th>
@@ -223,33 +202,10 @@
                   {{$data->kode_aset}}
                 </td>
                 <td>
-                  <a href="{{route('aset.show', $data->id)}}">
-                    {{$data->nama_aset}}
-                  </a>
+                  {{$data->nama_aset}}
                 </td>
                 <td>
                   {{$data->kategori->nama_kategori}}
-                </td>
-                <td>
-                  {{$data->merk}}
-                </td>
-                <td>
-                  {{$data->spesifikasi}}
-                </td>
-                <td>
-                  {{$data->tgl_beli}}
-                </td>
-                <td>
-                  {{$data->garansi}}
-                </td>
-                <td>
-                  @currency($data->harga_beli)
-                </td>
-                <td>
-                  {{$data->toko_beli}}
-                </td>
-                <td>
-                  {{$data->alamat}}
                 </td>
                 <td>
                   @if($data->status_aset == 'Sedang dipinjam')
@@ -266,7 +222,7 @@
                   <label class="badge badge-danger">Rusak Total</label>
                   @endif
                 </td>
-                <td>
+                <td style="text-align: center;">
                   @if($data->karyawan != null)
                   <label class="badge badge-primary">{{$data->karyawan->nama}}</label>
                   @else
@@ -274,21 +230,16 @@
                   @endif
                 </td>
                 <td>
+                  <a href="{{route('aset.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Aset"></span></a>
                   @if($data->status_aset > 'Sedang dipinjam')
-                  <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Aksi
-                    </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
-                      <a class="dropdown-item" href="{{route('aset.edit', $data->id)}}"> Ubah Data </a>
-                      <form action="{{ route('aset.destroy', $data->id) }}" class="pull-left" method="post">
-                        {{ csrf_field() }}
-                        {{ method_field('delete') }}
-                        <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Hapus Data
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+                  <a href="{{route('aset.edit', $data->id)}}" class="btn" ><span class="fa fa-pencil fa-lg" title="Ubah Data" style="color:green"></span></a>
+                  <form action="{{ route('aset.destroy', $data->id) }}" method="post" style="display:inline;">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}
+                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> <span class="fa fa-trash fa-lg" title="Hapus Data" style="color:red"></span>
+                    </a>
+                  </form>
+                  
                   @endif
                 </td>
               </tr>
