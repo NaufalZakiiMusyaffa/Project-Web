@@ -40,9 +40,9 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-9 d-flex align-items-stretch grid-margin">
+    <div class="col-md-12 d-flex align-items-stretch grid-margin">
         <div class="row flex-grow">
-            <div class="col-9">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Detail Pengguna <b>[{{$data->username}}]</b></h4>

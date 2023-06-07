@@ -68,34 +68,24 @@
                   {{$data->nama}}
                 </td>
                 <td>
-                  <a href="{{route('karyawan.show', $data->id)}}">
-                    {{$data->nik}}
-                  </a>
+                  {{$data->nik}}
                 </td>
-
                 <td>
                   {{$data->jk === "L" ? "Laki - Laki" : "Perempuan"}}
                 </td>
-
                 <td>
                   {{$data->jabatan}}
                 </td>
                 <td>
-                  <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Aksi
-                    </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
-                      <a class="dropdown-item" href="{{route('karyawan.edit', $data->id)}}"> Ubah Data </a>
-                      <form action="{{ route('karyawan.destroy', $data->id) }}" class="pull-left" method="post">
-                        {{ csrf_field() }}
-                        {{ method_field('delete') }}
-                        <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Hapus Data
-                        </button>
-                      </form>
-
-                    </div>
-                  </div>
+                  <a  href="{{route('karyawan.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Pengguna"></span><br>Detail</a>
+                  <a class="btn" href="{{route('karyawan.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
+                  <form action="{{ route('karyawan.destroy', $data->id) }}" method="post" style="text-align: center">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}
+                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                      <br>Hapus
+                    </a>
+                  </form>
                 </td>
               </tr>
               @endforeach

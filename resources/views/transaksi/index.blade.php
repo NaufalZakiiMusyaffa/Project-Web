@@ -272,9 +272,9 @@
                   @endif
                 </td>
                 <td>
-                  <a href="{{route('transaksi.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Transaksi"></span></a>
+                  <a href="{{route('transaksi.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Transaksi"></span><br>Detail</a>
                   @if($data->status == 'pinjam')
-                  <form action="{{ route('transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data" style="display:inline;">
+                  <form action="{{ route('transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     {{ method_field('put') }}
                     <button class="btn btn-info btn-xs" onclick="return confirm('Anda yakin aset ini sudah kembali?')">Sudah Kembali
@@ -282,12 +282,13 @@
                   </form>
                   @else
                     @if(Auth::user()->level == 'manager')
-                    <form action="{{ route('transaksi.destroy', $data->id) }}" method="post" style="display:inline;">
+                    <form action="{{ route('transaksi.destroy', $data->id) }}" method="post">
                       {{ csrf_field() }}
                       {{ method_field('delete') }}
-                      <button class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="background-color: transparent;">
-                        <span class="fa fa-trash fa-lg" title="Hapus Data" style="color: red;"></span>
-                      </button>
+                      <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color: red;">
+                        <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                        <br>Hapus
+                      </a>
                     </form>
                     @else
 

@@ -68,40 +68,29 @@
                           @if($data->gambar)
                             <img src="{{url('images/user', $data->gambar)}}" alt="image" style="margin-right: 10px;" />
                           @else
-                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px; width:30px; height:20px;"" />
-
+                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px; width:30px; height:20px;" />
                           @endif
-
-
                             {{$data->name}}
                           </td>
-                          <td>
-                          <a href="{{route('user.show', $data->id)}}"> 
-                          {{$data->username}}
-                          </a>
+                          <td> 
+                            {{$data->username}}
                           </td>
                           <td>
                             {{$data->email}}
                           </td>
                           <td>
-                            {{$data->created_at}}
+                            {{date('d F Y h:i a', strtotime($data->created_at))}}
                           </td>
                           <td>
-                           <div class="btn-group dropdown">
-                          <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Aksi
-                          </button>
-                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
-                            <a class="dropdown-item" href="{{route('user.edit', $data->id)}}"> Ubah Data </a>
+                            <a href="{{route('user.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail User"></span><br>Detail</a>
+                            <a class="btn" href="{{route('user.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                             <form action="{{ route('user.destroy', $data->id) }}" class="pull-left"  method="post">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
-                            <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Hapus Data
-                            </button>
-                          </form>
-                           
-                          </div>
-                        </div>
+                            <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                              <br>Hapus
+                            </a>
+                            </form>
                           </td>
                         </tr>
                       @endforeach

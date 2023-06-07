@@ -51,21 +51,14 @@
                   {{$data->nama_kategori}}
                 </td>
                 <td>
-                  <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Aksi
-                    </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
-                      <a class="dropdown-item" href="{{route('kategori.edit', $data->id)}}"> Ubah Data </a>
-                      <form action="{{ route('kategori.destroy', $data->id) }}" class="pull-left" method="post">
-                        {{ csrf_field() }}
-                        {{ method_field('delete') }}
-                        <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Hapus Data
-                        </button>
-                      </form>
-
-                    </div>
-                  </div>
+                  <a class="btn ml-2" href="{{route('kategori.edit', $data->id)}}" style="color:green;"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
+                  <form action="{{ route('kategori.destroy', $data->id) }}" method="post" style="display: inline">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}
+                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                      <br>Hapus
+                    </a>
+                  </form>
                 </td>
               </tr>
               @endforeach

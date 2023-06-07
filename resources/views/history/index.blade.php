@@ -93,14 +93,7 @@
                   {{$data->karyawan->nama}}
                 </td>
                 <td>
-                  <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Aksi
-                    </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
-                      <a class="dropdown-item" href="{{route('history.edit', $data->id)}}"> Ubah Data </a>
-                    </div>
-                  </div>
+                  <a class="btn" href="{{route('history.edit', $data->id)}}" style="color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                 </td>
               </tr>
               @endforeach

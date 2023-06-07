@@ -215,7 +215,7 @@
               @foreach($datas as $data)
               <tr>
                 <td>
-                  {{date('d F Y, H:i', strtotime($data->created_at))}} WIB
+                  {{date('d F Y h:i a', strtotime($data->created_at))}}
                 </td>
                 <td>
                   {{$data->aset->kode_aset}}

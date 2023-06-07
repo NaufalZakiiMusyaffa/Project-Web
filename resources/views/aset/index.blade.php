@@ -230,13 +230,14 @@
                   @endif
                 </td>
                 <td>
-                  <a href="{{route('aset.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Aset"></span></a>
+                  <a href="{{route('aset.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Aset"></span><br>Detail</a>
                   @if($data->status_aset > 'Sedang dipinjam')
-                  <a href="{{route('aset.edit', $data->id)}}" class="btn" ><span class="fa fa-pencil fa-lg" title="Ubah Data" style="color:green"></span></a>
-                  <form action="{{ route('aset.destroy', $data->id) }}" method="post" style="display:inline;">
+                  <a href="{{route('aset.edit', $data->id)}}" class="btn" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
+                  <form action="{{ route('aset.destroy', $data->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> <span class="fa fa-trash fa-lg" title="Hapus Data" style="color:red"></span>
+                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                      <br>Hapus
                     </a>
                   </form>
                   
