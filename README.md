@@ -9,7 +9,7 @@ Note :
 
 Tambahan :
 1. Di Menu Pengajuan Perbaikan :
-- Untuk Akses IT : * Ketika Sudah Mengajukan Perbaikan, untuk barang aset tidak bisa di pilih lagi / tidak muncul di pencarian aset rusak bisa diperbaiki
+- Untuk Akses IT : 1. Ketika Sudah Mengajukan Perbaikan, untuk barang aset tidak bisa di pilih lagi / tidak muncul di pencarian aset rusak bisa diperbaiki
                    (Sampai status berubah jika di acc menjadi sedang diperbaiki dan jika ditolak untuk si barang aset tersebut bisa muncul kembali di pencarian aset rusak bisa dipebaiki)
-                   * Ketika sudah di Acc oleh Manager terkait pengajuannya, disitu ada aksi Print, buat fungsi itu berfungsi dengan layout output hasil seperti sebelumnya Portrait.
+                   2. Ketika sudah di Acc oleh Manager terkait pengajuannya, disitu ada aksi Print, buat fungsi itu berfungsi dengan layout output hasil seperti sebelumnya Portrait.
               
