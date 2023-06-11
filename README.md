@@ -13,3 +13,11 @@ Tambahan :
                    (Sampai status berubah jika di acc menjadi sedang diperbaiki dan jika ditolak untuk si barang aset tersebut bisa muncul kembali di pencarian aset rusak bisa dipebaiki)
                    2. Ketika sudah di Acc oleh Manager terkait pengajuannya, disitu ada aksi Print, buat fungsi itu berfungsi dengan layout output hasil seperti sebelumnya Portrait.
               
+2. Di menu data pengguna :
+- Untuk field nama, tersambung dengan data karyawan, jadi nanti field dirubah menjadi button pencarian dan muncul nama All Karyawan.
+
+
+3. Di Akses Manager :
+Dari Menu All Aset IT, All Autocare, form yang muncul hanya tabel dan button export pdf dan excel, untuk button tambah dan All Aksi (Edit dan hapus) dihilangkan.
+
+4. Pastikan semua form sudah responsive field/ button / dan yang lainnya, dan pastikan untk di setiap form yang ada view tampilannya dirapihkan.
