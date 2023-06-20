@@ -71,13 +71,7 @@
                                     @endif
                                 </div>
                             </div>
-
-                            <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }} " style="margin-bottom: 20px;">
-                                <label for="user_id" class="col-md-4 control-label">User yang Menginputkan Data</label>
-                                <div class="col">
-                                    <input id="tgl_lahir" type="text" class="form-control" name="tgl_lahir" value="{{ $data->user->name }}" readonly="">
-                                </div>
-                            </div>
+                            
                     </div>
                 </div>
             </div>

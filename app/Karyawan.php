@@ -7,16 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Karyawan extends Model
 {
 	protected $table = 'karyawan';
-    protected $fillable = ['user_id', 'nik', 'nama', 'jk', 'jabatan'];
+    protected $fillable = ['nik', 'nama', 'jk', 'jabatan', 'gambar', 'telepon'];
 
 
     /**
      * Method One To One 
      */
-    public function user()
-    {
-    	return $this->belongsTo(User::class);
-    }
 
     /**
      * Method One To Many 

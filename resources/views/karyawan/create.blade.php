@@ -68,14 +68,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }} " style="margin-bottom: 20px;">
-                                <label for="user_id" class="col-md-12 control-label">Yang Menginputkan Data</label>
-                                <div class="col-md-12">
-                                    <input id="aset_nama" type="text" class="form-control" value="{{ Auth::user()->name }}" readonly="">
-                                    <input id="user_id" type="hidden" class="form-control" name="user_id" value="{{ Auth::user()->id }}" required readonly="">
-                                </div>
-                            </div>
-
                             <div class="col-md-12 col-sm-12">
                                 <div class="row justify-content-between">
                                     <div class="col-sm-8">
