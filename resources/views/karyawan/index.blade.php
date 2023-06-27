@@ -77,7 +77,7 @@
                   {{$data->jabatan}}
                 </td>
                 <td>
-                  <a  href="{{route('karyawan.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Pengguna"></span><br>Detail</a>
+                  <a href="{{route('karyawan.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Pengguna"></span><br>Detail</a>
                   <a class="btn" href="{{route('karyawan.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                   <form action="{{ route('karyawan.destroy', $data->id) }}" method="post" style="text-align: center">
                     {{ csrf_field() }}

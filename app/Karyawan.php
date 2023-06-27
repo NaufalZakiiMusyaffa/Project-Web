@@ -17,6 +17,11 @@ class Karyawan extends Model
     /**
      * Method One To Many 
      */
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
     public function transaksi()
     {
     	return $this->hasMany(Transaksi::class);

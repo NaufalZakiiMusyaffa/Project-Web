@@ -140,7 +140,7 @@ class TransaksiController extends Controller
     {
         $data = Transaksi::findOrFail($id);
 
-        if ((Auth::user()->level == 'it') && (Auth::user()->karyawan->id != $data->karyawan_id)) {
+        if ((Auth::user()->level == 'it') && (Auth::user()->karyawan_id != $data->karyawan_id)) {
             Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
             return redirect()->to('/');
         }

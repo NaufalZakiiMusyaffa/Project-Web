@@ -297,7 +297,7 @@ class LaporanController extends Controller
         }
 
         if (Auth::user()->level == 'it') {
-            $q->where('karyawan_id', Auth::user()->karyawan->id);
+            $q->where('karyawan_id', Auth::user()->karyawan_id);
         }
 
         $datas = $q->get();
@@ -382,7 +382,7 @@ class LaporanController extends Controller
                 }
 
                 if (Auth::user()->level == 'it') {
-                    $q->where('karyawan_id', Auth::user()->karyawan->id);
+                    $q->where('karyawan_id', Auth::user()->karyawan_id);
                 }
 
                 $datas = $q->get();
@@ -488,7 +488,7 @@ class LaporanController extends Controller
         }
 
         if (Auth::user()->level == 'it') {
-            $q->where('karyawan_id', Auth::user()->karyawan->id);
+            $q->where('karyawan_id', Auth::user()->karyawan_id);
         }
 
         $datas = $q->get();
@@ -572,7 +572,7 @@ class LaporanController extends Controller
                 }
 
                 if (Auth::user()->level == 'it') {
-                    $q->where('karyawan_id', Auth::user()->karyawan->id);
+                    $q->where('karyawan_id', Auth::user()->karyawan_id);
                 }
 
                 $datas = $q->get();

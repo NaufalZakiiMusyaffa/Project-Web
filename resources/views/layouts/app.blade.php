@@ -53,11 +53,11 @@
           <li class="nav-item dropdown d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <span class="status-indicator online"></span>
-              <span class="profile-text">{{Auth::user()->name}} | {{ Auth::user()->level }}</span>
-              @if(Auth::user()->gambar == '')
+              <span class="profile-text">{{Auth::user()->karyawan->nama}} | {{ Auth::user()->level }}</span>
+              @if(Auth::user()->karyawan->gambar == '')
               <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" style="width:40px;height:30px;">
               @else
-              <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->gambar)}}" alt="profile image" style="width:40px;height:30px;">
+              <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" style="width:40px;height:30px;">
               @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">

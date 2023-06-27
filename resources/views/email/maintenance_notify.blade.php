@@ -30,7 +30,7 @@
 </head>
 <body>
     <div class="card">
-        <h3 class="">{{Auth::user()->name}} telah melakukan pengajuan masuk barang</h3>
+        <h3 class="">{{Auth::user()->karyawan->nama}} telah melakukan pengajuan masuk barang</h3>
         <hr class="garis">
         <p>Lihat ke aplikasi aset manajemen untuk melihat detailnya</p>
         <h4>Terima kasih</h4>

@@ -34,7 +34,7 @@ class AsetController extends Controller
 
         if (Auth::user()->level == 'it') {
             $datas2 = Transaksi::where('status', 'pinjam')
-                ->where('karyawan_id', Auth::user()->id)->get();
+                ->where('karyawan_id', Auth::user()->karyawan_id)->get();
         } else {
             $datas2 = Transaksi::where('status', 'pinjam')->get();
         }

@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         if (Auth::user()->level == 'it') {
             $datas = Transaksi::where('status', 'pinjam')
-                ->where('karyawan_id', Auth::user()->id)->get();
+                ->where('karyawan_id', Auth::user()->karyawan_id)->get();
         } else {
             $datas = Transaksi::where('status', 'pinjam')->get();
         }

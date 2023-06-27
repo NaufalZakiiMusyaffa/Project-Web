@@ -235,8 +235,8 @@
             @foreach($karyawans as $data)
             <tr class="pilih_karyawan" data-karyawan_id="<?php echo $data->id; ?>" data-karyawan_nama="<?php echo $data->nama; ?>">
               <td class="py-1">
-                @if($data->user->gambar)
-                <img src="{{url('images/user', $data->user->gambar)}}" alt="image" style="margin-right: 10px;" />
+                @if($data->gambar)
+                <img src="{{url('images/user', $data->gambar)}}" alt="image" style="margin-right: 10px;" />
                 @else
                 <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px;" />
                 @endif

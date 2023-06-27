@@ -64,7 +64,25 @@ class KaryawanController extends Controller
             'nik' => 'required|string|max:20|unique:karyawan'
         ]);
 
-        Karyawan::create($request->all());
+        if ($request->file('gambar')) {
+            $file = $request->file('gambar');
+            $dt = Carbon::now();
+            $acak  = $file->getClientOriginalExtension();
+            $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
+            $request->file('gambar')->move("images/user", $fileName);
+            $cover = $fileName;
+        } else {
+            $cover = NULL;
+        }
+
+        Karyawan::create([
+            'nik'       => $request->get('nik'),
+            'nama'      => $request->get('nama'),
+            'jk'        => $request->get('jk'),
+            'jabatan'   => $request->get('jabatan'),
+            'gambar'    => $cover,
+            'telepon'   => $request->get('telepon'),
+        ]);
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
         return redirect()->route('karyawan.index');
@@ -111,7 +129,25 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Karyawan::find($id)->update($request->all());
+        if ($request->file('gambar')) {
+            $file = $request->file('gambar');
+            $dt = Carbon::now();
+            $acak  = $file->getClientOriginalExtension();
+            $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
+            $request->file('gambar')->move("images/user", $fileName);
+            $cover = $fileName;
+        } else {
+            $cover = NULL;
+        }
+
+        Karyawan::find($id)->update([
+            'nik'       => $request->get('nik'),
+            'nama'      => $request->get('nama'),
+            'jk'        => $request->get('jk'),
+            'jabatan'   => $request->get('jabatan'),
+            'gambar'    => $cover,
+            'telepon'   => $request->get('telepon'),
+        ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');
         return redirect()->to('karyawan');

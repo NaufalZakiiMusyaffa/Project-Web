@@ -86,7 +86,7 @@
                                 <div class="form-group col-md-4{{ $errors->has('yang_mengajukan') ? ' has-error' : '' }} " style="margin-bottom: 20px;">
                                 <label for="yang_mengajukan" class="col-md-12 control-label">Yang Mengajukan</label>
                                 <div class="col-md-12">
-                                    <input id="yang_mengajukan" type="text" name="yang_mengajukan" class="form-control" value="{{ Auth::user()->name }}" readonly="">
+                                    <input id="yang_mengajukan" type="text" name="yang_mengajukan" class="form-control" value="{{ Auth::user()->karyawan->nama }}" readonly="">
                                 </div>
                                 </div>
                             </div>

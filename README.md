@@ -15,8 +15,8 @@ Tambahan :
 - Untuk Akses Manager : 1. Pada Aksi Lihat Detail Pengajuan, Dirubah Combobox Keputusan menjadi Button (Di Setujui) warna hijau dan button (ditolak) warna merah, untuk button perbaharui data dihilangkan.
 
               
-2. Di menu data pengguna :
-- Untuk field nama, tersambung dengan data karyawan, jadi nanti field dirubah menjadi button pencarian dan muncul nama All Karyawan.
+<strike>2. Di menu data pengguna :
+- Untuk field nama, tersambung dengan data karyawan, jadi nanti field dirubah menjadi button pencarian dan muncul nama All Karyawan.</strike>
 
 3. Di Akses Manager :
 Dari Menu All Aset IT, All Autocare, form yang muncul hanya tabel dan button export pdf dan excel, untuk button tambah dan All Aksi (Edit dan hapus) dihilangkan.

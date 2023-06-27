@@ -43,7 +43,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <img width="200" height="200" @if($data->cover) src="{{ asset('images/aset/'.$data->gambar) }}" @endif />
+                                    <img width="200" height="200" @if($data->gambar) src="{{ asset('images/aset/'.$data->gambar) }}" @endif />
                                 </div>
                             </div>
 
@@ -127,7 +127,7 @@
 
                                 <div class="d-flex flex-row col-md-8" style="margin-top: -20px;">
                                 <p for="nama_aset" class="col-md-3 p-2">Spesifikasi</p>
-                                    <div class="col-md-9" style="margin-top: 7px;">
+                                    <div class="col-md-6 p-2">
                                     <p><b>{{ $data->spesifikasi }}</b></p>
                                     </div>
                                 </div>
@@ -136,13 +136,13 @@
                             <div class="form-row">
                                 <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
                                 <p for="nama_aset" class="col-md-4 p-2">Tgl Beli</p>
-                                    <div class="col-md-8" style="margin-top: 7px;">
+                                    <div class="col-md-8 p-2">
                                     <p><b>{{date('d F Y', strtotime($data->tgl_beli))}}</b></p>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row col-md-8" style="margin-top: -20px;">
                                     <p for="nama_aset" class="col-md-3 p-2">Garansi</p>
-                                    <div class="col-md-9" style="margin-top: 7px;">
+                                    <div class="col-md-6 p-2">
                                     <p><b>{{date('d F Y', strtotime($data->garansi))}}</b></p>
                                     </div>
                                 </div>
@@ -151,19 +151,19 @@
                             <div class="form-row">
                                 <div class="d-flex flex-row col-md-4" style="margin-top: -20px;">
                                     <p for="nama_aset" class="col-md-4 p-2">Vendor</p>
-                                        <div class="col-md-8" style="margin-top: 7px;">
+                                        <div class="col-md-8 p-2">
                                         <p><b>{{ $data->toko_beli }}</b></p>
                                         </div>
                                 </div>
                                 <div class="d-flex flex-row col-md-8" style="margin-top: -20px;">
                                         <p for="nama_aset" class="col-md-3 p-2">Alamat</p>
-                                        <div class="col-md-9" style="margin-top: 7px;">
+                                        <div class="col-md-9 p-2">
                                         <p><b>{{ $data->alamat }}</b></p>
                                         </div>
                                 </div>
                             </div>
 
-                             <div class="d-flex flex-row" style="margin-top: -20px;">
+                             <div class="d-flex flex-row mt-2">
                                 <a href="{{route('aset.index')}}" class="btn btn-light pull-left">Kembali</a>
                             </div>
                     </div>

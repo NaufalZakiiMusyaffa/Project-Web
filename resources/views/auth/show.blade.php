@@ -49,14 +49,14 @@
 
                         <div class="form-group">
                                 <div class="col-md-12" style="margin-left: -5px;">
-                                    <img class="product" width="200" height="200" @if($data->gambar) src="{{ asset('images/user/'.$data->gambar) }}" @endif />
+                                    <img class="product" width="200" height="200" @if($data->karyawan->gambar) src="{{ asset('images/user/'.$data->karyawan->gambar) }}" @endif />
                                 </div>
                         </div>
 
                         <div class="d-flex flex-row">
                             <p for="name" class="p-2">Nama Pengguna :</p>
                                 <div class="p-2">
-                                <p><b>{{ $data->name }}</b></p>
+                                <p><b>{{ $data->karyawan->nama }}</b></p>
                                 </div>
                         </div>
 

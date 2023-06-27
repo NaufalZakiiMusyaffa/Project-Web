@@ -65,12 +65,12 @@
                       @foreach($datas as $data)
                         <tr>
                           <td class="py-1">
-                          @if($data->gambar)
-                            <img src="{{url('images/user', $data->gambar)}}" alt="image" style="margin-right: 10px;" />
+                          @if($data->karyawan->gambar)
+                            <img src="{{url('images/user', $data->karyawan->gambar)}}" alt="image" style="margin-right: 10px;" />
                           @else
                             <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px; width:30px; height:20px;" />
                           @endif
-                            {{$data->name}}
+                            {{$data->karyawan->nama}}
                           </td>
                           <td> 
                             {{$data->username}}
@@ -84,7 +84,7 @@
                           <td>
                             <a href="{{route('user.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail User"></span><br>Detail</a>
                             <a class="btn" href="{{route('user.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
-                            <form action="{{ route('user.destroy', $data->id) }}" class="pull-left"  method="post">
+                            <form action="{{ route('user.destroy', $data->id) }}" method="post" style="text-align: center">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
                             <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Karyawan;
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -45,7 +46,9 @@ class UserController extends Controller
             Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
             return redirect()->to('/');
         }
-        return view('auth.register');
+        $karyawans = Karyawan::doesntHave('user')->get();
+
+        return view('auth.register', compact('karyawans'));
     }
 
     /**
@@ -65,31 +68,18 @@ class UserController extends Controller
         }
 
         $this->validate($request, [
-            'name' => 'required|string|max:255',
+            'karyawan_id' => 'required',
             'username' => 'required|string|max:20|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-
-        if ($request->file('gambar') == '') {
-            $gambar = NULL;
-        } else {
-            $file = $request->file('gambar');
-            $dt = Carbon::now();
-            $acak  = $file->getClientOriginalExtension();
-            $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
-            $request->file('gambar')->move("images/user", $fileName);
-            $gambar = $fileName;
-        }
-
         User::create([
-            'name' => $request->input('name'),
+            'karyawan_id' => $request->input('karyawan_id'),
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'level' => $request->input('level'),
             'password' => bcrypt(($request->input('password'))),
-            'gambar' => $gambar
         ]);
 
         Session::flash('message', 'Berhasil ditambahkan!');
@@ -129,8 +119,9 @@ class UserController extends Controller
         }
 
         $data = User::findOrFail($id);
+        $karyawans = Karyawan::doesntHave('user')->get();
 
-        return view('auth.edit', compact('data'));
+        return view('auth.edit', compact('data','karyawans'));
     }
 
     /**
@@ -144,16 +135,7 @@ class UserController extends Controller
     {
         $user_data = User::findOrFail($id);
 
-        if ($request->file('gambar')) {
-            $file = $request->file('gambar');
-            $dt = Carbon::now();
-            $acak  = $file->getClientOriginalExtension();
-            $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
-            $request->file('gambar')->move("images/user", $fileName);
-            $user_data->gambar = $fileName;
-        }
-
-        $user_data->name = $request->input('name');
+        $user_data->karyawan_id = $request->input('karyawan_id');
         $user_data->username = $request->input('username');
         $user_data->email = $request->input('email');
         if ($request->input('password')) {
