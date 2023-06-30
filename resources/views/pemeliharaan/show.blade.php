@@ -4,6 +4,12 @@
     $(document).ready(function() {
         $(".users").select2();
     });
+    $('#status-terima').click(function() {
+        $('#status').val('2')
+    })
+    $('#status-tolak').click(function() {
+        $('#status').val('0')
+    })
 </script>
 @stop
 @extends('layouts.app')
@@ -63,7 +69,7 @@
                                     </div>
                             </div>
 
-                                <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                                {{-- <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                     <label for="status" class="col-md-12 control-label" style="margin-left: -4px;">Keputusan *</label>
                                     <div class="col-md-12">
                                         <select class="form-control" name="status" style="margin-left: -4px;" required>
@@ -72,14 +78,24 @@
 
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
+                                <input type="hidden" name="status" id="status">
 
                                 <div class="col-md-12">
                                     <div class="row justify-content-between">
-                                        <div class="col-sm-4 mt-2">
-                                            <button type="submit" class="btn btn-primary btn-block" id="submit">
-                                                Perbaharui Data
-                                            </button>
+                                        <div class="col-sm-6 mt-2">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-success btn-block" id="status-terima">
+                                                        Terima Pengajuan
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-danger btn-block" id="status-tolak">
+                                                        Tolak Pengajuan
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-sm-4 mt-2">
                                             <a href="{{route('pemeliharaan.index')}}" class="btn btn-light pull-right">Kembali</a>

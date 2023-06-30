@@ -83,11 +83,16 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-4{{ $errors->has('yang_mengajukan') ? ' has-error' : '' }} " style="margin-bottom: 20px;">
-                                <label for="yang_mengajukan" class="col-md-12 control-label">Yang Mengajukan</label>
-                                <div class="col-md-12">
-                                    <input id="yang_mengajukan" type="text" name="yang_mengajukan" class="form-control" value="{{ Auth::user()->karyawan->nama }}" readonly="">
-                                </div>
+                                <div class="form-group col-md-4{{ $errors->has('biaya') ? ' has-error' : '' }}">
+                                    <label for="biaya" class="col-md-12 control-label">Biaya *</label>
+                                    <div class="col-md-12">
+                                        <input id="biaya" type="number" maxlength="11" class="form-control" name="biaya" value="{{ old('biaya') }}">
+                                        @if ($errors->has('biaya'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('biaya') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -109,22 +114,18 @@
                                     @endif
                                 </div>
                             </div>
-
-                            <div class="form-group col-md-4{{ $errors->has('biaya') ? ' has-error' : '' }}">
-                                <label for="biaya" class="col-md-12 control-label">Biaya *</label>
+                            <div class="form-group col-md-4">
+                                <label for="email" class="col-md-12 control-label">Gambar</label>
                                 <div class="col-md-12">
-                                    <input id="biaya" type="number" maxlength="11" class="form-control" name="biaya" value="{{ old('biaya') }}">
-                                    @if ($errors->has('biaya'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('biaya') }}</strong>
-                                    </span>
-                                    @endif
+                                    <img width="200" height="200" />
+                                    <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
                                 </div>
                             </div>
+                            
                             </div>
 
                             <div class="form-row">
-                            <div class="form-group col-md-8{{ $errors->has('keterangan') ? ' has-error' : '' }}">
+                            <div class="form-group col-md-12{{ $errors->has('keterangan') ? ' has-error' : '' }}">
                                 <label for="keterangan" class="col-md-4 control-label">keterangan *</label>
                                 <div class="col-md-12">
                                     <textarea class="form-control" rows="5" id="keterangan" name="keterangan" required>{{ old('keterangan') }}</textarea>
@@ -136,25 +137,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-4">
-                                <label for="email" class="col-md-12 control-label">Gambar</label>
-                                <div class="col-md-12">
-                                    <img width="200" height="200" />
-                                    <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
-                                </div>
-                            </div>
+                            
                             </div>
 
                             <div class="col-md-12 col-sm-12">
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                         <div class="row">
                                             <div class="col-sm-4 mt-1">
                                                 <button type="submit" class="btn btn-primary btn-block" id="submit">
                                                     Kirim
                                                 </button>
                                             </div>
-                                            <div class="col-sm-6 mt-1">
+                                            <div class="col-sm-8 mt-1">
                                                 <button type="reset" class="btn btn-danger btn-block text-truncate">
                                                     Hapus Data Inputan
                                                 </button>

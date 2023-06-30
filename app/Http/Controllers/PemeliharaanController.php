@@ -74,7 +74,14 @@ class PemeliharaanController extends Controller
             }
         }
 
-        $asets = Aset::where('status_aset', 'Rusak(Bisa diperbaiki)')->get();
+        $pemeliharaans = Pemeliharaan::where('status', 1)->orWhere('status', 2)->get();
+        $id_aset = array();
+        foreach ($pemeliharaans as $pm) {
+            $id_aset[] = $pm->aset_id;
+        }
+
+        $asets = Aset::where('status_aset', 'Rusak(Bisa diperbaiki)')->whereNotIn('id', $id_aset)->get();
+
         $users = User::get();
         return view('pemeliharaan.create', compact('asets', 'kode', 'statusx', 'users'));
     }
@@ -110,7 +117,7 @@ class PemeliharaanController extends Controller
             'keterangan'        => $request->get('keterangan'),
             'biaya'             => $request->get('biaya'),
             'status'            => $request->get('status'),
-            'yang_mengajukan'   => $request->get('yang_mengajukan'),
+            'yang_mengajukan'   => Auth::user()->karyawan->nama,
             'gambar'            => $gambar
         ]);
 
@@ -156,14 +163,16 @@ class PemeliharaanController extends Controller
         $pemeliharaan = Pemeliharaan::find($id);
 
         Pemeliharaan::find($id)->update([
-            'keputusan_oleh'  => $request->get('keputusan_oleh'),
-            'status' => '2'
+            'keputusan_oleh'  => Auth::user()->karyawan->nama,
+            'status' => $request->get('status')
         ]);
 
-        $pemeliharaan->aset->where('id', $pemeliharaan->aset->id)
-            ->update([
-                'status_aset' => 'Sedang diperbaiki',
-            ]);
+        if ($request->get('status') == 2) {
+            $pemeliharaan->aset->where('id', $pemeliharaan->aset->id)
+                ->update([
+                    'status_aset' => 'Sedang diperbaiki',
+                ]);
+        }
 
         alert()->success('Berhasil.', 'Data pengajuan telah di setujui');
         return redirect()->route('pemeliharaan.index');
