@@ -46,7 +46,7 @@
   </li>
   @endif
 
-
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
   <li class="nav-item {{ setActive(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}">
     <a class="nav-link " data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-content-copy"></i>
@@ -71,8 +71,9 @@
       </ul>
     </div>
   </li>
+  @endif
 
-  @if(Auth::user()->level == 'manager')
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
   <li class="nav-item {{ setActive(['driver*', 'asetac*']) }}">
     <a class="nav-link " data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-content-copy"></i>
@@ -100,17 +101,21 @@
     </a>
     <div class="collapse {{ setShow(['transaksi*', 'transaksiac*']) }}" id="ui-basic4">
       <ul class="nav flex-column sub-menu">
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['transaksi*']) }}" href="{{route('transaksi.index')}}">Peminjaman Aset IT</a>
         </li>
+        @endif
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['transaksiac*']) }}" href="{{route('transaksiac.index')}}">Peminjaman Aset Autocare</a>
         </li>
+        @endif
       </ul>
     </div>
   </li>
 
-  @if(Auth::user()->level == 'manager')
+  {{-- @if(Auth::user()->level == 'manager')
   <li class="nav-item">
     <a class="nav-link" data-toggle="collapse" href="#ui-laporan" aria-expanded="false" aria-controls="ui-laporan">
       <i class="menu-icon mdi mdi-table"></i>
@@ -128,7 +133,7 @@
       </ul>
     </div>
   </li>
-  @endif
+  @endif --}}
 
 
 </ul>

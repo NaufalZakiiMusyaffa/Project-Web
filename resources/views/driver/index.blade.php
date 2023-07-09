@@ -15,10 +15,11 @@
 
 @section('content')
 <div class="row">
-
+  @if(Auth::user()->level == 'autocare')
   <div class="col-lg-2">
     <a href="{{ route('driver.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data Supir</a>
   </div>
+  @endif
   <div class="col-lg-12">
     @if (Session::has('message'))
     <div class="alert alert-{{ Session::get('message_type') }}" id="waktu2" style="margin-top:10px;">{{ Session::get('message') }}</div>
@@ -48,9 +49,11 @@
                 <th>
                   Status
                 </th>
+                @if(Auth::user()->level == 'autocare')
                 <th>
                   Aksi
                 </th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -73,8 +76,9 @@
                   <label class="badge badge-danger">Sedang Bertugas</label>
                   @endif
                 </td>
+                @if(Auth::user()->level == 'autocare')
                 <td>
-                  @if($data->status_supir === 'Sedang Bertugas')
+                  @if($data->status_supir != 'Sedang Bertugas')
                   <a class="btn" href="{{route('driver.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                   <form action="{{ route('driver.destroy', $data->id) }}" method="post">
                     {{ csrf_field() }}
@@ -85,6 +89,7 @@
                   </form>
                   @endif
                 </td>
+                @endif
               </tr>
               @endforeach
             </tbody>

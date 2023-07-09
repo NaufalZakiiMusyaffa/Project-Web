@@ -59,7 +59,7 @@
 
                             <div class="col-md-12">
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-4 mt-2">
+                                    <div class="col-sm-3 mt-2">
                                         <button type="submit" class="btn btn-primary btn-block" id="submit">
                                             Perbaharui Data
                                         </button>

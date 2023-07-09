@@ -69,14 +69,14 @@
 
                             <div class="col-md-12">
                                 <div class="row justify-content-between">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                         <div class="row">
                                             <div class="col-sm-4 mt-1">
                                                 <button type="submit" class="btn btn-primary btn-block" id="submit">
                                                     Kirim
                                                 </button>
                                             </div>
-                                            <div class="col-sm-6 mt-1">
+                                            <div class="col-sm-8 mt-1">
                                                 <button type="reset" class="btn btn-danger btn-block text-truncate">
                                                     Hapus Data Inputan
                                                 </button>

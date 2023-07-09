@@ -15,11 +15,11 @@
 
 @section('content')
 <div class="row">
-
+  @if(Auth::user()->level == 'autocare')
   <div class="col-lg-8">
     <a href="{{ route('asetac.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data Aset Autocare</a>
   </div>
-
+  @endif
   <div class="col-lg-12">
     @if (Session::has('message'))
     <div class="alert alert-{{ Session::get('message_type') }}" id="waktu2" style="margin-top:10px;">{{ Session::get('message') }}</div>
@@ -63,9 +63,11 @@
                 <th>
                   Inventaris Kepada
                 </th>
+                @if(Auth::user()->level == 'autocare')
                 <th>
                   Aksi
                 </th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -101,9 +103,10 @@
                   <label class="badge badge-primary">-</label>
                   @endif
                 </td>
+                @if(Auth::user()->level == 'autocare')
                 <td>
                   {{-- <a href="{{route('asetac.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Aset Autocare"></span><br>Detail</a> --}}
-                  @if($data->status_kendaraan > '0')
+                  @if($data->status_kendaraan !== 'Sedang dipinjam')
                   <a class="btn" href="{{route('asetac.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                   <form action="{{ route('asetac.destroy', $data->id) }}" method="post">
                     {{ csrf_field() }}
@@ -114,6 +117,7 @@
                   </form>
                   @endif
                 </td>
+                @endif
               </tr>
               @endforeach
             </tbody>

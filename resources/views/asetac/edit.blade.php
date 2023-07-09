@@ -36,23 +36,9 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Ubah Data Kendaraan <b>[{{$data->nama_kendaraan}}]</b> </h4>
-              @if($data->status_kendaraan !== 'Sedang dipinjam')
-              <div class="float-left">
-                <div class="form-group{{ $errors->has('status_kendaraan') ? ' has-error' : '' }}">
-                  <label for="status_kendaraan" class="col-md-12 control-label">Status Kendaraan *</label>
-                  <div class="col-md-12">
-                    <select class="form-control" name="status_kendaraan">
-                      <option value="Siap digunakan" @if($data->status_kendaraan == 'Siap digunakan') selected @endif>Siap digunakan</option>
-                      <option value="Digunakan" @if($data->status_kendaraan == 'Digunakan') selected @endif>Digunakan</option>
-                      <option value="Ada Kerusakan" @if($data->status_kendaraan == 'Ada Kerusakan') selected @endif>Ada Kerusakan</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              @endif
 
-              <div class="float-left">
-                <div class="form-group{{ $errors->has('kode_aset') ? ' has-error' : '' }}">
+              <div class="form-row">
+                <div class="form-group col-md-6{{ $errors->has('kode_aset') ? ' has-error' : '' }}">
                   <label for="kode_aset" class="col-md-12 control-label">Kode Aset Kendaraan</label>
                   <div class="col-md-12">
                     <input id="kode_aset" type="text" class="form-control" name="kode_aset" value="{{ $data->kode_aset }}" required readonly="">
@@ -63,29 +49,42 @@
                     @endif
                   </div>
                 </div>
+                @if($data->status_kendaraan !== 'Sedang dipinjam')
+                  <div class="form-group col-md-6{{ $errors->has('status_kendaraan') ? ' has-error' : '' }}">
+                    <label for="status_kendaraan" class="col-md-12 control-label">Status Kendaraan *</label>
+                    <div class="col-md-12">
+                      <select class="form-control" name="status_kendaraan">
+                        <option value="Siap digunakan" @if($data->status_kendaraan == 'Siap digunakan') selected @endif>Siap digunakan</option>
+                        <option value="Digunakan" @if($data->status_kendaraan == 'Digunakan') selected @endif>Digunakan</option>
+                        <option value="Ada Kerusakan" @if($data->status_kendaraan == 'Ada Kerusakan') selected @endif>Ada Kerusakan</option>
+                      </select>
+                    </div>
+                  </div>
+                @endif
               </div>
 
-              <div class="form-group{{ $errors->has('karyawan_id') ? ' has-error' : '' }}">
-                <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Digunakan ]</b></label>
-                <div class="col-md-12">
-                  <div class="input-group">
-                    @if($data->karyawan != null)
-                    <input id="karyawan_nama" type="text" class="form-control" value="{{ $data->karyawan->nama }}" required readonly="">
-                    <input id="karyawan_id" type="hidden" name="karyawan_id" value="{{ $data->karyawan_id }}" required readonly="">
-                    @else
-                    <input id="karyawan_nama" type="text" class="form-control" value="-"  readonly="" required>
-                    <input id="karyawan_id" type="hidden" name="karyawan_id" value="" required readonly="">
-                    @endif
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2"><b>Cari Karyawan</b> <span class="fa fa-search"></span></button>
+              <div class="form-row">
+                <div class="form-group col-md-12{{ $errors->has('karyawan_id') ? ' has-error' : '' }}">
+                  <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Digunakan ]</b></label>
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      @if($data->karyawan != null)
+                      <input id="karyawan_nama" type="text" class="form-control" value="{{ $data->karyawan->nama }}" required readonly="">
+                      <input id="karyawan_id" type="hidden" name="karyawan_id" value="{{ $data->karyawan_id }}" required readonly="">
+                      @else
+                      <input id="karyawan_nama" type="text" class="form-control" value="-"  readonly="" required>
+                      <input id="karyawan_id" type="hidden" name="karyawan_id" value="" required readonly="">
+                      @endif
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2"><b>Cari Karyawan</b> <span class="fa fa-search"></span></button>
+                      </span>
+                    </div>
+                    @if ($errors->has('karyawan_id'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('karyawan_id') }}</strong>
                     </span>
+                    @endif
                   </div>
-                  @if ($errors->has('karyawan_id'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('karyawan_id') }}</strong>
-                  </span>
-                  @endif
-
                 </div>
               </div>
 
@@ -126,7 +125,7 @@
               </div>
               <div class="col-md-12">
                 <div class="row justify-content-between">
-                    <div class="col-sm-4 mt-2">
+                    <div class="col-sm-3 mt-2">
                         <button type="submit" class="btn btn-primary btn-block" id="submit">
                             Perbaharui Data
                         </button>

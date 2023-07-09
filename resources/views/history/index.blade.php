@@ -21,9 +21,11 @@
 
 @section('content')
 <div class="row">
+  @if(Auth::user()->level == 'it')
   <div class="col-lg-12">
     <a href="{{ route('history.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data</a>
   </div>
+  @endif
 </div>
 <div class="row" style="margin-top: 20px;">
   <div class="col-md-12">
@@ -72,9 +74,11 @@
                 <th>
                   Teknisi
                 </th>
+                @if(Auth::user()->level == 'it')
                 <th>
                   Aksi
                 </th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -92,9 +96,11 @@
                 <td>
                   {{$data->karyawan->nama}}
                 </td>
+                @if(Auth::user()->level == 'it')
                 <td>
                   <a class="btn" href="{{route('history.edit', $data->id)}}" style="color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                 </td>
+                @endif
               </tr>
               @endforeach
             </tbody>

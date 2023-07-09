@@ -18,10 +18,10 @@ Tambahan :
 <strike>2. Di menu data pengguna :
 - Untuk field nama, tersambung dengan data karyawan, jadi nanti field dirubah menjadi button pencarian dan muncul nama All Karyawan.</strike>
 
-3. Di Akses Manager :
-Dari Menu All Aset IT, All Autocare, form yang muncul hanya tabel dan button export pdf dan excel, untuk button tambah dan All Aksi (Edit dan hapus) dihilangkan.
+<strike>3. Di Akses Manager :
+Dari Menu All Aset IT, All Autocare, form yang muncul hanya tabel dan button export pdf dan excel, untuk button tambah dan All Aksi (Edit dan hapus) dihilangkan.</strike>
 
-4. Pastikan semua form sudah responsive field/ button / dan yang lainnya, dan pastikan untk di setiap form yang ada view tampilannya dirapihkan.
+<strike>4. Pastikan semua form sudah responsive field/ button / dan yang lainnya, dan pastikan untk di setiap form yang ada view tampilannya dirapihkan.</strike>
 
 5. Di Menu Data Pengguna, Tambahkan fitur Tanda Tangan.
 

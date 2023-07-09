@@ -30,9 +30,11 @@
 
 @section('content')
 <div class="row">
+  @if(Auth::user()->level == 'it')
   <div class="col-lg-8">
     <a href="{{ route('aset.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data Aset</a>
   </div>
+  @endif
   <div class="col-lg-12">
     @if (Session::has('message'))
     <div class="alert alert-{{ Session::get('message_type') }}" id="waktu2" style="margin-top:10px;">{{ Session::get('message') }}</div>
@@ -231,7 +233,7 @@
                 </td>
                 <td>
                   <a href="{{route('aset.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Aset"></span><br>Detail</a>
-                  @if($data->status_aset > 'Sedang dipinjam')
+                  @if(Auth::user()->level == 'it' && $data->status_aset !== 'Sedang dipinjam' )
                   <a href="{{route('aset.edit', $data->id)}}" class="btn" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
                   <form action="{{ route('aset.destroy', $data->id) }}" method="post">
                     {{ csrf_field() }}
@@ -240,7 +242,6 @@
                       <br>Hapus
                     </a>
                   </form>
-                  
                   @endif
                 </td>
               </tr>
