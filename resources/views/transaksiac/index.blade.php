@@ -77,7 +77,7 @@
 <div class="row">
   @if(Auth::user()->level == 'autocare')
   <div class="col-lg-2">
-    <a href="{{ route('transaksiac.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Peminjaman</a>
+    <a href="{{ route('autocare-transaksi.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Peminjaman</a>
   </div>
   @endif
   <div class="col-lg-12">
@@ -268,17 +268,17 @@
                   @endif
                 </td>
                 <td>
-                  <a href="{{route('transaksiac.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Transaksi"></span><br>Detail</a>
+                  <a href="{{route('autocare-transaksi.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Transaksi"></span><br>Detail</a>
                   @if(Auth::user()->level == 'autocare')
                     @if($data->status == 'pinjam')
-                    <form action="{{ route('transaksiac.update', $data->id) }}" method="post" enctype="multipart/form-data" style="display:inline;">
+                    <form action="{{ route('autocare-transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data" style="display:inline;">
                       {{ csrf_field() }}
                       {{ method_field('put') }}
                       <button class="btn btn-info btn-xs" onclick="return confirm('Anda yakin aset ini sudah kembali?')">Sudah Kembali
                       </button>
                     </form>
                     @else
-                      <form action="{{ route('transaksiac.destroy', $data->id) }}" method="post">
+                      <form action="{{ route('autocare-transaksi.destroy', $data->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
                         <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color: red;">

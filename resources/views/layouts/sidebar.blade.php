@@ -11,36 +11,59 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center">
     <div class="sidebar-brand-icon rotate-n-0">
-      <img src="{{url('images/logoamanda.png')}}" style="margin: auto; margin-bottom: -5px; width:100px;height:100px;" />
+      <img src="{{url('images/laporan/logo.png')}}" style="margin: auto; width:200px;" />
     </div>
   </a>
-
-  <!-- Sidebar - Brand -->
-  <br>
-  <a class="sidebar-brand d-flex align-items-center justify-content-center">
-    <h6>
-      <div class="sidebar-brand-text mx-1">Management Aset</div>
-    </h6>
-  </a>
-
+  
   <div class="garis-pembatas"></div>
-
+  <span class="menu-title ml-5 my-2" style="color: #4a4a4a;">Profile | {{ Auth::user()->level }}</span>
+    <li class="nav-item">
+    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+      @if(Auth::user()->karyawan->gambar == '')
+      <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" style="width:40px;height:30px;">
+      @else
+      <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" style="width:40px;height:30px;">
+      @endif
+      <span class="profile-text ml-2">{{Auth::user()->karyawan->nama}}  <span class="status-indicator online"></span></span>        
+    </a>
+    <div class="collapse" id="ui-basic3">
+      <ul class="nav flex-column sub-menu">
+        <li class="nav-item">
+          <a class="nav-link drop-menu-item" style="margin-top: 20px;" href="{{route('user.edit', Auth::user()->id)}}">
+            Ubah Profil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link drop-menu-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">
+               Keluar
+   
+               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                 {{ csrf_field() }}
+               </form>
+             </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <div class="garis-pembatas"></div>
+  <span class="menu-title ml-5 my-2" style="color: #4a4a4a;">Home</span>
   <li class="nav-item {{ setActive(['/', 'home']) }}">
     <a class="nav-link" href="{{url('/')}}">
-      <i class="menu-icon mdi mdi-television"></i>
+      <i class="menu-icon mdi mdi-view-dashboard"></i>
       <span class="menu-title">Beranda</span>
     </a>
   </li>
   @if(Auth::user()->level == 'manager')
   <li class="nav-item {{ setActive(['user*']) }}">
     <a class="nav-link" href="{{route('user.index')}}">
-      <i class="menu-icon mdi mdi-backup-restore"></i>
+      <i class="menu-icon mdi mdi-account-multiple"></i>
       <span class="menu-title">Data Pengguna</span>
     </a>
   </li>
   <li class="nav-item {{ setActive(['karyawan*']) }}">
     <a class="nav-link" href="{{route('karyawan.index')}}">
-      <i class="menu-icon mdi mdi-backup-restore"></i>
+      <i class="menu-icon mdi mdi-folder-account"></i>
       <span class="menu-title">Data Karyawan</span>
     </a>
   </li>
@@ -48,8 +71,8 @@
 
   @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
   <li class="nav-item {{ setActive(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}">
-    <a class="nav-link " data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-      <i class="menu-icon mdi mdi-content-copy"></i>
+    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+      <i class="menu-icon mdi mdi-database"></i>
       <span class="menu-title">Data IT</span>
       <i class="menu-arrow"></i>
     </a>
@@ -57,16 +80,16 @@
     <div class="collapse {{ setShow(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}" id="ui-basic">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['kategori*']) }}" href="{{route('kategori.index')}}">Data Kategori IT</a>
+          <a class="nav-link {{ setActive(['kategori*']) }} drop-menu-item" href="{{route('kategori.index')}}">Data Kategori IT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['aset*']) }}" href="{{route('aset.index')}}">Data Aset IT</a>
+          <a class="nav-link {{ setActive(['aset*']) }} drop-menu-item" href="{{route('aset.index')}}">Data Aset IT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['history*']) }}" href="{{route('history.index')}}">Jejak Aset IT</a>
+          <a class="nav-link {{ setActive(['history*']) }} drop-menu-item" href="{{route('history.index')}}">Jejak Aset IT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['pemeliharaan*']) }}" href="{{route('pemeliharaan.index')}}">Pengajuan Perbaikan</a>
+          <a class="nav-link {{ setActive(['pemeliharaan*']) }} drop-menu-item" href="{{route('pemeliharaan.index')}}">Pengajuan Perbaikan</a>
         </li>
       </ul>
     </div>
@@ -75,40 +98,40 @@
 
   @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
   <li class="nav-item {{ setActive(['driver*', 'asetac*']) }}">
-    <a class="nav-link " data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
-      <i class="menu-icon mdi mdi-content-copy"></i>
+    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+      <i class="menu-icon mdi mdi-database"></i>
       <span class="menu-title">Data Autocare</span>
       <i class="menu-arrow"></i>
     </a>
     <div class="collapse {{ setShow(['driver*', 'asetac*']) }}" id="ui-basic3">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['driver*']) }}" href="{{route('driver.index')}}">Data Supir</a>
+          <a class="nav-link {{ setActive(['driver*']) }} drop-menu-item" href="{{route('driver.index')}}">Data Supir</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['asetac*']) }}" href="{{route('asetac.index')}}">Data Aset Autocare</a>
+          <a class="nav-link {{ setActive(['asetac*']) }} drop-menu-item" href="{{route('asetac.index')}}">Data Aset Autocare</a>
         </li>
       </ul>
     </div>
   </li>
   @endif
 
-  <li class="nav-item {{ setActive(['transaksi*', 'transaksiac*']) }}">
-    <a class="nav-link " data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic">
+  <li class="nav-item {{ setActive(['transaksi*', 'autocare-transaksi*']) }}">
+    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-content-copy"></i>
       <span class="menu-title">Peminjaman</span>
       <i class="menu-arrow"></i>
     </a>
-    <div class="collapse {{ setShow(['transaksi*', 'transaksiac*']) }}" id="ui-basic4">
+    <div class="collapse {{ setShow(['transaksi*', 'autocare-transaksi*']) }}" id="ui-basic4">
       <ul class="nav flex-column sub-menu">
         @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['transaksi*']) }}" href="{{route('transaksi.index')}}">Peminjaman Aset IT</a>
+          <a class="nav-link {{ setActive(['transaksi*']) }} drop-menu-item" href="{{route('transaksi.index')}}">Peminjaman Aset IT</a>
         </li>
         @endif
         @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
         <li class="nav-item">
-          <a class="nav-link {{ setActive(['transaksiac*']) }}" href="{{route('transaksiac.index')}}">Peminjaman Aset Autocare</a>
+          <a class="nav-link {{ setActive(['autocare-transaksi*']) }} drop-menu-item" href="{{route('autocare-transaksi.index')}}">Peminjaman Aset Autocare</a>
         </li>
         @endif
       </ul>

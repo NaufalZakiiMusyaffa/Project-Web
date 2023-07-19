@@ -67,7 +67,7 @@
                                 @endif
                             </div>
                         </div>
-                        <a href="{{route('transaksiac.index')}}" class="btn btn-light pull-right">Kembali</a>
+                        <a href="{{route('autocare-transaksi.index')}}" class="btn btn-light pull-right">Kembali</a>
                     </div>
                 </div>
             </div>

@@ -115,7 +115,7 @@ class TransaksiAutocareController extends Controller
             ]);
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
-        return redirect()->route('transaksiac.index');
+        return redirect()->route('autocare-transaksi.index');
     }
 
     public function show($id)
@@ -151,7 +151,7 @@ class TransaksiAutocareController extends Controller
             ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');
-        return redirect()->route('transaksiac.index');
+        return redirect()->route('autocare-transaksi.index');
     }
 
     /**
@@ -164,6 +164,6 @@ class TransaksiAutocareController extends Controller
     {
         TransaksiAutocare::find($id)->delete();
         alert()->success('Berhasil.', 'Data telah dihapus!');
-        return redirect()->route('transaksiac.index');
+        return redirect()->route('autocare-transaksi.index');
     }
 }

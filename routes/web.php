@@ -36,10 +36,10 @@ Route::resource('aset', 'AsetController');
 Route::resource('asetac', 'AutocareController');
 Route::resource('pemeliharaan', 'PemeliharaanController');
 
-Route::get('/format_buku', 'BukuController@format');
-Route::post('/import_buku', 'BukuController@import');
+// Route::get('/format_buku', 'BukuController@format');
+// Route::post('/import_buku', 'BukuController@import');
 
-Route::resource('transaksiac', 'TransaksiAutocareController');
+Route::resource('autocare-transaksi', 'TransaksiAutocareController');
 Route::resource('transaksi', 'TransaksiController');
 Route::get('/laporan/trs', 'LaporanController@transaksi');
 Route::post('/laporan/trs/pdf', 'LaporanController@transaksiPdf');

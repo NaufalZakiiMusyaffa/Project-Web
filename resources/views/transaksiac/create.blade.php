@@ -33,7 +33,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('transaksiac.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('autocare-transaksi.store') }}" enctype="multipart/form-data">
   {{ csrf_field() }}
   <div class="row">
     <div class="col d-flex align-items-stretch grid-margin">
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <a href="{{route('transaksiac.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
+                        <a href="{{route('autocare-transaksi.index')}}" class="btn btn-light pull-right mt-1">Kembali</a>
                     </div>
                 </div>
             </div>

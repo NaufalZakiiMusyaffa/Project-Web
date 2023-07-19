@@ -16,7 +16,7 @@ use App\User;
 use App\Kategori;
 use App\Autocare;
 use Auth;
-
+use DB;
 
 class HomeController extends Controller
 {
@@ -44,9 +44,62 @@ class HomeController extends Controller
         $kategori   = Kategori::get();
         $user       = User::get();
         $driver     = Driver::get();
-        $pemeliharaan     = Pemeliharaan::where('status', '>', 0)->get();
+        $pemeliharaan     = Pemeliharaan::where('status', '=', 2)->get();
         $transaksiac = TransaksiAutocare::get();
+        $notif_pemeliharaan = Pemeliharaan::where('status','=', 1)->count();
+        $total_pemeliharaan = Pemeliharaan::count();
+        
+        $data_pemeliharaan = Pemeliharaan::select(DB::raw("SUM(biaya) as total_biaya"), DB::raw("MONTHNAME(created_at) as month_name"))
+                                        ->whereYear('created_at', date('Y'))
+                                        ->where('status', '=', 2)
+                                        ->groupBy(DB::raw("Month(created_at)"))
+                                        ->pluck('total_biaya', 'month_name');
+        $labels = $data_pemeliharaan->keys();
+        $datas_graphics = $data_pemeliharaan->values();
 
+        // $data_transaksi = Transaksi::select(DB::raw("COUNT(biaya) as total_biaya"), DB::raw("MONTHNAME(created_at) as month_name"))
+        //                                 ->whereYear('created_at', date('Y'))
+        //                                 ->groupBy(DB::raw("Month(created_at)"))
+        //                                 ->pluck('total_biaya', 'month_name');
+        // $label_transaksi = $data_transaksi->keys();
+        // $transaksi_graphics = $data_transaksi->values();
+
+        $detail_karyawan = Karyawan::selectRaw('COUNT(CASE WHEN jk = "L"  THEN 1 ELSE NULL END) as "male",
+                                                COUNT(CASE WHEN jk = "P" THEN 1 ELSE NULL END) as "female"')->get();
+        $karyawan_pie[] = ['Laki-Laki','Perempuan'];
+        foreach ($detail_karyawan as $key => $value) {
+            $karyawan_pie[++$key] = ["Laki-Laki", (int)$value->male];
+            $karyawan_pie[++$key] = ["Perempuan", (int)$value->female];
+        }
+
+        $detail_aset = Aset::selectRaw('COUNT(CASE WHEN status_aset = "Sedang dipinjam" THEN 1 ELSE NULL END) as "sdp",
+                                        COUNT(CASE WHEN status_aset = "Siap digunakan" THEN 1 ELSE NULL END) as "sg",
+                                        COUNT(CASE WHEN status_aset = "Digunakan" THEN 1 ELSE NULL END) as "dg",
+                                        COUNT(CASE WHEN status_aset = "Rusak(Bisa diperbaiki)" THEN 1 ELSE NULL END) as "r",
+                                        COUNT(CASE WHEN status_aset = "Sedang diperbaiki" THEN 1 ELSE NULL END) as "sd",
+                                        COUNT(CASE WHEN status_aset = "Rusak Total" THEN 1 ELSE NULL END) as "rt"')->get();
+        $aset_pie[] = ['status_aset','jumlah'];
+        foreach ($detail_aset as $key => $value) {
+            $aset_pie[++$key] = ["Sedang dipinjam", (int)$value->sdp];
+            $aset_pie[++$key] = ["Siap digunakan", (int)$value->sg];
+            $aset_pie[++$key] = ["Digunakan", (int)$value->dg];
+            $aset_pie[++$key] = ["Rusak(Bisa diperbaiki)", (int)$value->r];
+            $aset_pie[++$key] = ["Sedang diperbaiki", (int)$value->sd];
+            $aset_pie[++$key] = ["Rusak Total", (int)$value->rt];
+        }
+
+        $detail_asetac = Autocare::selectRaw('COUNT(CASE WHEN status_kendaraan = "Sedang dipinjam" THEN 1 ELSE NULL END) as "sdp",
+                                        COUNT(CASE WHEN status_kendaraan = "Siap digunakan" THEN 1 ELSE NULL END) as "sg",
+                                        COUNT(CASE WHEN status_kendaraan = "Digunakan" THEN 1 ELSE NULL END) as "dg",
+                                        COUNT(CASE WHEN status_kendaraan = "Ada Kerusakan" THEN 1 ELSE NULL END) as "ak"')->get();
+        $asetac_pie[] = ['status_kendaraan','jumlah'];
+        foreach ($detail_asetac as $key => $value) {
+            $asetac_pie[++$key] = ["Sedang dipinjam", (int)$value->sdp];
+            $asetac_pie[++$key] = ["Siap digunakan", (int)$value->sg];
+            $asetac_pie[++$key] = ["Digunakan", (int)$value->dg];
+            $asetac_pie[++$key] = ["Ada Kerusakan", (int)$value->ak];
+        }
+        
         if (Auth::user()->level == 'it') {
             $datas = Transaksi::where('status', 'pinjam')
                 ->where('karyawan_id', Auth::user()->karyawan_id)->get();
@@ -66,6 +119,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas'));
+        return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas', 'notif_pemeliharaan', 'total_pemeliharaan', 'labels', 'datas_graphics', 'karyawan_pie', 'aset_pie', 'asetac_pie'));
     }
 }

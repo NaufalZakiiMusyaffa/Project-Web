@@ -28,62 +28,16 @@
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar d-flex align-items-top justify-content-center">
+    <nav>
+      <div>
 
-        <?php
-        $pemeliharaan = \App\Pemeliharaan::where('status', '=', 1)->get();
-        ?>
-
-        @if(Auth::user()->level == 'manager')
-        <a href="{{route('pemeliharaan.index')}}" style="margin-left: 20px;"><i class="fa fa-bell text-white"> Pengajuan Masuk</i>
-          <span class="badge badge-danger">{{$pemeliharaan->count()}}</span>
-        </a>
-        @endif
         <!--  <span class="text-white" style="font-size: 11px; margin-left: 28px;">{{ Carbon\Carbon::now()->format('l, d F Y')}}</span> -->
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
-          <i class="fa fa-align-justify" style="color: #fff;"></i>
+          <i class="fa fa-align-justify mt-4 mb-2 ml-2" style="color: #435ebe;"></i>
         </button>
       </div>
 
-      <div class="navbar-menu-wrapper d-flex align-items-center">
-        <ul class="navbar-nav navbar-nav-right">
-
-          <li class="nav-item dropdown d-xl-inline-block">
-            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <span class="status-indicator online"></span>
-              <span class="profile-text">{{Auth::user()->karyawan->nama}} | {{ Auth::user()->level }}</span>
-              @if(Auth::user()->karyawan->gambar == '')
-              <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" style="width:40px;height:30px;">
-              @else
-              <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" style="width:40px;height:30px;">
-              @endif
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-              <a class="dropdown-item p-0">
-                <div class="d-flex border-bottom">
-
-                </div>
-              </a>
-
-              <a class="dropdown-item" style="margin-top: 20px;" href="{{route('user.edit', Auth::user()->id)}}">
-                Ubah Profil
-              </a>
-
-              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-           document.getElementById('logout-form').submit();">
-                Keluar
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  {{ csrf_field() }}
-                </form>
-              </a>
-            </div>
-          </li>
-        </ul>
-
-      </div>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
@@ -119,6 +73,9 @@
   <script src="{{asset('js/dataTables.bootstrap4.min.js')}}"></script>
   <script src="{{asset('js/sweetalert2.all.js')}}"></script>
   <script src="{{asset('js/select2.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script><script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   @include('sweetalert::alert')
   @section('js')
 
