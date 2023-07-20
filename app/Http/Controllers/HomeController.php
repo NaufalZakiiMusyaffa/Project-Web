@@ -57,12 +57,19 @@ class HomeController extends Controller
         $labels = $data_pemeliharaan->keys();
         $datas_graphics = $data_pemeliharaan->values();
 
-        // $data_transaksi = Transaksi::select(DB::raw("COUNT(biaya) as total_biaya"), DB::raw("MONTHNAME(created_at) as month_name"))
-        //                                 ->whereYear('created_at', date('Y'))
-        //                                 ->groupBy(DB::raw("Month(created_at)"))
-        //                                 ->pluck('total_biaya', 'month_name');
-        // $label_transaksi = $data_transaksi->keys();
-        // $transaksi_graphics = $data_transaksi->values();
+        $data_transaksi = Transaksi::select(DB::raw("COUNT(*) as jumlah"), DB::raw("MONTHNAME(tgl_pinjam) as month_name"))
+                                        ->whereYear('tgl_pinjam', date('Y'))
+                                        ->groupBy(DB::raw("Month(tgl_pinjam)"))
+                                        ->pluck('jumlah', 'month_name');
+        $label_transaksi = $data_transaksi->keys();
+        $transaksi_graphics = $data_transaksi->values();
+
+        $data_transaksiac = Transaksi::select(DB::raw("COUNT(*) as jumlah"), DB::raw("MONTHNAME(tgl_pinjam) as month_name"))
+                                        ->whereYear('tgl_pinjam', date('Y'))
+                                        ->groupBy(DB::raw("Month(tgl_pinjam)"))
+                                        ->pluck('jumlah', 'month_name');
+        $label_transaksiac = $data_transaksiac->keys();
+        $transaksiac_graphics = $data_transaksiac->values();
 
         $detail_karyawan = Karyawan::selectRaw('COUNT(CASE WHEN jk = "L"  THEN 1 ELSE NULL END) as "male",
                                                 COUNT(CASE WHEN jk = "P" THEN 1 ELSE NULL END) as "female"')->get();
@@ -119,6 +126,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas', 'notif_pemeliharaan', 'total_pemeliharaan', 'labels', 'datas_graphics', 'karyawan_pie', 'aset_pie', 'asetac_pie'));
+        return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas', 'notif_pemeliharaan', 'total_pemeliharaan', 'labels', 'datas_graphics', 'karyawan_pie', 'aset_pie', 'asetac_pie', 'label_transaksi', 'transaksi_graphics', 'label_transaksiac', 'transaksiac_graphics'));
     }
 }

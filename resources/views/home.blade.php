@@ -26,28 +26,52 @@
     config
   );
 
-  // var label_transaksi =  {!! json_encode($label_transaksi->toArray()) !!};
-  // var dataTransaksis =  {!! json_encode($transaksi_graphics->toArray()) !!};
+  var label_transaksi =  {!! json_encode($label_transaksi->toArray()) !!};
+  var dataTransaksis =  {!! json_encode($transaksi_graphics->toArray()) !!};
 
-  // const dataTransaksi = {
-  //   labels: label_transaksi,
-  //   datasets: [{
-  //     label: 'Grafik Transaksi Peminjaman Aset IT Tahun '+tahun,
-  //     backgroundColor: 'rgba(67,94,190,255)',
-  //     borderColor: 'rgba(158,172,221,255)',
-  //     data: dataTransaksis,
-  //   }]
-  // };
+  const dataTransaksi = {
+    labels: label_transaksi,
+    datasets: [{
+      label: 'Grafik Transaksi Peminjaman Aset IT Tahun '+tahun,
+      backgroundColor: 'rgba(67,94,190,255)',
+      borderColor: 'rgba(158,172,221,255)',
+      data: dataTransaksis,
+    }]
+  };
 
-  // const configTransaksi = {
-  //   type: 'line',
-  //   data: dataTransaksi,
-  //   options: {}
-  // };
+  const configTransaksi = {
+    type: 'line',
+    data: dataTransaksi,
+    options: {}
+  };
 
-  const myChart = new Chart(
+  const transaksiChart = new Chart(
     document.getElementById('transaksiChart'),
     configTransaksi
+  );
+
+  var label_transaksiac =  {!! json_encode($label_transaksiac->toArray()) !!};
+  var dataTransaksiacs =  {!! json_encode($transaksiac_graphics->toArray()) !!};
+
+  const dataTransaksiac = {
+    labels: label_transaksiac,
+    datasets: [{
+      label: 'Grafik Transaksi Peminjaman Aset Autocare Tahun '+tahun,
+      backgroundColor: 'rgba(67,94,190,255)',
+      borderColor: 'rgba(158,172,221,255)',
+      data: dataTransaksiacs,
+    }]
+  };
+
+  const configTransaksiac = {
+    type: 'line',
+    data: dataTransaksiac,
+    options: {}
+  };
+
+  const transaksiacChart = new Chart(
+    document.getElementById('transaksiacChart'),
+    configTransaksiac
   );
 
   const karyawans = {!! json_encode($karyawan_pie) !!}
@@ -61,20 +85,23 @@
     var options = {
       // title: 'Detail Karyawan',
       is3D: false,
+      pieHole: 0.3,
     };
     var chart = new google.visualization.PieChart(document.getElementById('piechart_karyawan'));
     chart.draw(data, options);
 
     var dataAset = google.visualization.arrayToDataTable(asets);
     var optionsAset = {
-      is3D: false
+      is3D: false,
+      pieHole: 0.3,
     };
     var chartAset = new google.visualization.PieChart(document.getElementById('piechart_aset'));
     chartAset.draw(dataAset, optionsAset);
     
     var dataAsetac = google.visualization.arrayToDataTable(asetacs);
     var optionsAsetac = {
-      is3D: false
+      is3D: false,
+      pieHole: 0.3,
     };
     var chartAsetac = new google.visualization.PieChart(document.getElementById('piechart_asetac'));
     chartAsetac.draw(dataAsetac, optionsAsetac);
@@ -101,7 +128,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-account-location text-danger icon-md"></i>
+            <i class="mdi mdi-radiobox-marked text-primary icon-md"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Pengguna Sistem</p>
@@ -116,7 +143,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-account-card-details text-primary icon-md"></i>
+            <i class="mdi mdi-account-location text-info icon-md"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Karyawan</p>
@@ -131,7 +158,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-account-card-details text-warning icon-md"></i>
+            <i class="mdi mdi-car text-success icon-md"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Supir</p>
@@ -368,7 +395,7 @@
     </div>
   </div>
 </div>
-{{-- <div class="row">
+<div class="row">
   <div class="col-xl-6 col-lg-6 col-md-6 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
@@ -383,7 +410,7 @@
       </div>
     </div>
   </div>
-</div> --}}
+</div>
 
 
 @endsection

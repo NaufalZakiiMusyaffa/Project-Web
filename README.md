@@ -1,10 +1,10 @@
 Note :
 
-1. Halaman Beranda yang diubah tampilan UI :
-   <strike>1. Pemeliharaan (dibuat grafik & diambil variabelnya berdasarkan bulan)
+<strike>1. Halaman Beranda yang diubah tampilan UI :
+   1. Pemeliharaan (dibuat grafik & diambil variabelnya berdasarkan bulan)
    2. Karyawan (dibuat agar muncul total karyawannya + perbandingan karyawan laki laki berapa
-      dan perempuan berapa)</strike>
-   3. Sisanya ditambahkan kotak seperti di login (isiannya berupa gambar yang relevan terkait informasinya)
+      dan perempuan berapa)
+   3. Sisanya ditambahkan kotak seperti di login (isiannya berupa gambar yang relevan terkait informasinya)</strike>
 
 
 Tambahan :
