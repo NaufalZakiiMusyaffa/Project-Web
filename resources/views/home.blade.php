@@ -94,6 +94,7 @@
     var optionsAset = {
       is3D: false,
       pieHole: 0.3,
+      pieSliceText: 'value'
     };
     var chartAset = new google.visualization.PieChart(document.getElementById('piechart_aset'));
     chartAset.draw(dataAset, optionsAset);
@@ -102,6 +103,7 @@
     var optionsAsetac = {
       is3D: false,
       pieHole: 0.3,
+      pieSliceText: 'value'
     };
     var chartAsetac = new google.visualization.PieChart(document.getElementById('piechart_asetac'));
     chartAsetac.draw(dataAsetac, optionsAsetac);
@@ -128,7 +130,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-radiobox-marked text-primary icon-md"></i>
+            <i class="mdi mdi-radiobox-marked text-white icon-md bg-info p-0"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Pengguna Sistem</p>
@@ -143,7 +145,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-account-location text-info icon-md"></i>
+            <i class="mdi mdi-account-location text-white icon-md bg-primary p-0"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Karyawan</p>
@@ -158,7 +160,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-car text-success icon-md"></i>
+            <i class="mdi mdi-car text-white icon-md bg-success p-0"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Supir</p>
@@ -173,7 +175,7 @@
       <div class="card-body">
         <div class="row justify-content-between">
           <div class="col-3 mt-2">
-            <i class="mdi mdi-account-card-details text-warning icon-md"></i>
+            <i class="mdi mdi-archive text-white icon-md bg-danger p-0"></i>
           </div>
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Pengajuan Masuk</p>
