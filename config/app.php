@@ -125,6 +125,8 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+    'whatsapp_token' => env('WHATSAPP_TOKEN', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

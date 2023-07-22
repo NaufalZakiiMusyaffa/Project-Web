@@ -126,9 +126,30 @@ class PemeliharaanController extends Controller
                 'status_aset' => ($pemeliharaan->aset->status_aset),
             ]);
 
-        $akuns = User::where('level','manager')->get();
+        $akuns = User::where('level','manager')->with('karyawan')->get();
         foreach ($akuns as $akun) {
             Mail::to($akun->email)->send(new PemeliharaanNotify());
+            $curl = curl_init();
+            $token = \config('app.whatsapp_token');
+            $data = [
+                'target' => $akun->karyawan->telepon,
+                'message' => "".Auth::user()->karyawan->nama." telah mengajukan perbaikan"
+            ];
+            curl_setopt(
+                $curl,
+                CURLOPT_HTTPHEADER,
+                array(
+                    "Authorization: $token",
+                )
+            );
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($curl, CURLOPT_URL, "https://api.fonnte.com/send");
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_exec($curl);
+            curl_close($curl);
         };
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
         return redirect()->route('pemeliharaan.index');

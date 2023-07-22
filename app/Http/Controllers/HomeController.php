@@ -115,13 +115,35 @@ class HomeController extends Controller
         }
         $asetacs = Autocare::whereRaw('(DATE_SUB(masaberlaku_stnk, INTERVAL 3 DAY)) >= CURRENT_DATE() AND (DATE_SUB(masaberlaku_stnk, INTERVAL 3 DAY)) <= CURRENT_DATE()')
                                 ->where('send_notif',0)->get();
+        // dd($asetacs);
+        $akuns = User::where('level','autocare')->with('karyawan')->get();
         
-        $akuns = User::where('level','autocare')->get();
         if (count($asetacs) > 0) {
             foreach ($asetacs as $asetac) {           
                 foreach ($akuns as $akun) {
                     Autocare::find($asetac->id)->update(['send_notif' => 1]);
                     Mail::to($akun->email)->send(new AsetacNotify($asetac->nama_kendaraan,$asetac->nopol,$asetac->karyawan->nama));
+                    $curl = curl_init();
+                    $token = \config('app.whatsapp_token');
+                    $data = [
+                        'target' => $akun->karyawan->telepon,
+                        'message' => "Kendaraan $asetac->nama_kendaraan dengan Nomor Polisi $asetac->nopol yang dimiliki oleh ".$asetac->karyawan->nama." Masa Berlakunya tinggal 3 hari lagi"
+                    ];
+                    curl_setopt(
+                        $curl,
+                        CURLOPT_HTTPHEADER,
+                        array(
+                            "Authorization: $token",
+                        )
+                    );
+                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+                    curl_setopt($curl, CURLOPT_URL, "https://api.fonnte.com/send");
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+                    curl_exec($curl);
+                    curl_close($curl);
                 };
             }
         }

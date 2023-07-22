@@ -18,7 +18,7 @@
   <div class="garis-pembatas"></div>
   <span class="menu-title ml-5 my-2" style="color: #4a4a4a;">Profile | {{ Auth::user()->level }}</span>
     <li class="nav-item">
-    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
+    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
       @if(Auth::user()->karyawan->gambar == '')
       <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" style="width:40px;height:30px;">
       @else
@@ -26,7 +26,7 @@
       @endif
       <span class="profile-text ml-2">{{Auth::user()->karyawan->nama}}  <span class="status-indicator online"></span></span>        
     </a>
-    <div class="collapse" id="ui-basic3">
+    <div class="collapse" id="ui-basic1">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item">
           <a class="nav-link drop-menu-item" style="margin-top: 20px;" href="{{route('user.edit', Auth::user()->id)}}">
@@ -71,13 +71,13 @@
 
   @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
   <li class="nav-item {{ setActive(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}">
-    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+    <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-database"></i>
       <span class="menu-title">Data IT</span>
       <i class="menu-arrow"></i>
     </a>
 
-    <div class="collapse {{ setShow(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}" id="ui-basic">
+    <div class="collapse {{ setShow(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}" id="ui-basic2">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item">
           <a class="nav-link {{ setActive(['kategori*']) }} drop-menu-item" href="{{route('kategori.index')}}">Data Kategori IT</a>
