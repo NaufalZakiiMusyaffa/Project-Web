@@ -238,7 +238,7 @@
                   <form action="{{ route('aset.destroy', $data->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="display:block;color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
                       <br>Hapus
                     </a>
                   </form>
