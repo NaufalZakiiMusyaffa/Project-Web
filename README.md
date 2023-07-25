@@ -14,6 +14,22 @@ Tambahan :
 
 <strike>8. All fitur print PDF & Excel di cek ulang kembali semuanya dan dipastikan semuanya harus berjalan seperti sebelumnya</strike>
 
+9. Penambahan Akses Login sebagai : karyawan
+
+   untuk hak akses fiturnya :
+   1. Untuk tampilan Dashboard, hanya dimunculkan Aset IT dan Aset Autocare saja
+   2. Bisa melihat Data Aset IT
+   3. Bisa melihat Data Aset Autocare
+
+10. Di Dashboard IT, hanya dimunculkan:
+    1. Grafik Tabel Pemeliharaan, Total Biaya Pemeliharaan
+    2. Grafik Tabel Peminjaman IT, Aset IT
+
+11. Di Dashboard Autoacare, hanya dimunculkan:
+    1. Grafik Tabel Peminjaman Autocare, Aset Autocare
+
+
+
 
 
 Kata Kata untuk Notifikasi :
