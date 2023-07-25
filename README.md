@@ -29,6 +29,8 @@ Tambahan :
     1. Grafik Tabel Peminjaman Autocare, Aset Autocare
 
 
+12. Alert di Form Tolak Pengajuan (harus ada notifikasi peringatan dulu apakah anda yakin blablabla) setelah itu popup penolakannya disesuaikan tampilannya X bukan centang
+
 
 
 
