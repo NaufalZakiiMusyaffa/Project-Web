@@ -16,3 +16,23 @@ Tambahan :
 
 
 
+Kata Kata untuk Notifikasi :
+        Untuk Notifikasi Email (Autocare)
+        <h3 class="">Kendaraan {{$nama_kendaraan}} dengan Nomor Polisi {{$nopol}} yang diinventariskan kepada {{$karyawan}}</h3>
+        <h3 class="">Masa Berlaku STNK tinggal 3 hari lagi</h3>
+        <hr class="garis">
+        <p>Lihat ke Sistem Management Aset untuk melihat detailnya</p>
+        <h4>Terima kasih</h4>
+
+        Untuk Notifikasi WA (Perbaikan Aset IT)
+        $data = [
+                'target' => $akun->karyawan->telepon,
+                'message' => "".Auth::user()->karyawan->nama." Telah mengajukan perbaikan aset IT, Cek ke Sistem Management Aset untuk melihat detail pengajuannya"
+            ];
+
+
+        Untuk Notifikasi WA (Autocare)
+        $data = [
+                        'target' => $akun->karyawan->telepon,
+                        'message' => "Kendaraan $asetac->nama_kendaraan dengan Nomor Polisi $asetac->nopol yang diinventariskan kepada ".$asetac->karyawan->nama." Masa Berlaku STNK tinggal 3 hari lagi"
+                    ];
