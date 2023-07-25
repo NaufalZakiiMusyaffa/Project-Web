@@ -10,7 +10,7 @@ Tambahan :
 <strike>4. All fitur Filter yang ada di sistem tidak jalan</strike>
 <strike>5. Setiap field Cari yang ada di Form Sistem Management Aset, ketika dipilih datanya popupnya tidak tertutup otomatis.</strike>
 6. All Form yang ada field Gambar, ketika klik edit, foto gambar tidak terpanggil.
-7. Footer letaknya dibuat tetap ukurannya seperti di Tampilan Beranda.
+<strike>7. Footer letaknya dibuat tetap ukurannya seperti di Tampilan Beranda.</strike>
 
 <strike>8. All fitur print PDF & Excel di cek ulang kembali semuanya dan dipastikan semuanya harus berjalan seperti sebelumnya</strike>
 
