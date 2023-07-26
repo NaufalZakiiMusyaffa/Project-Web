@@ -185,6 +185,7 @@ class AsetController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $aset = Aset::find($id);
         if ($request->file('gambar')) {
             $file = $request->file('gambar');
             $dt = Carbon::now();
@@ -192,8 +193,9 @@ class AsetController extends Controller
             $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
             $request->file('gambar')->move("images/aset", $fileName);
             $cover = $fileName;
+            $aset->gambar ? unlink(public_path("images/aset/".$aset->gambar)) : '';
         } else {
-            $cover = NULL;
+            $cover = $aset->gambar ? $aset->gambar : NULL;
         }
 
         Aset::find($id)->update([
@@ -224,6 +226,8 @@ class AsetController extends Controller
      */
     public function destroy($id)
     {
+        $aset = Aset::find($id);
+        $aset->gambar ? unlink(public_path("images/aset/".$aset->gambar)) : '';
         Aset::find($id)->delete();
         alert()->success('Berhasil.', 'Data telah dihapus!');
         return redirect()->route('aset.index');

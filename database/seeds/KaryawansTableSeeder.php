@@ -20,6 +20,7 @@ class KaryawansTableSeeder extends Seeder
               'jabatan'			  => 'Manajer',
               'gambar'        => NULL,
               'telepon'       => '080100011122',
+              'tanda_tangan'  => NULL,
               'created_at'    => \Carbon\Carbon::now(),
               'updated_at'    => \Carbon\Carbon::now()
             ],
@@ -31,6 +32,7 @@ class KaryawansTableSeeder extends Seeder
               'jabatan'			  => 'Admin',
               'gambar'        => NULL,
               'telepon'       => '087799634502',
+              'tanda_tangan'  => NULL,
               'created_at'    => \Carbon\Carbon::now(),
               'updated_at'    => \Carbon\Carbon::now()
             ],
@@ -42,6 +44,7 @@ class KaryawansTableSeeder extends Seeder
               'jabatan'			  => 'Sekretaris',
               'gambar'        => NULL,
               'telepon'       => NULL,
+              'tanda_tangan'  => NULL,
               'created_at'    => \Carbon\Carbon::now(),
               'updated_at'    => \Carbon\Carbon::now()
             ],

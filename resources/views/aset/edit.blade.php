@@ -229,8 +229,8 @@
                                 <div class="form-group">
                                     <label for="email" class="col-md-8 control-label">Gambar Aset</label>
                                     <div class="col-md-6">
-                                        <img width="200" height="200" />
-                                            <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
+                                        <img width="200" height="200" src="{{ $data->gambar ? asset('images/aset/'.$data->gambar) : asset('images/user/tanda_tangan/not-found.jpg') }}" />
+                                        <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

@@ -179,4 +179,10 @@ class UserController extends Controller
         }
         return redirect()->to('user');
     }
+    
+    public function me()
+    {
+        $data = Auth::user();
+        return view('auth.me', compact('data'));
+    }
 }

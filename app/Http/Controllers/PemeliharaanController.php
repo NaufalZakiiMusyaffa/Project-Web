@@ -235,6 +235,8 @@ class PemeliharaanController extends Controller
      */
     public function destroy($id)
     {
+        $pemeliharaan = Aset::find($id);
+        $pemeliharaan->gambar ? unlink(public_path("images/pemeliharaan/".$pemeliharaan->gambar)) : '';
         Pemeliharaan::find($id)->delete();
         alert()->success('Berhasil.', 'Data telah dihapus!');
         return redirect()->route('pemeliharaan.index');

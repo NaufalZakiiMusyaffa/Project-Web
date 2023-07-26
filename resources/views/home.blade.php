@@ -191,9 +191,9 @@
         <div class="clearfix mt-2">
           <div class="float-left">
             @if(Auth::user()->karyawan->gambar == '')
-            <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" style="width:40px;height:30px;">
+            <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" width="30"">
             @else
-            <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" style="width:40px;height:30px;">
+            <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" width="30">
             @endif
           </div>
           <div class="float-left">

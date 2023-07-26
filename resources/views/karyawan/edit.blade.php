@@ -105,8 +105,8 @@
                                 <div class="form-group col-md-6">
                                     <label for="gambar" class="col-md-8 control-label">Foto Karyawan</label>
                                     <div class="col-md-6">
-                                        <img width="200" height="200" />
-                                            <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
+                                        <img width="200" height="200" src="{{ $data->gambar ? asset('images/user/'.$data->gambar) : asset('images/user/default.png') }}" />
+                                        <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
                                     </div>
                                 </div>
                             </div>

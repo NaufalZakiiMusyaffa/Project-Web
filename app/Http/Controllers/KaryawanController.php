@@ -27,6 +27,9 @@ class KaryawanController extends Controller
 
     public function index()
     {
+        if ((Auth::user()->level == 'it') || (Auth::user()->level == 'autocare')) {
+            return redirect()->to('/profil');
+        }
         $datas = Karyawan::where('id', '>', 0)->get();
         return view('karyawan.index', compact('datas'));
     }
@@ -75,13 +78,25 @@ class KaryawanController extends Controller
             $cover = NULL;
         }
 
+        if ($request->file('tanda_tangan')) {
+            $fileTTD = $request->file('tanda_tangan');
+            $dtTTD = Carbon::now();
+            $random  = $fileTTD->getClientOriginalExtension();
+            $fileNameTTD = rand(11111, 99999) . '-' . $dtTTD->format('Y-m-d-H-i-s') . '.' . $random;
+            $request->file('tanda_tangan')->move("images/user/tanda_tangan", $fileNameTTD);
+            $coverTTD = $fileNameTTD;
+        } else {
+            $coverTTD = NULL;
+        }
+
         Karyawan::create([
-            'nik'       => $request->get('nik'),
-            'nama'      => $request->get('nama'),
-            'jk'        => $request->get('jk'),
-            'jabatan'   => $request->get('jabatan'),
-            'gambar'    => $cover,
-            'telepon'   => $request->get('telepon'),
+            'nik'           => $request->get('nik'),
+            'nama'          => $request->get('nama'),
+            'jk'            => $request->get('jk'),
+            'jabatan'       => $request->get('jabatan'),
+            'gambar'        => $cover,
+            'telepon'       => $request->get('telepon'),
+            'tanda_tangan'  => $coverTTD,
         ]);
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
@@ -129,6 +144,7 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $karyawan = Karyawan::find($id);
         if ($request->file('gambar')) {
             $file = $request->file('gambar');
             $dt = Carbon::now();
@@ -136,17 +152,31 @@ class KaryawanController extends Controller
             $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
             $request->file('gambar')->move("images/user", $fileName);
             $cover = $fileName;
+            $karyawan->gambar ? unlink(public_path("images/user/".$karyawan->gambar)) : '';
         } else {
-            $cover = NULL;
+            $cover = $karyawan->gambar ? $karyawan->gambar : NULL;
+        }
+
+        if ($request->file('tanda_tangan')) {
+            $fileTTD = $request->file('tanda_tangan');
+            $dtTTD = Carbon::now();
+            $random  = $fileTTD->getClientOriginalExtension();
+            $fileNameTTD = rand(11111, 99999) . '-' . $dtTTD->format('Y-m-d-H-i-s') . '.' . $random;
+            $request->file('tanda_tangan')->move("images/user/tanda_tangan", $fileNameTTD);
+            $coverTTD = $fileNameTTD;
+            $karyawan->tanda_tangan ? unlink(public_path("images/user/tanda_tangan/".$karyawan->tanda_tangan)) : '';
+        } else {
+            $coverTTD = $karyawan->tanda_tangan ? $karyawan->tanda_tangan : NULL;
         }
 
         Karyawan::find($id)->update([
-            'nik'       => $request->get('nik'),
-            'nama'      => $request->get('nama'),
-            'jk'        => $request->get('jk'),
-            'jabatan'   => $request->get('jabatan'),
-            'gambar'    => $cover,
-            'telepon'   => $request->get('telepon'),
+            'nik'           => $request->get('nik'),
+            'nama'          => $request->get('nama'),
+            'jk'            => $request->get('jk'),
+            'jabatan'       => $request->get('jabatan'),
+            'gambar'        => $cover,
+            'telepon'       => $request->get('telepon'),
+            'tanda_tangan'  => $coverTTD,
         ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');
@@ -161,6 +191,9 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
+        $karyawan = Karyawan::find($id);
+        $karyawan->gambar ? unlink(public_path("images/user/".$karyawan->gambar)) : '';
+        $karyawan->tanda_tangan ? unlink(public_path("images/user/tanda_tangan/".$karyawan->tanda_tangan)) : '';
         Karyawan::find($id)->delete();
         alert()->success('Berhasil.', 'Data telah dihapus!');
         return redirect()->route('karyawan.index');

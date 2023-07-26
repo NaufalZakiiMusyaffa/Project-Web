@@ -20,16 +20,16 @@
     <li class="nav-item">
     <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
       @if(Auth::user()->karyawan->gambar == '')
-      <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" style="width:40px;height:30px;">
+      <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" width="30">
       @else
-      <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" style="width:40px;height:30px;">
+      <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" width="30">
       @endif
       <span class="profile-text ml-2">{{Auth::user()->karyawan->nama}}  <span class="status-indicator online"></span></span>        
     </a>
     <div class="collapse" id="ui-basic1">
       <ul class="nav flex-column sub-menu">
         <li class="nav-item">
-          <a class="nav-link drop-menu-item" style="margin-top: 20px;" href="{{route('user.edit', Auth::user()->id)}}">
+          <a class="nav-link drop-menu-item" style="margin-top: 20px;" href="{{route('user.me')}}">
             Ubah Profil
           </a>
         </li>
