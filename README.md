@@ -31,6 +31,9 @@ Tambahan :
 
 12. Alert di Form Tolak Pengajuan (harus ada notifikasi peringatan dulu apakah anda yakin blablabla) setelah itu popup penolakannya disesuaikan tampilannya X bukan centang
 
+    
+13. Penambahan Fitur Pengajuan Perbaikan Autocare
+
 
 
 <strike>
