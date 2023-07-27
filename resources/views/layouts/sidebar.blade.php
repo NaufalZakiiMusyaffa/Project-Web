@@ -69,7 +69,7 @@
   </li>
   @endif
 
-  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it' || Auth::user()->level == 'karyawan')
   <li class="nav-item {{ setActive(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}">
     <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-database"></i>
@@ -79,24 +79,30 @@
 
     <div class="collapse {{ setShow(['kategori*', 'aset*', 'history*', 'pemeliharaan*']) }}" id="ui-basic2">
       <ul class="nav flex-column sub-menu">
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['kategori*']) }} drop-menu-item" href="{{route('kategori.index')}}">Data Kategori IT</a>
         </li>
+        @endif
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it' || Auth::user()->level == 'karyawan')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['aset*']) }} drop-menu-item" href="{{route('aset.index')}}">Data Aset IT</a>
         </li>
+        @endif
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['history*']) }} drop-menu-item" href="{{route('history.index')}}">Jejak Aset IT</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ setActive(['pemeliharaan*']) }} drop-menu-item" href="{{route('pemeliharaan.index')}}">Pengajuan Perbaikan</a>
         </li>
+        @endif
       </ul>
     </div>
   </li>
   @endif
 
-  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare' || Auth::user()->level == 'karyawan')
   <li class="nav-item {{ setActive(['driver*', 'asetac*']) }}">
     <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-database"></i>
@@ -105,17 +111,22 @@
     </a>
     <div class="collapse {{ setShow(['driver*', 'asetac*']) }}" id="ui-basic3">
       <ul class="nav flex-column sub-menu">
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['driver*']) }} drop-menu-item" href="{{route('driver.index')}}">Data Supir</a>
         </li>
+        @endif
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare' || Auth::user()->level == 'karyawan')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['asetac*']) }} drop-menu-item" href="{{route('asetac.index')}}">Data Aset Autocare</a>
         </li>
+        @endif
       </ul>
     </div>
   </li>
   @endif
 
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it' || Auth::user()->level == 'autocare')
   <li class="nav-item {{ setActive(['transaksi*', 'autocare-transaksi*']) }}">
     <a class="nav-link drop-menu" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic">
       <i class="menu-icon mdi mdi-content-copy"></i>
@@ -137,6 +148,7 @@
       </ul>
     </div>
   </li>
+  @endif
 
   {{-- @if(Auth::user()->level == 'manager')
   <li class="nav-item">

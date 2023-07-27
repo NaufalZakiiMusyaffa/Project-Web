@@ -1,78 +1,88 @@
 @section('js')
 <script type="text/javascript">
+
+  const userLevel = "{{Auth::user()->level }}";
+  const tahun = new Date().getFullYear();
+
+  // console.log("tes",userLevel)
+
+  if (userLevel == 'manager' || userLevel == 'it') {
+    var labels =  {!! json_encode($labels->toArray()) !!};
+    var datas =  {!! json_encode($datas_graphics->toArray()) !!};
+
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'Grafik Tabel Pemeliharaan Tahun '+tahun,
+        backgroundColor: 'rgba(67,94,190,255)',
+        borderColor: 'rgba(158,172,221,255)',
+        data: datas,
+      }]
+    };
+
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  }
   
-  var labels =  {!! json_encode($labels->toArray()) !!};
-  var datas =  {!! json_encode($datas_graphics->toArray()) !!};
-  var tahun = new Date().getFullYear()
+  if (userLevel == 'manager' || userLevel == 'it') {
+    var label_transaksi =  {!! json_encode($label_transaksi->toArray()) !!};
+    var dataTransaksis =  {!! json_encode($transaksi_graphics->toArray()) !!};
 
-  const data = {
-    labels: labels,
-    datasets: [{
-      label: 'Grafik Tabel Pemeliharaan Tahun '+tahun,
-      backgroundColor: 'rgba(67,94,190,255)',
-      borderColor: 'rgba(158,172,221,255)',
-      data: datas,
-    }]
-  };
+    const dataTransaksi = {
+      labels: label_transaksi,
+      datasets: [{
+        label: 'Grafik Transaksi Peminjaman Aset IT Tahun '+tahun,
+        backgroundColor: 'rgba(67,94,190,255)',
+        borderColor: 'rgba(158,172,221,255)',
+        data: dataTransaksis,
+      }]
+    };
 
-  const config = {
-    type: 'bar',
-    data: data,
-    options: {}
-  };
+    const configTransaksi = {
+      type: 'line',
+      data: dataTransaksi,
+      options: {}
+    };
 
-  const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+    const transaksiChart = new Chart(
+      document.getElementById('transaksiChart'),
+      configTransaksi
+    );
+  }
+  
+  if (userLevel == 'manager' || userLevel == 'autocare') {
+    var label_transaksiac =  {!! json_encode($label_transaksiac->toArray()) !!};
+    var dataTransaksiacs =  {!! json_encode($transaksiac_graphics->toArray()) !!};
 
-  var label_transaksi =  {!! json_encode($label_transaksi->toArray()) !!};
-  var dataTransaksis =  {!! json_encode($transaksi_graphics->toArray()) !!};
+    const dataTransaksiac = {
+      labels: label_transaksiac,
+      datasets: [{
+        label: 'Grafik Transaksi Peminjaman Aset Autocare Tahun '+tahun,
+        backgroundColor: 'rgba(67,94,190,255)',
+        borderColor: 'rgba(158,172,221,255)',
+        data: dataTransaksiacs,
+      }]
+    };
 
-  const dataTransaksi = {
-    labels: label_transaksi,
-    datasets: [{
-      label: 'Grafik Transaksi Peminjaman Aset IT Tahun '+tahun,
-      backgroundColor: 'rgba(67,94,190,255)',
-      borderColor: 'rgba(158,172,221,255)',
-      data: dataTransaksis,
-    }]
-  };
+    const configTransaksiac = {
+      type: 'line',
+      data: dataTransaksiac,
+      options: {}
+    };
 
-  const configTransaksi = {
-    type: 'line',
-    data: dataTransaksi,
-    options: {}
-  };
-
-  const transaksiChart = new Chart(
-    document.getElementById('transaksiChart'),
-    configTransaksi
-  );
-
-  var label_transaksiac =  {!! json_encode($label_transaksiac->toArray()) !!};
-  var dataTransaksiacs =  {!! json_encode($transaksiac_graphics->toArray()) !!};
-
-  const dataTransaksiac = {
-    labels: label_transaksiac,
-    datasets: [{
-      label: 'Grafik Transaksi Peminjaman Aset Autocare Tahun '+tahun,
-      backgroundColor: 'rgba(67,94,190,255)',
-      borderColor: 'rgba(158,172,221,255)',
-      data: dataTransaksiacs,
-    }]
-  };
-
-  const configTransaksiac = {
-    type: 'line',
-    data: dataTransaksiac,
-    options: {}
-  };
-
-  const transaksiacChart = new Chart(
-    document.getElementById('transaksiacChart'),
-    configTransaksiac
-  );
+    const transaksiacChart = new Chart(
+      document.getElementById('transaksiacChart'),
+      configTransaksiac
+    );
+  }
 
   const karyawans = {!! json_encode($karyawan_pie) !!}
   const asets = {!! json_encode($aset_pie) !!}
@@ -81,34 +91,39 @@
   google.charts.load("current", {packages:["corechart"]});
   google.charts.setOnLoadCallback(drawChart);
   function drawChart() {
-    var data = google.visualization.arrayToDataTable(karyawans);
-    var options = {
-      // title: 'Detail Karyawan',
-      is3D: false,
-      pieHole: 0.3,
-    };
-    var chart = new google.visualization.PieChart(document.getElementById('piechart_karyawan'));
-    chart.draw(data, options);
-
-    var dataAset = google.visualization.arrayToDataTable(asets);
-    var optionsAset = {
-      is3D: false,
-      pieHole: 0.3,
-      pieSliceText: 'value'
-    };
-    var chartAset = new google.visualization.PieChart(document.getElementById('piechart_aset'));
-    chartAset.draw(dataAset, optionsAset);
+    if (userLevel == 'manager') {
+      var data = google.visualization.arrayToDataTable(karyawans);
+      var options = {
+        // title: 'Detail Karyawan',
+        is3D: false,
+        pieHole: 0.3,
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_karyawan'));
+      chart.draw(data, options);
+    }
     
-    var dataAsetac = google.visualization.arrayToDataTable(asetacs);
-    var optionsAsetac = {
-      is3D: false,
-      pieHole: 0.3,
-      pieSliceText: 'value'
-    };
-    var chartAsetac = new google.visualization.PieChart(document.getElementById('piechart_asetac'));
-    chartAsetac.draw(dataAsetac, optionsAsetac);
-  }
-  
+    if (userLevel == 'manager' || userLevel == 'it' || userLevel == 'karyawan') {
+      var dataAset = google.visualization.arrayToDataTable(asets);
+      var optionsAset = {
+        is3D: false,
+        pieHole: 0.3,
+        pieSliceText: 'value'
+      };
+      var chartAset = new google.visualization.PieChart(document.getElementById('piechart_aset'));
+      chartAset.draw(dataAset, optionsAset);
+    }
+    
+    if (userLevel == 'manager' || userLevel == 'autocare' || userLevel == 'karyawan') {
+      var dataAsetac = google.visualization.arrayToDataTable(asetacs);
+      var optionsAsetac = {
+        is3D: false,
+        pieHole: 0.3,
+        pieSliceText: 'value'
+      };
+      var chartAsetac = new google.visualization.PieChart(document.getElementById('piechart_asetac'));
+      chartAsetac.draw(dataAsetac, optionsAsetac);
+    }
+  }  
 </script>
 @stop
 @extends('layouts.app')
@@ -125,6 +140,7 @@
   @endif
 </div>
 <div class="row">
+  @if(Auth::user()->level == 'manager')
   <div class="col-xl-2 col-lg-2 col-md-4 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
@@ -204,151 +220,10 @@
       </div>
     </div>
   </div>
-  {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-content-paste text-success icon-lg" style="width: 40px;height: 40px;"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Kategori</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$kategori->count()}}</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-content-paste mr-1" aria-hidden="true"></i> Total seluruh kategori
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-content-paste text-success icon-lg" style="width: 40px;height: 40px;"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Aset</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$aset->count()}}</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-content-paste mr-1" aria-hidden="true"></i> Total seluruh aset
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-content-paste text-success icon-lg" style="width: 40px;height: 40px;"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Pemeliharaan</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">@currency($pemeliharaan->sum('biaya'))</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Total biaya pemeliharaan yang sudah disetujui
-        </p>
-      </div>
-    </div>
-  </div> --}}
-
-
-  {{-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-library-books text-warning icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">P. Aset IT</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$transaksi->where('status', 'pinjam')->count()}}</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Aset yang sedang dipinjam
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-library-books text-danger icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Pengembalian</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$transaksi->where('status', 'kembali')->count()}}</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Total seluruh pengembalian Aset IT
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-library-books text-warning icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">P. Aset Autocare</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$transaksiac->where('status', 'pinjam')->count()}}</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Aset yang sedang dipinjam
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix">
-          <div class="float-left">
-            <i class="mdi mdi-library-books text-danger icon-lg"></i>
-          </div>
-          <div class="float-right">
-            <p class="mb-0 text-right">Pengembalian</p>
-            <div class="fluid-container">
-              <h3 class="font-weight-medium text-right mb-0">{{$transaksiac->where('status', 'kembali')->count()}}</h3>
-            </div>
-          </div>
-        </div>
-        <p class="text-muted mt-3 mb-0">
-          <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> Total Aset Autocare yang sudah dikembalikan
-        </p>
-      </div>
-    </div>
-  </div> --}}
-</div>
-<div class="row">
+  @endif
+{{-- </div> --}}
+{{-- <div class="row"> --}}
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
   <div class="col-xl-8 col-lg-8 col-md-8 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
@@ -356,6 +231,8 @@
       </div>
     </div>
   </div>
+  @endif
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
   <div class="col-xl-4 col-lg-4 col-md-8 col-sm-4 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
@@ -370,9 +247,12 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xl-4 col-lg-4 col-md-4 grid-margin stretch-card">
+  @endif
+{{-- </div> --}}
+{{-- <div class="row"> --}}
+  
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it' || Auth::user()->level == 'karyawan')
+  <div class="{{ Auth::user()->level == 'karyawan' ? 'col-xl-6 col-lg-6 col-md-6' : 'col-xl-4 col-lg-4 col-md-4' }} col-md-4 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <h5 class="text-left">Aset IT</h5>
@@ -380,7 +260,10 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-lg-4 col-md-4 grid-margin stretch-card">
+  @endif
+  
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare' || Auth::user()->level == 'karyawan')
+  <div class="{{ Auth::user()->level == 'karyawan' ? 'col-xl-6 col-lg-6 col-md-6' : 'col-xl-4 col-lg-4 col-md-4' }} grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <h5 class="text-left">Aset Autocare</h5>
@@ -388,6 +271,9 @@
       </div>
     </div>
   </div>
+  @endif
+  
+  @if(Auth::user()->level == 'manager')
   <div class="col-xl-4 col-lg-4 col-md-4 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
@@ -396,22 +282,28 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xl-6 col-lg-6 col-md-6 grid-margin stretch-card">
+  @endif
+{{-- </div> --}}
+{{-- <div class="row"> --}}
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
+  <div class="{{ Auth::user()->level == 'it' ? 'col-xl-8 col-lg-8 col-md-8' : 'col-xl-6 col-lg-6 col-md-6' }} grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <canvas id="transaksiChart" height="100px"></canvas>
       </div>
     </div>
   </div>
-  <div class="col-xl-6 col-lg-6 col-md-6 grid-margin stretch-card">
+  @endif
+  
+  @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
+  <div class="{{ Auth::user()->level == 'autocare' ? 'col-xl-8 col-lg-8 col-md-8' : 'col-xl-6 col-lg-6 col-md-6' }} grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <canvas id="transaksiacChart" height="100px"></canvas>
       </div>
     </div>
   </div>
+  @endif
 </div>
 
 

@@ -30,10 +30,10 @@
 </head>
 <body>
     <div class="card">
-        <h3 class="">Kendaraan {{$nama_kendaraan}} dengan Nomor Polisi {{$nopol}} yang dimiliki oleh {{$karyawan}}</h3>
-        <h3 class="">Masa Berlakunya tinggal 3 hari lagi</h3>
+        <h3 class="">Kendaraan {{$nama_kendaraan}} dengan Nomor Polisi {{$nopol}} yang diinventariskan kepada {{$karyawan}}</h3>
+        <h3 class="">Masa Berlaku STNK nya tinggal 3 hari lagi</h3>
         <hr class="garis">
-        <p>Lihat ke aplikasi aset manajemen untuk melihat detailnya</p>
+        <p>Cek ke Sistem Management Aset untuk melihat detailnya</p>
         <h4>Terima kasih</h4>
     </div>
 </body>

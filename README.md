@@ -14,26 +14,26 @@ Tambahan :
 
 <strike>8. All fitur print PDF & Excel di cek ulang kembali semuanya dan dipastikan semuanya harus berjalan seperti sebelumnya</strike>
 
-9. Penambahan Akses Login sebagai : karyawan
+<strike>9. Penambahan Akses Login sebagai : karyawan
 
    untuk hak akses fiturnya :
    1. Untuk tampilan Dashboard, hanya dimunculkan Aset IT dan Aset Autocare saja
    2. Bisa melihat Data Aset IT
-   3. Bisa melihat Data Aset Autocare
+   3. Bisa melihat Data Aset Autocare</strike>
 
-10. Di Dashboard IT, hanya dimunculkan:
+<strike>10. Di Dashboard IT, hanya dimunculkan:
     1. Grafik Tabel Pemeliharaan, Total Biaya Pemeliharaan
-    2. Grafik Tabel Peminjaman IT, Aset IT
+    2. Grafik Tabel Peminjaman IT, Aset IT</strike>
 
-11. Di Dashboard Autoacare, hanya dimunculkan:
-    1. Grafik Tabel Peminjaman Autocare, Aset Autocare
+<strike>11. Di Dashboard Autoacare, hanya dimunculkan:
+    1. Grafik Tabel Peminjaman Autocare, Aset Autocare</strike>
 
 
 12. Alert di Form Tolak Pengajuan (harus ada notifikasi peringatan dulu apakah anda yakin blablabla) setelah itu popup penolakannya disesuaikan tampilannya X bukan centang
 
 
 
-
+<strike>
 Kata Kata untuk Notifikasi :
         Untuk Notifikasi Email (Autocare)
         <h3 class="">Kendaraan {{$nama_kendaraan}} dengan Nomor Polisi {{$nopol}} yang diinventariskan kepada {{$karyawan}}</h3>
@@ -54,3 +54,4 @@ Kata Kata untuk Notifikasi :
                         'target' => $akun->karyawan->telepon,
                         'message' => "Kendaraan $asetac->nama_kendaraan dengan Nomor Polisi $asetac->nopol yang diinventariskan kepada ".$asetac->karyawan->nama." Masa Berlaku STNK tinggal 3 hari lagi"
                     ];
+</strike>

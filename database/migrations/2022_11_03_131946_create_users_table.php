@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('gambar')->nullable();
-            $table->enum('level', ['manager', 'it', 'autocare']);
+            $table->enum('level', ['manager', 'it', 'autocare', 'karyawan']);
             $table->rememberToken();
             $table->timestamps();
         });

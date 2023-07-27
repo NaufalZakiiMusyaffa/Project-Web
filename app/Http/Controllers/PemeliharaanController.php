@@ -133,7 +133,7 @@ class PemeliharaanController extends Controller
             $token = \config('app.whatsapp_token');
             $data = [
                 'target' => $akun->karyawan->telepon,
-                'message' => "".Auth::user()->karyawan->nama." telah mengajukan perbaikan"
+                'message' => "".Auth::user()->karyawan->nama."Telah mengajukan perbaikan aset IT%0aCek ke Sistem Management Aset untuk melihat detail pengajuannya"
             ];
             curl_setopt(
                 $curl,

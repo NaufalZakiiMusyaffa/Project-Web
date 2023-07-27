@@ -108,6 +108,7 @@
                                             <option value="manager">MANAGER</option>
                                             <option value="it">IT</option>
                                             <option value="autocare">AUTOCARE</option>
+                                            <option value="karyawan">KARYAWAN</option>
                                         </select>
                                     </div>
                                 </div>    

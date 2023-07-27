@@ -30,9 +30,9 @@
 </head>
 <body>
     <div class="card">
-        <h3 class="">{{Auth::user()->karyawan->nama}} telah mengajukan perbaikan</h3>
+        <h3 class="">{{Auth::user()->karyawan->nama}} Telah mengajukan perbaikan aset IT</h3>
         <hr class="garis">
-        <p>Lihat ke aplikasi aset manajemen untuk melihat detailnya</p>
+        <p>Cek ke Sistem Management Aset untuk melihat detail pengajuannya</p>
         <h4>Terima kasih</h4>
     </div>
 </body>

@@ -121,13 +121,14 @@ class HomeController extends Controller
         if (count($asetacs) > 0) {
             foreach ($asetacs as $asetac) {           
                 foreach ($akuns as $akun) {
+                    $inventariske = $asetac->karyawan ? $asetac->karyawan->nama : '-';
                     Autocare::find($asetac->id)->update(['send_notif' => 1]);
-                    Mail::to($akun->email)->send(new AsetacNotify($asetac->nama_kendaraan,$asetac->nopol,$asetac->karyawan->nama));
+                    Mail::to($akun->email)->send(new AsetacNotify($asetac->nama_kendaraan,$asetac->nopol,$inventariske));
                     $curl = curl_init();
                     $token = \config('app.whatsapp_token');
                     $data = [
                         'target' => $akun->karyawan->telepon,
-                        'message' => "Kendaraan $asetac->nama_kendaraan dengan Nomor Polisi $asetac->nopol yang dimiliki oleh ".$asetac->karyawan->nama." Masa Berlakunya tinggal 3 hari lagi"
+                        'message' => "Kendaraan $asetac->nama_kendaraan dengan Nomor Polisi $asetac->nopol yang diinventariskan kepada ".$inventariske." Masa Berlaku STNK nya tinggal 3 hari lagi"
                     ];
                     curl_setopt(
                         $curl,

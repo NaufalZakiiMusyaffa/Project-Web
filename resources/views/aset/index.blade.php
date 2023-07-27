@@ -63,6 +63,7 @@
       <div class="card-body">        
         <h4 class="card-title pull-left">Data Aset IT</h4>
         <!--      <a href="{{url('format_buku')}}" class="btn btn-xs btn-info pull-right">Format Buku</a> -->
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
         <div class="card-title pull-right">
           <button type="button" class="btn btn-danger btn-rounded btn-fw mt-2" data-toggle="modal" data-target="#exportPDFModal">
             <b><i class="fa fa-download"></i> Export PDF</a></b>
@@ -71,6 +72,7 @@
             <b><i class="fa fa-download"></i> Export Excel</a></b>
           </button>
         </div>
+        @endif
         
         <!-- Modal PDF-->
         <form method="POST" action="laporan/aset/pdf" enctype="multipart/form-data" id="reportForm">

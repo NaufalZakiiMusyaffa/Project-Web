@@ -27,7 +27,7 @@ class KaryawanController extends Controller
 
     public function index()
     {
-        if ((Auth::user()->level == 'it') || (Auth::user()->level == 'autocare')) {
+        if ((Auth::user()->level == 'it') || (Auth::user()->level == 'autocare') || (Auth::user()->level == 'karyawan')) {
             return redirect()->to('/profil');
         }
         $datas = Karyawan::where('id', '>', 0)->get();

@@ -68,7 +68,7 @@
                           @if($data->karyawan->gambar)
                             <img src="{{url('images/user', $data->karyawan->gambar)}}" alt="image" style="margin-right: 10px;" />
                           @else
-                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px; width:30px; height:20px;" />
+                            <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px;" width="30" />
                           @endif
                             {{$data->karyawan->nama}}
                           </td>
