@@ -58,8 +58,6 @@ Route::get('/laporan/asetac/pdf', 'LaporanController@asetacPdf');
 Route::get('/laporan/asetac/excel', 'LaporanController@asetacExcel');
 Route::get('/laporan/pengguna/pdf', 'LaporanController@penggunaPdf');
 Route::get('/laporan/pengguna/excel', 'LaporanController@penggunaExcel');
+Route::get('/laporan/pemeliharaan/pdf/{pemeliharaan}', 'LaporanController@pemeliharaanPdf')->name('pemeliharaan.pdf');
 
 Route::get('/profil', 'UserController@me')->name('user.me');
-Route::post('/tanda-tangan', 'TandaTanganController@store')->name('tanda-tangan.store');
-Route::put('/tanda-tangan/{tanda_tangan}', 'TandaTanganController@update')->name('tanda-tangan.update');
-Route::delete('/tanda-tangan/{tanda_tangan}', 'TandaTanganController@destroy')->name('tanda-tangan.destroy');

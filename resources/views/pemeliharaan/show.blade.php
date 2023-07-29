@@ -8,7 +8,13 @@
         $('#status').val('2')
     })
     $('#status-tolak').click(function() {
-        $('#status').val('0')
+        const result = confirm('Anda yakin ingin menghapus data ini?')
+        if (result == true) {
+            $('#status').val('0') 
+            document.getElementById("status-tolak").type = "submit"
+        }else{
+
+        }
     })
 </script>
 @stop
@@ -85,16 +91,22 @@
                                     <div class="row justify-content-between">
                                         <div class="col-sm-6 mt-2">
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-success btn-block" id="status-terima">
-                                                        Terima Pengajuan
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-danger btn-block" id="status-tolak">
-                                                        Tolak Pengajuan
-                                                    </button>
-                                                </div>
+                                                @if ($data->status == 1)
+                                                    <div class="col-md-6">
+                                                        <button type="submit" class="btn btn-success btn-block" id="status-terima">
+                                                            Terima Pengajuan
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="button" class="btn btn-danger btn-block" id="status-tolak">
+                                                            Tolak Pengajuan
+                                                        </button>
+                                                    </div>
+                                                @elseif($data->status == 2)
+                                                    <div class="col-md-4">
+                                                        <a class="btn btn-success fa fa-print" href="{{ route('pemeliharaan.pdf', $data->id) }}">&nbsp;&nbsp;Print</a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-sm-4 mt-2">

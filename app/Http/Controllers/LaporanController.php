@@ -11,6 +11,7 @@ use App\Transaksi;
 use App\History;
 use App\Autocare;
 use App\TransaksiAutocare;
+use App\Pemeliharaan;
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -1135,5 +1136,14 @@ class LaporanController extends Controller
                 });
             });
         })->export('xlsx');
+    }
+
+    public function pemeliharaanPdf(Request $request, $id)
+    {
+        $data = Pemeliharaan::find($id);
+        $manager = User::where('level','manager')->first();
+        $pdf = PDF::loadView('laporan.pemeliharaan_pdf', compact('data','manager'));
+        return $pdf->download('laporan_pemeliharaan_' . date('Y-m-d_H-i-s') . '.pdf');        
+        // return $pdf->stream();
     }
 }

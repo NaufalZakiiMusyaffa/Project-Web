@@ -1,8 +1,8 @@
 Note :
 
 Tambahan :
-1. Di Menu Pengajuan Perbaikan :
-- Untuk Akses IT : 1.Ketika sudah di Acc oleh Manager terkait pengajuannya, disitu ada aksi Print, buat fungsi itu berfungsi dengan layout output hasil seperti sebelumnya Portrait.
+<strike>1. Di Menu Pengajuan Perbaikan :
+- Untuk Akses IT : 1.Ketika sudah di Acc oleh Manager terkait pengajuannya, disitu ada aksi Print, buat fungsi itu berfungsi dengan layout output hasil seperti sebelumnya Portrait.</strike>
 
 <strike>2. Setiap akses menu data pengguna, menu profile ikut terbuka(Opsional)</strike>
 3. Setiap akses menu aset autocare, menu data IT ikut terbuka(Opsional)
@@ -29,7 +29,7 @@ Tambahan :
     1. Grafik Tabel Peminjaman Autocare, Aset Autocare</strike>
 
 
-12. Alert di Form Tolak Pengajuan (harus ada notifikasi peringatan dulu apakah anda yakin blablabla) setelah itu popup penolakannya disesuaikan tampilannya X bukan centang
+<strike>12. Alert di Form Tolak Pengajuan (harus ada notifikasi peringatan dulu apakah anda yakin blablabla) setelah itu popup penolakannya disesuaikan tampilannya X bukan centang</strike>
 
     
 13. Penambahan Fitur Pengajuan Perbaikan Autocare

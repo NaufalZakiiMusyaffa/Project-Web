@@ -193,9 +193,11 @@ class PemeliharaanController extends Controller
                 ->update([
                     'status_aset' => 'Sedang diperbaiki',
                 ]);
+            alert()->success('Berhasil.', 'Data pengajuan telah di setujui');
+        } else {
+            alert()->info('Pengajuan ditolak');
         }
 
-        alert()->success('Berhasil.', 'Data pengajuan telah di setujui');
         return redirect()->route('pemeliharaan.index');
     }
 
