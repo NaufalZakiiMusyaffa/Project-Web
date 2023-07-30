@@ -22,4 +22,8 @@ class Autocare extends Model
         return $this->belongsTo(Karyawan::class);
     }
 
+    public function pemeliharaanac()
+    {
+        return $this->belongsTo(PemeliharaanAutocare::class);
+    }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pengajuan Pemeliharaan Aset IT</title>
+    <title>Pengajuan Pemeliharaan Aset Autocare</title>
     <style>
         body {
             background-color:#bdc3c7;
@@ -30,7 +30,7 @@
 </head>
 <body>
     <div class="card">
-        <h3 class="">{{Auth::user()->karyawan->nama}} Telah mengajukan perbaikan aset IT</h3>
+        <h3 class="">{{Auth::user()->karyawan->nama}} Telah mengajukan perbaikan aset Autocare</h3>
         <hr class="garis">
         <p>Cek ke Sistem Management Aset untuk melihat detail pengajuannya</p>
         <h4>Terima kasih</h4>

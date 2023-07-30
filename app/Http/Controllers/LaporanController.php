@@ -12,6 +12,7 @@ use App\History;
 use App\Autocare;
 use App\TransaksiAutocare;
 use App\Pemeliharaan;
+use App\PemeliharaanAutocare;
 use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -1142,8 +1143,18 @@ class LaporanController extends Controller
     {
         $data = Pemeliharaan::find($id);
         $manager = User::where('level','manager')->first();
-        $pdf = PDF::loadView('laporan.pemeliharaan_pdf', compact('data','manager'));
-        return $pdf->download('laporan_pemeliharaan_' . date('Y-m-d_H-i-s') . '.pdf');        
+        $it = Karyawan::where('nama',$data->yang_mengajukan)->first();
+        $pdf = PDF::loadView('laporan.pemeliharaan_pdf', compact('data','manager','it'));
+        return $pdf->download('laporan_pemeliharaan_aset_it' . date('Y-m-d_H-i-s') . '.pdf');        
         // return $pdf->stream();
+    }
+
+    public function pemeliharaanAutocarePdf(Request $request, $id)
+    {
+        $data = PemeliharaanAutocare::find($id);
+        $manager = User::where('level','manager')->first();
+        $autocare = Karyawan::where('nama',$data->yang_mengajukan)->first();
+        $pdf = PDF::loadView('laporan.pemeliharaan_autocare_pdf', compact('data','manager','autocare'));
+        return $pdf->download('laporan_pemeliharaan_aset_autocare' . date('Y-m-d_H-i-s') . '.pdf'); 
     }
 }

@@ -117,7 +117,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="gambar" class="col-md-12 control-label">Tanda Tangan</label>
                                     <div class="col-md-6">
-                                        <img width="200" height="200" src="{{ $data->karyawan->tanda_tangan ? asset('images/user/tanda_tangan/'.$data->karyawan->tanda_tangan) : asset('images/user/tanda_tangan/not-found.jpg') }}" />
+                                        <img width="600" height="200" src="{{ $data->karyawan->tanda_tangan ? asset('images/user/tanda_tangan/'.$data->karyawan->tanda_tangan) : asset('images/user/tanda_tangan/not-found.jpg') }}" />
                                         <input type="file" class="uploads form-control" style="margin-top: 20px;" name="tanda_tangan">
                                     </div>
                                 </div>

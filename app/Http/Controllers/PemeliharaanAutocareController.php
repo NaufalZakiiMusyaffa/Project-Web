@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PemeliharaanNotify;
+use App\Mail\PemeliharaanacNotify;
 use App\User;
-use App\Aset;
-use App\Pemeliharaan;
+use App\Autocare;
+use App\PemeliharaanAutocare;
 use App\Karyawan;
 use Carbon\Carbon;
 use Session;
@@ -16,7 +16,7 @@ use Auth;
 use DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class PemeliharaanController extends Controller
+class PemeliharaanAutocareController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,16 +32,16 @@ class PemeliharaanController extends Controller
     public function index()
     {
 
-        $datas = Pemeliharaan::get();
+        $datas = PemeliharaanAutocare::get();
 
-        $datapengajuan = Pemeliharaan::where('status', '=', 1)
+        $datapengajuan = PemeliharaanAutocare::where('status', '=', 1)
         ->orderBy('created_at', 'asc')
         ->paginate(1);
 
-        $antriandatapengajuan = Pemeliharaan::where('status', '=', 1)
+        $antriandatapengajuan = PemeliharaanAutocare::where('status', '=', 1)
         ->orderBy('created_at', 'asc')->get();
 
-        return view('pemeliharaan.index', compact('datas', 'datapengajuan', 'antriandatapengajuan'));
+        return view('pemeliharaanac.index', compact('datas', 'datapengajuan', 'antriandatapengajuan'));
     }
 
     /**
@@ -51,8 +51,7 @@ class PemeliharaanController extends Controller
      */
     public function create()
     {
-
-        $getRow = Pemeliharaan::orderBy('id', 'DESC')->get();
+        $getRow = PemeliharaanAutocare::orderBy('id', 'DESC')->get();
         $rowCount = $getRow->count();
 
         $lastId = $getRow->first();
@@ -74,16 +73,16 @@ class PemeliharaanController extends Controller
             }
         }
 
-        $pemeliharaans = Pemeliharaan::where('status', 1)->orWhere('status', 2)->get();
-        $id_aset = array();
+        $pemeliharaans = PemeliharaanAutocare::where('status', 1)->orWhere('status', 2)->get();
+        $id_asetac = array();
         foreach ($pemeliharaans as $pm) {
-            $id_aset[] = $pm->aset_id;
+            $id_asetac[] = $pm->asetac_id;
         }
 
-        $asets = Aset::where('status_aset', 'Rusak(Bisa diperbaiki)')->whereNotIn('id', $id_aset)->get();
+        $asetacs = Autocare::where('status_kendaraan', 'Ada Kerusakan')->whereNotIn('id', $id_asetac)->get();
 
         $users = User::get();
-        return view('pemeliharaan.create', compact('asets', 'kode', 'statusx', 'users'));
+        return view('pemeliharaanac.create', compact('asetacs', 'kode', 'statusx', 'users'));
     }
 
     /**
@@ -96,7 +95,7 @@ class PemeliharaanController extends Controller
     {
         $this->validate($request, [
             'kode_pemeliharaan' => 'required|string|max:255',
-            'aset_id' => 'required',
+            'asetac_id' => 'required',
         ]);
 
         if ($request->file('gambar')) {
@@ -111,9 +110,9 @@ class PemeliharaanController extends Controller
         }
 
 
-        $pemeliharaan = Pemeliharaan::create([
+        $pemeliharaanac = PemeliharaanAutocare::create([
             'kode_pemeliharaan' => $request->get('kode_pemeliharaan'),
-            'aset_id'           => $request->get('aset_id'),
+            'asetac_id'         => $request->get('asetac_id'),
             'keterangan'        => $request->get('keterangan'),
             'biaya'             => $request->get('biaya'),
             'status'            => $request->get('status'),
@@ -121,19 +120,19 @@ class PemeliharaanController extends Controller
             'gambar'            => $gambar
         ]);
 
-        $pemeliharaan->aset->where('id', $pemeliharaan->aset_id)
+        $pemeliharaanac->asetac->where('id', $pemeliharaanac->asetac_id)
             ->update([
-                'status_aset' => ($pemeliharaan->aset->status_aset),
+                'status_kendaraan' => ($pemeliharaanac->asetac->status_kendaraan),
             ]);
 
         $akuns = User::where('level','manager')->with('karyawan')->get();
         foreach ($akuns as $akun) {
-            Mail::to($akun->email)->send(new PemeliharaanNotify());
+            Mail::to($akun->email)->send(new PemeliharaanacNotify());
             $curl = curl_init();
             $token = \config('app.whatsapp_token');
             $data = [
                 'target' => $akun->karyawan->telepon,
-                'message' => "".Auth::user()->karyawan->nama." Telah mengajukan perbaikan aset IT Cek ke Sistem Management Aset untuk melihat detail pengajuannya"
+                'message' => "".Auth::user()->karyawan->nama." Telah mengajukan perbaikan aset Autocare Cek ke Sistem Management Aset untuk melihat detail pengajuannya"
             ];
             curl_setopt(
                 $curl,
@@ -152,7 +151,7 @@ class PemeliharaanController extends Controller
             curl_close($curl);
         };
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
-        return redirect()->route('pemeliharaan.index');
+        return redirect()->route('autocare-maintenance.index');
     }
 
     /**
@@ -163,11 +162,9 @@ class PemeliharaanController extends Controller
      */
     public function show($id)
     {
-
-        $data = Pemeliharaan::findOrFail($id);
-
-
-        return view('pemeliharaan.show', compact('data'));
+        $data = PemeliharaanAutocare::findOrFail($id);
+        
+        return view('pemeliharaanac.show', compact('data'));
     }
 
 
@@ -180,25 +177,24 @@ class PemeliharaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $pemeliharaanac = PemeliharaanAutocare::find($id);
 
-        $pemeliharaan = Pemeliharaan::find($id);
-
-        Pemeliharaan::find($id)->update([
+        PemeliharaanAutocare::find($id)->update([
             'keputusan_oleh'  => Auth::user()->karyawan->nama,
-            'status' => $request->get('status')
+            'status'          => $request->get('status')
         ]);
 
         if ($request->get('status') == 2) {
-            $pemeliharaan->aset->where('id', $pemeliharaan->aset->id)
+            $pemeliharaanac->asetac->where('id', $pemeliharaanac->asetac->id)
                 ->update([
-                    'status_aset' => 'Sedang diperbaiki',
+                    'status_kendaraan' => 'Sedang diperbaiki',
                 ]);
             alert()->success('Berhasil.', 'Data pengajuan telah di setujui');
         } else {
             alert()->info('Pengajuan ditolak');
         }
 
-        return redirect()->route('pemeliharaan.index');
+        return redirect()->route('autocare-maintenance.index');
     }
 
     /**
@@ -209,10 +205,10 @@ class PemeliharaanController extends Controller
      */
     public function destroy($id)
     {
-        $pemeliharaan = Pemeliharaan::find($id);
-        $pemeliharaan->gambar ? unlink(public_path("images/pemeliharaan/".$pemeliharaan->gambar)) : '';
-        Pemeliharaan::find($id)->delete();
+        $pemeliharaanac = PemeliharaanAutocare::find($id);
+        $pemeliharaanac->gambar ? unlink(public_path("images/pemeliharaan/".$pemeliharaanac->gambar)) : '';
+        PemeliharaanAutocare::find($id)->delete();
         alert()->success('Berhasil.', 'Data telah dihapus!');
-        return redirect()->route('pemeliharaan.index');
+        return redirect()->route('autocare-maintenance.index');
     }
 }

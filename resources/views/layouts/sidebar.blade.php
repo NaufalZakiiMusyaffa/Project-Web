@@ -109,7 +109,7 @@
       <span class="menu-title">Data Autocare</span>
       <i class="menu-arrow"></i>
     </a>
-    <div class="collapse {{ setShow(['driver*', 'asetac*']) }}" id="ui-basic3">
+    <div class="collapse {{ setShow(['driver*', 'asetac*', 'autocare-maintenance*']) }}" id="ui-basic3">
       <ul class="nav flex-column sub-menu">
         @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
         <li class="nav-item">
@@ -119,6 +119,9 @@
         @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare' || Auth::user()->level == 'karyawan')
         <li class="nav-item">
           <a class="nav-link {{ setActive(['asetac*']) }} drop-menu-item" href="{{route('asetac.index')}}">Data Aset Autocare</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ setActive(['autocare-maintenance*']) }} drop-menu-item" href="{{route('autocare-maintenance.index')}}">Pengajuan Perbaikan</a>
         </li>
         @endif
       </ul>

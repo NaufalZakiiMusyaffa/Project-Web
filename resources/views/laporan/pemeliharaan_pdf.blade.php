@@ -53,7 +53,7 @@
 <body>
   <img src="{{public_path('images/laporan_pengajuan/asset_header.png')}}" style="max-width: 100%">
 
-  <h4 class="center"><b>FORMULIR PERBAIKAN ASET</b></h4>
+  <h4 class="center"><b>FORMULIR PERBAIKAN ASET IT</b></h4>
 
   <table>
     <tr>
@@ -90,14 +90,14 @@
   
   <table style="width: 100%" class="center">
     <tr>
-        <th class="color-key-column">No.</th>
-        <th class="color-key-column">Rincian Biaya</th>
+        <th class="color-key-column" style="width: 5%">No.</th>
+        <th class="color-key-column" style="width: 45%">Rincian Biaya</th>
         <th class="color-key-column">Estimasi Tanggal Penggunaan</th>
         <th class="color-key-column">Estimasi Jumlah</th>
     </tr>
     <tr>
-        <td>1</td>
-        <td>{{$data->keterangan}}</td>
+        <td style="width: 5%">1</td>
+        <td style="width: 45%">{{$data->keterangan}}</td>
         <td><b>SEGERA</b></td>
         <td>{{$data->biaya}}</td>
     </tr>
@@ -116,13 +116,19 @@
         <td>Menyetujui</td>
     </tr>
     <tr>
-        <td width="150" style="vertical-align: bottom">
-          <b>Nama:</b>
+        <td>
+          <div class="center">
+            <img height="50" width="150" src="{{ $it->tanda_tangan ? public_path('images/user/tanda_tangan/'.$it->tanda_tangan) : public_path('images/user/tanda_tangan/not-found.jpg') }}" />
+          </div>
+          <br>
+          <b>Nama: {{$it->nama}}</b>
         </td>
         <td>
-            <img height="150" src="{{ $manager->karyawan->tanda_tangan ? public_path('images/user/tanda_tangan/'.$manager->karyawan->tanda_tangan) : public_path('images/user/tanda_tangan/not-found.jpg') }}" />
+            <div class="center">
+              <img height="50" width="150" src="{{ $manager->karyawan->tanda_tangan ? public_path('images/user/tanda_tangan/'.$manager->karyawan->tanda_tangan) : public_path('images/user/tanda_tangan/not-found.jpg') }}" />
+            </div>
             <br>
-            <b>{{$manager->karyawan->nama}}</b>
+            <b>Nama: {{$manager->karyawan->nama}}</b>
         </td>
     </tr>
     <tr>

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PemeliharaanNotify extends Mailable
+class PemeliharaanacNotify extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class PemeliharaanNotify extends Mailable
      */
     public function build()
     {
-        return $this->subject('Notifikasi Pengajuan Perbaikan Aset IT')
-                    ->view('email.maintenance_notify');
+        return $this->subject('Notifikasi Pengajuan Perbaikan Aset Autocare')
+                    ->view('email.maintenance_autocare_notify');
     }
 }

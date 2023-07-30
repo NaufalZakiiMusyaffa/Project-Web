@@ -94,6 +94,8 @@
                   <label class="badge badge-success">Siap Digunakan</label>
                   @elseif($data->status_kendaraan == 'Digunakan')
                   <label class="badge badge-warning">Digunakan</label>
+                  @elseif($data->status_kendaraan == 'Sedang diperbaiki')
+                  <label class="badge badge-info">Sedang diperbaiki</label>
                   @else
                   <label class="badge badge-danger">Ada Kerusakan</label>
                   @endif

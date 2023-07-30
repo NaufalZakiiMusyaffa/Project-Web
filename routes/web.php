@@ -35,6 +35,7 @@ Route::resource('history', 'HistoryController');
 Route::resource('aset', 'AsetController');
 Route::resource('asetac', 'AutocareController');
 Route::resource('pemeliharaan', 'PemeliharaanController');
+Route::resource('autocare-maintenance', 'PemeliharaanAutocareController');
 
 // Route::get('/format_buku', 'BukuController@format');
 // Route::post('/import_buku', 'BukuController@import');
@@ -59,5 +60,6 @@ Route::get('/laporan/asetac/excel', 'LaporanController@asetacExcel');
 Route::get('/laporan/pengguna/pdf', 'LaporanController@penggunaPdf');
 Route::get('/laporan/pengguna/excel', 'LaporanController@penggunaExcel');
 Route::get('/laporan/pemeliharaan/pdf/{pemeliharaan}', 'LaporanController@pemeliharaanPdf')->name('pemeliharaan.pdf');
+Route::get('/laporan/pemeliharaanac/pdf/{pemeliharaanac}', 'LaporanController@pemeliharaanAutocarePdf')->name('pemeliharaanac.pdf');
 
 Route::get('/profil', 'UserController@me')->name('user.me');
