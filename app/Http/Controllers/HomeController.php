@@ -15,6 +15,7 @@ use App\Driver;
 use App\User;
 use App\Kategori;
 use App\Autocare;
+use App\PemeliharaanAutocare;
 use Auth;
 use DB;
 
@@ -45,9 +46,11 @@ class HomeController extends Controller
         $user       = User::get();
         $driver     = Driver::get();
         $pemeliharaan     = Pemeliharaan::where('status', '=', 2)->get();
+        $pemeliharaanac     = PemeliharaanAutocare::where('status', '=', 2)->get();
         $transaksiac = TransaksiAutocare::get();
         $notif_pemeliharaan = Pemeliharaan::where('status','=', 1)->count();
-        $total_pemeliharaan = Pemeliharaan::count();
+        $notif_pemeliharaanac = PemeliharaanAutocare::where('status','=', 1)->count();
+        $total_pemeliharaan = Pemeliharaan::count() + PemeliharaanAutocare::count();
         
         $data_pemeliharaan = Pemeliharaan::select(DB::raw("SUM(biaya) as total_biaya"), DB::raw("MONTHNAME(created_at) as month_name"))
                                         ->whereYear('created_at', date('Y'))
@@ -56,6 +59,14 @@ class HomeController extends Controller
                                         ->pluck('total_biaya', 'month_name');
         $labels = $data_pemeliharaan->keys();
         $datas_graphics = $data_pemeliharaan->values();
+
+        $data_pemeliharaanac = PemeliharaanAutocare::select(DB::raw("SUM(biaya) as total_biaya"), DB::raw("MONTHNAME(created_at) as month_name"))
+                                        ->whereYear('created_at', date('Y'))
+                                        ->where('status', '=', 2)
+                                        ->groupBy(DB::raw("Month(created_at)"))
+                                        ->pluck('total_biaya', 'month_name');
+        $label_pemeliharaanac = $data_pemeliharaanac->keys();
+        $pemeliharaanac_graphics = $data_pemeliharaanac->values();
 
         $data_transaksi = Transaksi::select(DB::raw("COUNT(*) as jumlah"), DB::raw("MONTHNAME(tgl_pinjam) as month_name"))
                                         ->whereYear('tgl_pinjam', date('Y'))
@@ -98,13 +109,15 @@ class HomeController extends Controller
         $detail_asetac = Autocare::selectRaw('COUNT(CASE WHEN status_kendaraan = "Sedang dipinjam" THEN 1 ELSE NULL END) as "sdp",
                                         COUNT(CASE WHEN status_kendaraan = "Siap digunakan" THEN 1 ELSE NULL END) as "sg",
                                         COUNT(CASE WHEN status_kendaraan = "Digunakan" THEN 1 ELSE NULL END) as "dg",
-                                        COUNT(CASE WHEN status_kendaraan = "Ada Kerusakan" THEN 1 ELSE NULL END) as "ak"')->get();
+                                        COUNT(CASE WHEN status_kendaraan = "Ada Kerusakan" THEN 1 ELSE NULL END) as "ak",
+                                        COUNT(CASE WHEN status_kendaraan = "Sedang diperbaiki" THEN 1 ELSE NULL END) as "sd"')->get();
         $asetac_pie[] = ['status_kendaraan','jumlah'];
         foreach ($detail_asetac as $key => $value) {
             $asetac_pie[++$key] = ["Sedang dipinjam", (int)$value->sdp];
             $asetac_pie[++$key] = ["Siap digunakan", (int)$value->sg];
             $asetac_pie[++$key] = ["Digunakan", (int)$value->dg];
             $asetac_pie[++$key] = ["Ada Kerusakan", (int)$value->ak];
+            $asetac_pie[++$key] = ["Sedang diperbaiki", (int)$value->sd];
         }
         
         if (Auth::user()->level == 'it') {
@@ -149,6 +162,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas', 'notif_pemeliharaan', 'total_pemeliharaan', 'labels', 'datas_graphics', 'karyawan_pie', 'aset_pie', 'asetac_pie', 'label_transaksi', 'transaksi_graphics', 'label_transaksiac', 'transaksiac_graphics'));
+        return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas', 'notif_pemeliharaan', 'total_pemeliharaan', 'labels', 'datas_graphics', 'karyawan_pie', 'aset_pie', 'asetac_pie', 'label_transaksi', 'transaksi_graphics', 'label_transaksiac', 'transaksiac_graphics', 'pemeliharaanac', 'label_pemeliharaanac', 'pemeliharaanac_graphics', 'notif_pemeliharaanac'));
     }
 }

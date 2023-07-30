@@ -32,7 +32,7 @@ Tambahan :
 <strike>12. Alert di Form Tolak Pengajuan (harus ada notifikasi peringatan dulu apakah anda yakin blablabla) setelah itu popup penolakannya disesuaikan tampilannya X bukan centang</strike>
 
     
-13. Penambahan Fitur Pengajuan Perbaikan Autocare
+<strike>13. Penambahan Fitur Pengajuan Perbaikan Autocare</strike>
 
 14. Antisipasi untuk penambahan filter booking di peminjaman aset autocare.
 

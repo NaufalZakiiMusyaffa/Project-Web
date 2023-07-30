@@ -13,7 +13,7 @@
     const data = {
       labels: labels,
       datasets: [{
-        label: 'Grafik Tabel Pemeliharaan Tahun '+tahun,
+        label: 'Grafik Tabel Pemeliharaan Tahun Aset IT '+tahun,
         backgroundColor: 'rgba(67,94,190,255)',
         borderColor: 'rgba(158,172,221,255)',
         data: datas,
@@ -29,6 +29,32 @@
     const myChart = new Chart(
       document.getElementById('myChart'),
       config
+    );
+  }
+
+  if (userLevel == 'manager' || userLevel == 'autocare') {
+    var label_pemeliharaanac =  {!! json_encode($label_pemeliharaanac->toArray()) !!};
+    var dataPemeliharaanacs =  {!! json_encode($pemeliharaanac_graphics->toArray()) !!};
+
+    const dataPemeliharaanac = {
+      labels: label_pemeliharaanac,
+      datasets: [{
+        label: 'Grafik Tabel Pemeliharaan Aset Autocare Tahun'+tahun,
+        backgroundColor: 'rgba(67,94,190,255)',
+        borderColor: 'rgba(158,172,221,255)',
+        data: dataPemeliharaanacs,
+      }]
+    };
+
+    const configPemeliharaanac = {
+      type: 'bar',
+      data: dataPemeliharaanac,
+      options: {}
+    };
+
+    const pemeliharaanacChart = new Chart(
+      document.getElementById('pemeliharaanacChart'),
+      configPemeliharaanac
     );
   }
   
@@ -132,16 +158,23 @@
 <div class="row justify-content-between">
   <div class="m-3 col-md-4">Manajemen Aset</div>
   @if(Auth::user()->level == 'manager')
-  <div class="m-3 col-md-4">
-    <a href="{{route('pemeliharaan.index')}}" class="ml-md-3"><i class="fa fa-bell"> Pengajuan Masuk</i>
-      <span class="badge badge-danger">{{$notif_pemeliharaan}}</span>
-    </a>
+  <div class="m-3 col-md-3">
+    <div class="dropdown">
+      <a class="ml-md-3 text-primary" style="cursor: pointer" type="button" id="dropdownNotifPemeliharaan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell"> Pengajuan Masuk</i>
+      </a>
+      <span class="badge badge-danger">{{$notif_pemeliharaan + $notif_pemeliharaanac}}</span>
+      <div class="dropdown-menu" aria-labelledby="dropdownNotifPemeliharaan">
+        <a class="dropdown-item" href="{{route('pemeliharaan.index')}}">Anda memiliki <b>{{$notif_pemeliharaan}}</b> Aset IT yang belum diperiksa</a>
+        <a class="dropdown-item" href="{{route('autocare-maintenance.index')}}">Anda memiliki <b>{{$notif_pemeliharaanac}}</b> Aset Autocare yang belum diperiksa</a>
+      </div>
+    </div>
   </div>
   @endif
 </div>
 <div class="row">
   @if(Auth::user()->level == 'manager')
-  <div class="col-xl-2 col-lg-2 col-md-4 grid-margin stretch-card">
+  <div class="col-xl-3 col-lg-3 col-md-6 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <div class="row justify-content-between">
@@ -156,7 +189,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-2 col-lg-2 col-md-4 grid-margin stretch-card">
+  <div class="col-xl-3 col-lg-3 col-md-6 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <div class="row justify-content-between">
@@ -171,7 +204,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-2 col-lg-2 col-md-4 grid-margin stretch-card">
+  <div class="col-xl-3 col-lg-3 col-md-6 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <div class="row justify-content-between">
@@ -186,7 +219,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-2 col-lg-2 col-md-4 grid-margin stretch-card">
+  <div class="col-xl-3 col-lg-3 col-md-6 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <div class="row justify-content-between">
@@ -196,25 +229,6 @@
           <div class="col-9">
             <p class="mb-0 mt-1 text-right text-muted">Pengajuan Masuk</p>
               <h4 class="font-weight-medium text-right mb-0">{{$total_pemeliharaan}}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-4 col-lg-4 col-md-8 col-sm-4 grid-margin stretch-card">
-    <div class="card card-statistics">
-      <div class="card-body">
-        <div class="clearfix mt-2">
-          <div class="float-left">
-            @if(Auth::user()->karyawan->gambar == '')
-            <img class="img-xs rounded-circle" src="{{asset('images/user/default.png')}}" alt="profile image" width="30"">
-            @else
-            <img class="img-xs rounded-circle" src="{{asset('images/user/'.Auth::user()->karyawan->gambar)}}" alt="profile image" width="30">
-            @endif
-          </div>
-          <div class="float-left">
-            <h4 class="mb-0 ml-2 text-left">{{Auth::user()->karyawan->nama}}</h4>
-              <p class="font-weight-medium text-left mb-0 ml-2">Akses Login : {{ Auth::user()->level }}</p>
           </div>
         </div>
       </div>
@@ -233,13 +247,13 @@
   </div>
   @endif
   @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
-  <div class="col-xl-4 col-lg-4 col-md-8 col-sm-4 grid-margin stretch-card">
+  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
     <div class="card card-statistics">
       <div class="card-body">
         <div class="row h-100">
           <div class="col my-auto">
             <div class="text-center">
-              <h5>Total Biaya Pemeliharaan</h5>
+              <h5>Total Biaya Pemeliharaan Aset IT</h5>
               <h3>@currency($pemeliharaan->sum('biaya'))</h3>
             </div>
           </div>
@@ -284,6 +298,33 @@
   </div>
   @endif
 {{-- </div> --}}
+
+@if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
+<div class="col-xl-8 col-lg-8 col-md-8 grid-margin stretch-card">
+  <div class="card card-statistics">
+    <div class="card-body">
+      <canvas id="pemeliharaanacChart" height="100px"></canvas>
+    </div>
+  </div>
+</div>
+@endif
+@if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 grid-margin stretch-card">
+  <div class="card card-statistics">
+    <div class="card-body">
+      <div class="row h-100">
+        <div class="col my-auto">
+          <div class="text-center">
+            <h5>Total Biaya Pemeliharaan Aset Autocare</h5>
+            <h3>@currency($pemeliharaanac->sum('biaya'))</h3>
+          </div>
+        </div>
+     </div>
+    </div>
+  </div>
+</div>
+@endif
+
 {{-- <div class="row"> --}}
   @if(Auth::user()->level == 'manager' || Auth::user()->level == 'it')
   <div class="{{ Auth::user()->level == 'it' ? 'col-xl-8 col-lg-8 col-md-8' : 'col-xl-6 col-lg-6 col-md-6' }} grid-margin stretch-card">
