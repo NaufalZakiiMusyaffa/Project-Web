@@ -78,7 +78,7 @@
                                     <div class="col-md-12">
                                         <select class="form-control" name="status_aset" required="">
                                             <option value="Siap digunakan" @if($data->status_aset == 'Siap digunakan') selected @endif>Siap digunakan</option>
-                                            <option value="Digunakan" @if($data->status_aset == 'Digunakan') selected @endif>Digunakan</option>
+                                            <option value="Diinventariskan" @if($data->status_aset == 'Diinventariskan') selected @endif>Diinventariskan</option>
                                             <option value="Rusak(Bisa diperbaiki)" @if($data->status_aset == 'Rusak(Bisa diperbaiki)') selected @endif>Rusak(Bisa diperbaiki)</option>
                                             <option value="Rusak Total" @if($data->status_aset == 'Rusak Total') selected @endif>Rusak Total</option>
                                         </select>
@@ -87,7 +87,7 @@
                                 @endif
 
                                 <div class="form-group col-md-6{{ $errors->has('karyawan_id') ? ' has-error' : '' }}">
-                                    <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status aset <b>[Digunakan]</b></label>
+                                    <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status aset <b>[Diinventariskan]</b></label>
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             @if($data->karyawan != null)

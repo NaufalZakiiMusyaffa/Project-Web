@@ -25,7 +25,7 @@ class CreateTransaksiacTable extends Migration
             $table->date('tgl_pinjam');
             $table->date('tgl_kembali');
             $table->text('ket');
-            $table->enum('status', ['pinjam', 'kembali']);
+            $table->enum('status', ['pinjam', 'kembali', 'booking']);
             $table->timestamps();
         });
     }

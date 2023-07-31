@@ -50,7 +50,7 @@
       <option value="">Pilih Status Aset</option>
       <option value="Sedang dipinjam">Sedang Dipinjam</option>
       <option value="Siap digunakan">Siap Digunakan</option>
-      <option value="Digunakan">Digunakan</option>
+      <option value="Diinventariskan">Diinventariskan</option>
       <option value="Rusak(Bisa diperbaiki)">Rusak(Bisa Diperbaiki)</option>
       <option value="Sedang diperbaiki">Sedang Diperbaiki</option>
       <option value="Rusak Total">Rusak Total</option>
@@ -216,8 +216,8 @@
                   <label class="badge badge-primary">Sedang dipinjam</label>
                   @elseif($data->status_aset == 'Siap digunakan')
                   <label class="badge badge-success">Siap digunakan</label>
-                  @elseif($data->status_aset == 'Digunakan')
-                  <label class="badge badge-warning">Digunakan</label>
+                  @elseif($data->status_aset == 'Diinventariskan')
+                  <label class="badge badge-warning">Diinventariskan</label>
                   @elseif($data->status_aset == 'Rusak(Bisa diperbaiki)')
                   <label class="badge badge-danger">Rusak(Bisa diperbaiki)</label>
                   @elseif($data->status_aset == 'Sedang diperbaiki')

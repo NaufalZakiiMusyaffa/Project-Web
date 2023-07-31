@@ -189,6 +189,8 @@
               <td>
                 @if($data->status_kendaraan == 'Siap Digunakan')
                 <label class="badge badge-success">Siap digunakan</label>
+                @elseif($data->status_kendaraan == 'Dibooking')
+                <label class="badge badge-info">Dibooking</label>
                 @else
                 <label class="badge badge-danger">Ada Kerusakan</label>
                 @endif

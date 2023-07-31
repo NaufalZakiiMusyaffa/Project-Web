@@ -59,7 +59,7 @@ class AsetController extends Controller
 
         $kode = "ASET00001";
         $siappakai = "Siap digunakan";
-        $dipakai = "Digunakan";
+        $diiventariskan = "Diinventariskan";
         $bisadiperbaiki = "Rusak(Bisa diperbaiki)";
         $rusak = "Rusak Total";
 
@@ -79,7 +79,7 @@ class AsetController extends Controller
 
         $kategoris = Kategori::get();
         $karyawans = Karyawan::where('id', '>', 0)->get();
-        return view('aset.create', compact('kode', 'siappakai', 'dipakai', 'bisadiperbaiki', 'rusak', 'kategoris', 'karyawans'));
+        return view('aset.create', compact('kode', 'siappakai', 'diinventariskan', 'bisadiperbaiki', 'rusak', 'kategoris', 'karyawans'));
     }
 
     public function format()

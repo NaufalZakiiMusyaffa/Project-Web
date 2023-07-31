@@ -58,7 +58,7 @@
                   <div class="col-md-12">
                     <select class="form-control" name="status_kendaraan" required="">
                       <option value="{{ $siappakai }}">Siap digunakan</option>
-                      <option value="{{ $dipakai }}">Digunakan</option>
+                      <option value="{{ $diinventariskan }}">Diinventariskan</option>
                       <option value="{{ $rusak }}">Ada Kerusakan</option>
                     </select>
                   </div>
@@ -66,7 +66,7 @@
               </div>
 
               <div class="form-group{{ $errors->has('karyawan_id') ? ' has-error' : '' }}">
-                <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Digunakan ]</b></label>
+                <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Diinventariskan ]</b></label>
                 <div class="col-md-12">
                   <div class="input-group">
                     <input id="karyawan_nama" type="text" class="form-control" readonly="" required>

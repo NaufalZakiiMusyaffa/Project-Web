@@ -20,7 +20,7 @@ class ChangeStatusKendaraanColumn extends Migration
 
         Schema::table('asetac', function(Blueprint $table)
         {
-            $table->enum('status_kendaraan', ['Sedang dipinjam', 'Siap Digunakan', 'Digunakan', 'Ada Kerusakan', 'Sedang diperbaiki'])->after('masaberlaku_stnk');
+            $table->enum('status_kendaraan', ['Sedang dipinjam', 'Siap Digunakan', 'Diinventariskan', 'Ada Kerusakan', 'Sedang diperbaiki' ,'Dibooking'])->after('masaberlaku_stnk');
         });
     }
 

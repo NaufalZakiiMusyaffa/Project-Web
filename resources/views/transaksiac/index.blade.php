@@ -93,6 +93,7 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <select id="filter-transaksi" class="form-control filter" name="status_transaksi" form="reportForm">
       <option value="">Pilih Status Transaksi</option>
+      <option value="booking">Sudah Dibooking</option>
       <option value="pinjam">Sedang Dipinjam</option>
       <option value="kembali">Sudah Kembali</option>
     </select>
@@ -263,6 +264,8 @@
                 <td>
                   @if($data->status == 'pinjam')
                   <label class="badge badge-warning">Sedang dipinjam</label>
+                  @elseif($data->status == 'booking')
+                  <label class="badge badge-dark">Sudah dibooking</label>
                   @else
                   <label class="badge badge-success">Sudah Kembali</label>
                   @endif

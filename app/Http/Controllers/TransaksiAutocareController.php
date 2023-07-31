@@ -70,7 +70,7 @@ class TransaksiAutocareController extends Controller
             }
         }
 
-        $autocares = Autocare::where('status_kendaraan', 'Siap digunakan')->get();
+        $autocares = Autocare::where('status_kendaraan', 'Siap digunakan')->orWhere('status_kendaraan', 'Dibooking')->get();
         $karyawans = Karyawan::get();
         $drivers = Driver::where('status_supir','Siap')->get();
         return view('transaksiac.create', compact('kode', 'autocares', 'karyawans', 'drivers'));
@@ -90,9 +90,15 @@ class TransaksiAutocareController extends Controller
             'asetac_id' => 'required',
             'karyawan_id' => 'required',
             'supir_id' => 'required',
-
         ]);
 
+        $findTransaksiac = TransaksiAutocare::Where('asetac_id', $request->get('asetac_id'))->Where('status', 'booking')->first();
+
+        if ($findTransaksiac != NULL  && strtotime($request->get('tgl_pinjam')) >= strtotime($findTransaksiac->tgl_pinjam)) {
+            alert()->info('Maaf Aset Tersebut tidak tersedia di tanggal tersebut');
+            return redirect()->route('autocare-transaksi.create');
+        }
+        
         $transaksiac = TransaksiAutocare::create([
             'kode_peminjaman' => $request->get('kode_peminjaman'),
             'karyawan_id' => $request->get('karyawan_id'),
@@ -101,18 +107,25 @@ class TransaksiAutocareController extends Controller
             'tgl_pinjam' => $request->get('tgl_pinjam'),
             'tgl_kembali' => $request->get('tgl_kembali'),
             'ket' => $request->get('ket'),
-            'status' => 'pinjam'
+            'status' => $request->get('tgl_pinjam') == date("Y-m-d") ? 'pinjam' : 'booking'
         ]);
 
-        $transaksiac->asetac->where('id', $transaksiac->asetac_id)
+        if ($request->get('tgl_pinjam') == date("Y-m-d")) {
+            $transaksiac->asetac->where('id', $transaksiac->asetac_id)
             ->update([
                 'status_kendaraan' => 'Sedang dipinjam',
             ]);
-
-        $transaksiac->supir->where('id', $transaksiac->supir_id)
+    
+            $transaksiac->supir->where('id', $transaksiac->supir_id)
             ->update([
                 'status_supir' => 'Sedang Bertugas',
             ]);
+        } else {
+            $transaksiac->asetac->where('id', $transaksiac->asetac_id)
+            ->update([
+                'status_kendaraan' => 'Dibooking',
+            ]);
+        }
 
         alert()->success('Berhasil.', 'Data telah ditambahkan!');
         return redirect()->route('autocare-transaksi.index');

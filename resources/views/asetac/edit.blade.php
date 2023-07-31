@@ -55,7 +55,7 @@
                     <div class="col-md-12">
                       <select class="form-control" name="status_kendaraan">
                         <option value="Siap digunakan" @if($data->status_kendaraan == 'Siap digunakan') selected @endif>Siap digunakan</option>
-                        <option value="Digunakan" @if($data->status_kendaraan == 'Digunakan') selected @endif>Digunakan</option>
+                        <option value="Diinventariskan" @if($data->status_kendaraan == 'Diinventariskan') selected @endif>Diinventariskan</option>
                         <option value="Ada Kerusakan" @if($data->status_kendaraan == 'Ada Kerusakan') selected @endif>Ada Kerusakan</option>
                       </select>
                     </div>
@@ -65,7 +65,7 @@
 
               <div class="form-row">
                 <div class="form-group col-md-12{{ $errors->has('karyawan_id') ? ' has-error' : '' }}">
-                  <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Digunakan ]</b></label>
+                  <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status kendaraan <b>[ Diinventariskan ]</b></label>
                   <div class="col-md-12">
                     <div class="input-group">
                       @if($data->karyawan != null)

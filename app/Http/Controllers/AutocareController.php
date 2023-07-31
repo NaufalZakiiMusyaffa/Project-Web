@@ -63,7 +63,7 @@ class AutocareController extends Controller
 
         $kode = "ATC00001";
         $siappakai = "Siap digunakan";
-        $dipakai = "Digunakan";
+        $diinventariskan = "Diinventariskan";
         $rusak = "Ada Kerusakan";
 
         if ($rowCount > 0) {
@@ -81,7 +81,7 @@ class AutocareController extends Controller
         }
 
         $karyawans = Karyawan::where('id', '>', 0)->get();
-        return view('asetac.create', compact('kode', 'siappakai', 'dipakai', 'rusak', 'karyawans'));
+        return view('asetac.create', compact('kode', 'siappakai', 'diinventariskan', 'rusak', 'karyawans'));
     }
 
     public function format()

@@ -90,10 +90,12 @@
                 <td>
                   @if($data->status_kendaraan == 'Sedang dipinjam')
                   <label class="badge badge-primary">Sedang dipinjam</label>
+                  @elseif($data->status_kendaraan == 'Dibooking')
+                  <label class="badge badge-success">Dibooking</label>
                   @elseif($data->status_kendaraan == 'Siap Digunakan')
                   <label class="badge badge-success">Siap Digunakan</label>
-                  @elseif($data->status_kendaraan == 'Digunakan')
-                  <label class="badge badge-warning">Digunakan</label>
+                  @elseif($data->status_kendaraan == 'Diinventariskan')
+                  <label class="badge badge-warning">Diinventariskan</label>
                   @elseif($data->status_kendaraan == 'Sedang diperbaiki')
                   <label class="badge badge-info">Sedang diperbaiki</label>
                   @else

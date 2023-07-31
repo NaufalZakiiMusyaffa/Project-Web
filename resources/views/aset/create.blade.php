@@ -79,7 +79,7 @@
                                     <div class="col-md-12">
                                         <select class="form-control" name="status_aset" required="">
                                             <option value="{{ $siappakai }}">Siap digunakan</option>
-                                            <option value="{{ $dipakai }}">Digunakan</option>
+                                            <option value="{{ $diinventariskan }}">Diinventariskan</option>
                                             <option value="{{ $bisadiperbaiki }}">Rusak(Bisa diperbaiki)</option>
                                             <option value="{{ $rusak }}">Rusak Total</option>
                                         </select>
@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6{{ $errors->has('karyawan_id') ? ' has-error' : '' }}">
-                                    <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status aset <b>[Digunakan]</b></label>
+                                    <label for="karyawan_id" class="col-md-12 control-label">Pilih karyawan bila status aset <b>[Diinventariskan]</b></label>
                                     <div class="col-md-12">
                                         <div class="input-group">
                                             <input id="karyawan_nama" type="text" class="form-control" readonly="" required>

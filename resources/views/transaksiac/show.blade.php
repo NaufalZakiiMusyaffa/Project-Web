@@ -62,6 +62,8 @@
                             <div class="col-md-6">
                                 @if($data->status == 'pinjam')
                                 <label class="badge badge-warning">Sedang Dipinjam</label>
+                                @elseif($data->status == 'booking')
+                                <label class="badge badge-dark">Sudah dibooking</label>
                                 @else
                                 <label class="badge badge-success">Sudah Kembali</label>
                                 @endif

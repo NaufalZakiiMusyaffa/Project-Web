@@ -92,7 +92,7 @@ class HomeController extends Controller
 
         $detail_aset = Aset::selectRaw('COUNT(CASE WHEN status_aset = "Sedang dipinjam" THEN 1 ELSE NULL END) as "sdp",
                                         COUNT(CASE WHEN status_aset = "Siap digunakan" THEN 1 ELSE NULL END) as "sg",
-                                        COUNT(CASE WHEN status_aset = "Digunakan" THEN 1 ELSE NULL END) as "dg",
+                                        COUNT(CASE WHEN status_aset = "Diinventariskan" THEN 1 ELSE NULL END) as "dg",
                                         COUNT(CASE WHEN status_aset = "Rusak(Bisa diperbaiki)" THEN 1 ELSE NULL END) as "r",
                                         COUNT(CASE WHEN status_aset = "Sedang diperbaiki" THEN 1 ELSE NULL END) as "sd",
                                         COUNT(CASE WHEN status_aset = "Rusak Total" THEN 1 ELSE NULL END) as "rt"')->get();
@@ -100,7 +100,7 @@ class HomeController extends Controller
         foreach ($detail_aset as $key => $value) {
             $aset_pie[++$key] = ["Sedang dipinjam", (int)$value->sdp];
             $aset_pie[++$key] = ["Siap digunakan", (int)$value->sg];
-            $aset_pie[++$key] = ["Digunakan", (int)$value->dg];
+            $aset_pie[++$key] = ["Diinventariskan", (int)$value->dg];
             $aset_pie[++$key] = ["Rusak(Bisa diperbaiki)", (int)$value->r];
             $aset_pie[++$key] = ["Sedang diperbaiki", (int)$value->sd];
             $aset_pie[++$key] = ["Rusak Total", (int)$value->rt];
@@ -108,16 +108,18 @@ class HomeController extends Controller
 
         $detail_asetac = Autocare::selectRaw('COUNT(CASE WHEN status_kendaraan = "Sedang dipinjam" THEN 1 ELSE NULL END) as "sdp",
                                         COUNT(CASE WHEN status_kendaraan = "Siap digunakan" THEN 1 ELSE NULL END) as "sg",
-                                        COUNT(CASE WHEN status_kendaraan = "Digunakan" THEN 1 ELSE NULL END) as "dg",
+                                        COUNT(CASE WHEN status_kendaraan = "Diinventariskan" THEN 1 ELSE NULL END) as "dg",
                                         COUNT(CASE WHEN status_kendaraan = "Ada Kerusakan" THEN 1 ELSE NULL END) as "ak",
-                                        COUNT(CASE WHEN status_kendaraan = "Sedang diperbaiki" THEN 1 ELSE NULL END) as "sd"')->get();
+                                        COUNT(CASE WHEN status_kendaraan = "Sedang diperbaiki" THEN 1 ELSE NULL END) as "sd",
+                                        COUNT(CASE WHEN status_kendaraan = "Dibooking" THEN 1 ELSE NULL END) as "db"')->get();
         $asetac_pie[] = ['status_kendaraan','jumlah'];
         foreach ($detail_asetac as $key => $value) {
             $asetac_pie[++$key] = ["Sedang dipinjam", (int)$value->sdp];
             $asetac_pie[++$key] = ["Siap digunakan", (int)$value->sg];
-            $asetac_pie[++$key] = ["Digunakan", (int)$value->dg];
+            $asetac_pie[++$key] = ["Diinventariskan", (int)$value->dg];
             $asetac_pie[++$key] = ["Ada Kerusakan", (int)$value->ak];
             $asetac_pie[++$key] = ["Sedang diperbaiki", (int)$value->sd];
+            $asetac_pie[++$key] = ["Dibooking", (int)$value->db];
         }
         
         if (Auth::user()->level == 'it') {
@@ -160,6 +162,19 @@ class HomeController extends Controller
                     curl_close($curl);
                 };
             }
+        }
+        
+        $statusTransaksiacs = TransaksiAutocare::where('tgl_pinjam', date("Y-m-d"))->Where('status', 'booking')->get();
+        foreach ($statusTransaksiacs as $statusTransaksiac) {
+            Autocare::where('id', $statusTransaksiac->asetac_id)->update([
+                'status_kendaraan' => 'Sedang dipinjam',
+            ]);
+            Driver::where('id', $statusTransaksiac->supir_id)->update([
+                'status_supir' => 'Siap',
+            ]);
+            TransaksiAutocare::where('id', $statusTransaksiac->id)->update([
+                'status' => 'pinjam',
+            ]);
         }
 
         return view('home', compact('transaksi', 'karyawan', 'aset', 'kategori', 'user', 'driver', 'pemeliharaan', 'transaksiac', 'datas', 'notif_pemeliharaan', 'total_pemeliharaan', 'labels', 'datas_graphics', 'karyawan_pie', 'aset_pie', 'asetac_pie', 'label_transaksi', 'transaksi_graphics', 'label_transaksiac', 'transaksiac_graphics', 'pemeliharaanac', 'label_pemeliharaanac', 'pemeliharaanac_graphics', 'notif_pemeliharaanac'));

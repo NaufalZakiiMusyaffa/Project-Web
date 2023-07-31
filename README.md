@@ -34,7 +34,7 @@ Tambahan :
     
 <strike>13. Penambahan Fitur Pengajuan Perbaikan Autocare</strike>
 
-14. Antisipasi untuk penambahan filter booking di peminjaman aset autocare.
+<strike>14. Antisipasi untuk penambahan filter booking di peminjaman aset autocare.</strike>
 
 <strike>
 Kata Kata untuk Notifikasi :

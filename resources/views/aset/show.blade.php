@@ -58,9 +58,9 @@
                                         <div class="col-md-8 p-2" style="margin-top: -3px;">
                                             <label class="badge badge-success">Siap digunakan</label>
                                         </div>
-                                    @elseif($data->status_aset == 'Digunakan')
+                                    @elseif($data->status_aset == 'Diinventariskan')
                                         <div class="col-md-8 p-2" style="margin-top: -3px;">
-                                            <label class="badge badge-warning" >Digunakan</label>
+                                            <label class="badge badge-warning" >Diinventariskan</label>
                                         </div>
                                     @elseif($data->status_aset == 'Rusak(Bisa diperbaiki)')
                                         <div class="col-md-8 p-2" style="margin-top: -3px;">
