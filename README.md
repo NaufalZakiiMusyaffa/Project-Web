@@ -15,4 +15,4 @@ Temuan :
 5. Ketika ada aset yang sudah dibooking sebagai contoh ditanggal 3, lalu ada lagi yang mau booking ditanggal 7, itu jadi dibisakan, lalu di tabel transaksiac nya di munculkan field "nama kendaraan" dan "keterangan"
 
 
-6. Di Aset Autocare untuk status dibooking (dimunculkan disebelahnya untuk tanggal bookingnya (antisipasi jika ada yang booking 1 kendaraan oleh beberapa orang di beda hari).
+6. Di Aset Autocare untuk status dibooking (dimunculkan disebelahnya untuk tanggal bookingnya (antisipasi jika ada yang booking 1 kendaraan oleh beberapa orang di beda hari). (Opsional)
