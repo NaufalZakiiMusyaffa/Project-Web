@@ -72,6 +72,8 @@
                 <td>
                   @if($data->status_supir === 'Siap')
                   <label class="badge badge-success">Siap</label>
+                  @elseif($data->status_supir === "Dibooking")
+                  <label class="badge badge-info">Dibooking</label>
                   @else
                   <label class="badge badge-danger">Sedang Bertugas</label>
                   @endif
@@ -80,12 +82,12 @@
                 <td>
                   @if($data->status_supir != 'Sedang Bertugas')
                   <a class="btn" href="{{route('driver.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
-                  <form action="{{ route('driver.destroy', $data->id) }}" method="post">
+                  <form action="{{ route('driver.destroy', $data->id) }}" method="post" style="display: block;" class="text-center">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="display:block; color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                    <button class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="background-color:transparent;color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
                       <br>Hapus
-                    </a>
+                    </button>
                   </form>
                   @endif
                 </td>

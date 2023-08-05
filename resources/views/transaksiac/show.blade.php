@@ -47,7 +47,7 @@
                             <div class="form-group col-md-6{{ $errors->has('tgl_kembali') ? ' has-error' : '' }}">
                                 <label for="tgl_kembali" class="col-md-4 control-label">Tanggal Kembali</label>
                                 <div class="col-md-12">
-                                    <input id="tgl_kembali" type="text" class="form-control" name="tgl_kembali" value="{{ date('d F Y', strtotime($data->tgl_kembali)) }}" readonly="">
+                                    <input id="tgl_kembali" type="text" class="form-control" name="tgl_kembali" value="{{ $data->tgl_kembali ? date('d F Y', strtotime($data->tgl_kembali)) : '-' }}" readonly="">
                                 </div>
                             </div>
                         </div>

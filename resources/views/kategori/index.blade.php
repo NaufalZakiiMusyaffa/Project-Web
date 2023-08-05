@@ -57,12 +57,12 @@
                 @if(Auth::user()->level == 'it')
                 <td style="text-align: center">
                   <a class="btn ml-2" href="{{route('kategori.edit', $data->id)}}" style="color:green;"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
-                  <form action="{{ route('kategori.destroy', $data->id) }}" method="post" style="display: inline">
+                  <form action="{{ route('kategori.destroy', $data->id) }}" method="post" style="display: inline" style="display: block;" class="text-center">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                    <button class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="background-color:transparent;color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
                       <br>Hapus
-                    </a>
+                    </button>
                   </form>
                 </td>
                 @endif

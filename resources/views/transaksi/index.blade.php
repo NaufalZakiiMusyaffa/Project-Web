@@ -284,13 +284,13 @@
                       </button>
                     </form>
                     @else
-                      <form action="{{ route('transaksi.destroy', $data->id) }}" method="post">
+                      <form action="{{ route('transaksi.destroy', $data->id) }}" method="post" style="display: block;" class="text-center">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
-                        <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color: red;">
+                        <button class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="background-color:transparent;color:red">
                           <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
                           <br>Hapus
-                        </a>
+                        </button>
                       </form>
                     @endif
                   @endif

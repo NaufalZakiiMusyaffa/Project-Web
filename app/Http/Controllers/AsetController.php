@@ -59,7 +59,7 @@ class AsetController extends Controller
 
         $kode = "ASET00001";
         $siappakai = "Siap digunakan";
-        $diiventariskan = "Diinventariskan";
+        $diinventariskan = "Diinventariskan";
         $bisadiperbaiki = "Rusak(Bisa diperbaiki)";
         $rusak = "Rusak Total";
 

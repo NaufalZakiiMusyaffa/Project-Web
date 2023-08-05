@@ -93,9 +93,15 @@ class TransaksiAutocareController extends Controller
         ]);
 
         $findTransaksiac = TransaksiAutocare::Where('asetac_id', $request->get('asetac_id'))->Where('status', 'booking')->first();
+        $findTransaksiacSupir = TransaksiAutocare::Where('supir_id', $request->get('supir_id'))->Where('status', 'booking')->first();
 
-        if ($findTransaksiac != NULL  && strtotime($request->get('tgl_pinjam')) >= strtotime($findTransaksiac->tgl_pinjam)) {
+        if ($findTransaksiac != NULL  && strtotime($request->get('tgl_pinjam')) == strtotime($findTransaksiac->tgl_pinjam)) {
             alert()->info('Maaf Aset Tersebut tidak tersedia di tanggal tersebut');
+            return redirect()->route('autocare-transaksi.create');
+        }
+
+        if ($findTransaksiacSupir != NULL  && strtotime($request->get('tgl_pinjam')) == strtotime($findTransaksiacSupir->tgl_pinjam)) {
+            alert()->info('Maaf Supir Tersebut tidak tersedia di tanggal tersebut');
             return redirect()->route('autocare-transaksi.create');
         }
         
@@ -124,6 +130,11 @@ class TransaksiAutocareController extends Controller
             $transaksiac->asetac->where('id', $transaksiac->asetac_id)
             ->update([
                 'status_kendaraan' => 'Dibooking',
+            ]);
+
+            $transaksiac->supir->where('id', $transaksiac->supir_id)
+            ->update([
+                'status_supir' => 'Dibooking',
             ]);
         }
 

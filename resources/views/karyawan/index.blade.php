@@ -79,12 +79,12 @@
                 <td>
                   <a href="{{route('karyawan.show', $data->id)}}" class="btn" style="display: block"><span class="fa fa-eye fa-lg" title="Detail Pengguna"></span><br>Detail</a>
                   <a class="btn" href="{{route('karyawan.edit', $data->id)}}" style="display: block;color:green"><span class="fa fa-pencil fa-lg" title="Ubah Data"></span><br>Edit</a>
-                  <form action="{{ route('karyawan.destroy', $data->id) }}" method="post" style="text-align: center">
+                  <form action="{{ route('karyawan.destroy', $data->id) }}" method="post" style="display: block;" class="text-center">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <a class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
+                    <button class="btn" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="background-color:transparent;color:red"> <span class="fa fa-trash fa-lg" title="Hapus Data"></span>
                       <br>Hapus
-                    </a>
+                    </button>
                   </form>
                 </td>
               </tr>

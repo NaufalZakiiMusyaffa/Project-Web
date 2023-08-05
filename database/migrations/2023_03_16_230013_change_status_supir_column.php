@@ -20,7 +20,7 @@ class ChangeStatusSupirColumn extends Migration
 
         Schema::table('supir', function(Blueprint $table)
         {
-            $table->enum('status_supir', ['Siap', 'Sedang Bertugas'])->after('kontak');
+            $table->enum('status_supir', ['Siap', 'Sedang Bertugas', 'Dibooking'])->after('kontak');
         });
     }
 
