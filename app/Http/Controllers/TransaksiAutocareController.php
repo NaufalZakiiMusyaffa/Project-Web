@@ -158,6 +158,9 @@ class TransaksiAutocareController extends Controller
     public function update(Request $request, $id)
     {
         $transaksiac = TransaksiAutocare::find($id);
+        
+        $findTransaksiac = TransaksiAutocare::Where('asetac_id', $transaksiac->asetac_id)->Where('status', 'booking')->first();
+        $findTransaksiacSupir = TransaksiAutocare::Where('supir_id', $transaksiac->supir_id)->Where('status', 'booking')->first();
 
         $transaksiac->update([
             'tgl_kembali' => date('Y-m-d'),
@@ -166,12 +169,12 @@ class TransaksiAutocareController extends Controller
 
         $transaksiac->asetac->where('id', $transaksiac->asetac->id)
             ->update([
-                'status_kendaraan' => 'Siap digunakan',
+                'status_kendaraan' => $findTransaksiac ? 'Dibooking' : 'Siap digunakan',
             ]);
 
         $transaksiac->supir->where('id', $transaksiac->supir->id)
             ->update([
-                'status_supir' => 'Siap',
+                'status_supir' => $findTransaksiacSupir ? 'Dibooking' :'Siap',
             ]);
 
         alert()->success('Berhasil.', 'Data telah diubah!');

@@ -239,6 +239,12 @@
                   Tgl Kembali
                 </th>
                 <th>
+                  Nama Kendaraan
+                </th>
+                <th>
+                  Keterangan
+                </th>
+                <th>
                   Status
                 </th>
                 <th>
@@ -262,6 +268,12 @@
                   {{$data->tgl_kembali}}
                 </td>
                 <td>
+                  {{$data->asetac->nama_kendaraan}}
+                </td>
+                <td>
+                  {{$data->ket}}
+                </td>
+                <td>
                   @if($data->status == 'pinjam')
                   <label class="badge badge-warning">Sedang dipinjam</label>
                   @elseif($data->status == 'booking')
@@ -271,10 +283,10 @@
                   @endif
                 </td>
                 <td>
-                  <a href="{{route('autocare-transaksi.show', $data->id)}}" class="btn"><span class="fa fa-eye fa-lg" title="Detail Transaksi"></span><br>Detail</a>
+                  <a href="{{route('autocare-transaksi.show', $data->id)}}" class="btn" style="display: block;"><span class="fa fa-eye fa-lg" title="Detail Transaksi"></span><br>Detail</a>
                   @if(Auth::user()->level == 'autocare')
                     @if($data->status == 'pinjam')
-                    <form action="{{ route('autocare-transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data" style="display:inline;">
+                    <form action="{{ route('autocare-transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data" style="display:block;">
                       {{ csrf_field() }}
                       {{ method_field('put') }}
                       <button class="btn btn-info btn-xs" onclick="return confirm('Anda yakin aset ini sudah kembali?')">Sudah Kembali

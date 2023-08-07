@@ -93,16 +93,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6{{ $errors->has('jabatan') ? ' has-error' : '' }}">
-                                    <div class="form-group col-md-6{{ $errors->has('telepon') ? ' has-error' : '' }}">
-                                        <label for="telepon" class="col-md-12 control-label">No Handphone</label>
-                                        <div class="col-md-12">
-                                            <input id="telepon" type="text" class="form-control" name="telepon" value="{{ $data->karyawan->telepon }}" maxlength="16" required>
-                                            @if ($errors->has('telepon'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('telepon') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
+                                    <label for="telepon" class="col-md-12 control-label">No Handphone</label>
+                                    <div class="col-md-12">
+                                        <input id="telepon" type="text" class="form-control" name="telepon" value="{{ $data->karyawan->telepon }}" maxlength="16" required>
+                                        @if ($errors->has('telepon'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('telepon') }}</strong>
+                                        </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
