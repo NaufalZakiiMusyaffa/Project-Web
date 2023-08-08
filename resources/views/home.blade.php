@@ -133,7 +133,8 @@
       var optionsAset = {
         is3D: false,
         pieHole: 0.3,
-        pieSliceText: 'value'
+        pieSliceText: 'value',
+        colors: ['#BA0D98', '#23CE00', '#FAFA17', '#15BAB8', '#E6693E', '#FE0003'],
       };
       var chartAset = new google.visualization.PieChart(document.getElementById('piechart_aset'));
       chartAset.draw(dataAset, optionsAset);
@@ -144,7 +145,8 @@
       var optionsAsetac = {
         is3D: false,
         pieHole: 0.3,
-        pieSliceText: 'value'
+        pieSliceText: 'value',
+        colors: ['#BA0D98', '#23CE00', '#FAFA17', '#FE0003', '#E6693E', '#15BAB8'],
       };
       var chartAsetac = new google.visualization.PieChart(document.getElementById('piechart_asetac'));
       chartAsetac.draw(dataAsetac, optionsAsetac);

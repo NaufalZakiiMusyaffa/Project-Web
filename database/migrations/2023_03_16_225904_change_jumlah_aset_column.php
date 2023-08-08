@@ -16,7 +16,7 @@ class ChangeJumlahAsetColumn extends Migration
         Schema::table('aset', function(Blueprint $table)
         {
             $table->dropColumn('jumlah_aset');
-            $table->enum('status_aset', ['Sedang dipinjam', 'Siap digunakan', 'Diiventariskan', 'Rusak(Bisa diperbaiki)', 'Sedang diperbaiki', 'Rusak Total'])->after('merk');
+            $table->enum('status_aset', ['Sedang dipinjam', 'Siap digunakan', 'Diinventariskan', 'Rusak(Bisa diperbaiki)', 'Sedang diperbaiki', 'Rusak Total'])->after('merk');
         });
     }
 

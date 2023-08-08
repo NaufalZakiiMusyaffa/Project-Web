@@ -74,7 +74,7 @@ class PemeliharaanController extends Controller
             }
         }
 
-        $pemeliharaans = Pemeliharaan::where('status', 1)->orWhere('status', 2)->get();
+        $pemeliharaans = Pemeliharaan::where('status', 1)->get();
         $id_aset = array();
         foreach ($pemeliharaans as $pm) {
             $id_aset[] = $pm->aset_id;

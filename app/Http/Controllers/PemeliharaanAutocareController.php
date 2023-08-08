@@ -73,7 +73,7 @@ class PemeliharaanAutocareController extends Controller
             }
         }
 
-        $pemeliharaans = PemeliharaanAutocare::where('status', 1)->orWhere('status', 2)->get();
+        $pemeliharaans = PemeliharaanAutocare::where('status', 1)->get();
         $id_asetac = array();
         foreach ($pemeliharaans as $pm) {
             $id_asetac[] = $pm->asetac_id;
