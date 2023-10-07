@@ -1,0 +1,143 @@
+@section('js')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#table').DataTable({
+      "language": {
+        "url": "http://cdn.datatables.net/plug-ins/1.10.9/i18n/Indonesian.json",
+        "sEmptyTable": "Tidak ada data di database"
+      }
+    });
+
+  });
+</script>
+@stop
+@extends('layouts.app')
+
+@section('content')
+<div class="row">
+  @if(Auth::user()->level == 'autocare')
+  <div class="col-lg-8">
+    <a href="{{ route('asetac.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Data Aset Autocare</a>
+  </div>
+  @endif
+  <div class="col-lg-12">
+    @if (Session::has('message'))
+    <div class="alert alert-{{ Session::get('message_type') }}" id="waktu2" style="margin-top:10px;">{{ Session::get('message') }}</div>
+    @endif
+  </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+
+      <div class="card-body">
+        <h4 class="card-title pull-left">Data Aset Autocare</h4>
+        <!--      <a href="{{url('format_buku')}}" class="btn btn-xs btn-info pull-right">Format Buku</a> -->
+        @if(Auth::user()->level == 'manager' || Auth::user()->level == 'autocare')
+        <div class="card-title pull-right">
+          <a href="{{ url('laporan/asetac/pdf') }}" class="btn btn-danger btn-rounded btn-fw mt-2">
+            <b><i class="fa fa-download"></i> Export PDF</b>
+          </a>
+          <a href="{{ url('laporan/asetac/excel') }}" class="btn btn-success btn-rounded btn-fw mt-2">
+            <b><i class="fa fa-download"></i> Export Excel</b>
+          </a>
+        </div>
+        @endif
+        <div class="table-responsive">
+          <table class="table table-striped" id="table">
+            <thead>
+              <tr>
+                <th>
+                  Kode Aset
+                </th>
+                <th>
+                  Kendaraan
+                </th>
+                <th>
+                  No. Polisi
+                </th>
+                <th>
+                  Masa Berlaku STNK
+                </th>
+                <th>
+                  Status
+                </th>
+                <th>
+                  Inventaris Kepada
+                </th>
+                @if(Auth::user()->level == 'autocare')
+                <th>
+                  Aksi
+                </th>
+                @endif
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($datas as $data)
+              <tr>
+                <td>
+                  {{$data->kode_aset}}
+                </td>
+                <td>
+                  {{$data->nama_kendaraan}}
+                </td>
+                <td>
+                  {{$data->nopol}}
+                </td>
+                <td>
+                  {{date('d F Y', strtotime($data->masaberlaku_stnk))}}
+                </td>
+                <td>
+                  @if($data->status_kendaraan == 'Sedang dipinjam')
+                  <label class="badge badge-primary">Sedang dipinjam</label>
+                  @elseif($data->status_kendaraan == 'Dibooking')
+                  <label class="badge badge-success">Dibooking</label>
+                  @elseif($data->status_kendaraan == 'Siap Digunakan')
+                  <label class="badge badge-success">Siap Digunakan</label>
+                  @elseif($data->status_kendaraan == 'Diinventariskan')
+                  <label class="badge badge-warning">Diinventariskan</label>
+                  @elseif($data->status_kendaraan == 'Sedang diperbaiki')
+                  <label class="badge badge-info">Sedang diperbaiki</label>
+                  @else
+                  <label class="badge badge-danger">Ada Kerusakan</label>
+                  @endif
+                </td>
+                <td>
+                  @if($data->karyawan != null)
+                  <label class="badge badge-primary">{{$data->karyawan->nama}}</label>
+                  @else
+                  <label class="badge badge-primary">-</label>
+                  @endif
+                </td>
+                @if(Auth::user()->level == 'autocare')
+                <td>
+                   <div class="btn-group dropdown">
+                     @if($data->status_kendaraan !== 'Sedang dipinjam' && $data->status_kendaraan !== 'Dibooking')
+                          <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Aksi
+                          </button>
+                          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
+                            <a class="dropdown-item" href="{{route('asetac.show', $data->id)}}" style="color:blue"> Lihat Data </a>
+                            <a class="dropdown-item" href="{{route('asetac.edit', $data->id)}}" style="color:green"> Ubah Data </a>
+                            <form action="{{ route('asetac.destroy', $data->id) }}" class="pull-left"  method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('delete') }}
+                            <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')" style="color:red"> Hapus Data
+                            </button>
+                          </form>
+                          </div>
+                  </div>
+                  @endif
+                </td>
+                @endif
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        {{-- {!! $datas->links() !!} --}}
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
