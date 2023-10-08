@@ -34,10 +34,24 @@
                         <div class="card-body">
                             <h4 class="card-title">Detail Pengajuan</h4>
 
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <img width="200" height="200" @if($data->gambar) src="{{ asset('images/pemeliharaan/'.$data->gambar) }}" @endif />
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="col-md-12">
+                                        <img width="170" height="170" src="{{ $data->gambar ? asset('images/pemeliharaan/'.$data->gambar) : asset('images/pemeliharaan/not-found.png') }}" />
+                                    </div>
                                 </div>
+
+                                @if ($data->video)
+                                    <div class="col-md-6">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item" src="{{ asset('video/pemeliharaan/'.$data->video)}}" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-md-6">
+                                        <img width="170" src="{{ asset('images/pemeliharaan/no-video.jpg') }}" class="mt-4"/>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="d-flex flex-row">

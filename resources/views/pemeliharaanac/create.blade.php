@@ -115,17 +115,17 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="email" class="col-md-12 control-label">Gambar</label>
+                                <label for="gambar" class="col-md-12 control-label">Gambar</label>
                                 <div class="col-md-12">
                                     <img width="200" height="200" />
-                                    <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar">
+                                    <input type="file" class="uploads form-control" style="margin-top: 20px;" name="gambar" accept="image/*">
                                 </div>
                             </div>
                             
                             </div>
 
                             <div class="form-row">
-                            <div class="form-group col-md-12{{ $errors->has('keterangan') ? ' has-error' : '' }}">
+                            <div class="form-group col-md-8{{ $errors->has('keterangan') ? ' has-error' : '' }}">
                                 <label for="keterangan" class="col-md-4 control-label">keterangan *</label>
                                 <div class="col-md-12">
                                     <textarea class="form-control" rows="5" id="keterangan" name="keterangan" required>{{ old('keterangan') }}</textarea>
@@ -137,6 +137,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group col-md-4">
+                                <label for="video" class="col-md-12 control-label">Video*</label>
+                                <div class="col-md-12">
+                                    <input type="file" class="uploads form-control" name="video" accept="video/*">
+                                </div>
+                                <span style="font-size: 0.8rem"><b>*Perlihatkan rekaman yang dapat membuktikan bahwa aset autocare yang akan diajukan merupakan aset perusahaan</b></span>
+                            </div>
                             
                             </div>
 

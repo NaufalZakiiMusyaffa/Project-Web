@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PemeliharaanAutocare extends Model
 {
     protected $table = 'pemeliharaanac';
-    protected $fillable = ['kode_pemeliharaan', 'asetac_id', 'keterangan', 'biaya', 'status', 'yang_mengajukan', 'keputusan_oleh', 'gambar'];
+    protected $fillable = ['kode_pemeliharaan', 'asetac_id', 'keterangan', 'biaya', 'status', 'yang_mengajukan', 'keputusan_oleh', 'gambar', 'video'];
 
     public function user()
     {

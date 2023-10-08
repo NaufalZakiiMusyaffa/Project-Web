@@ -63,3 +63,7 @@ Route::get('/laporan/pemeliharaan/pdf/{pemeliharaan}', 'LaporanController@pemeli
 Route::get('/laporan/pemeliharaanac/pdf/{pemeliharaanac}', 'LaporanController@pemeliharaanAutocarePdf')->name('pemeliharaanac.pdf');
 
 Route::get('/profil', 'UserController@me')->name('user.me');
+Route::get('/forgot-password', 'ForgotPasswordController@index')->name('forgot-password.index');
+Route::get('/forgot-password/{id}', 'ForgotPasswordController@show');
+Route::post('/forgot-password/store', 'ForgotPasswordController@store')->name('forgot-password.store');
+Route::post('/forgot-password/check', 'ForgotPasswordController@check')->name('forgot-password.check');

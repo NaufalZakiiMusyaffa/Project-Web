@@ -99,17 +99,27 @@ class PemeliharaanController extends Controller
             'aset_id' => 'required',
         ]);
 
+        $dt = Carbon::now();
+
         if ($request->file('gambar')) {
             $file = $request->file('gambar');
-            $dt = Carbon::now();
             $acak  = $file->getClientOriginalExtension();
             $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
             $request->file('gambar')->move("images/pemeliharaan", $fileName);
             $gambar = $fileName;
         } else {
-            $gambar = NULL;
+            $gambar = null;
         }
 
+        if ($request->file('video')) {
+            $fileVideo = $request->file('video');
+            $random  = $fileVideo->getClientOriginalExtension();
+            $fileVideoName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $random;
+            $request->file('video')->move("video/pemeliharaan", $fileVideoName);
+            $video = $fileVideoName;
+        } else {
+            $video = null;
+        }
 
         $pemeliharaan = Pemeliharaan::create([
             'kode_pemeliharaan' => $request->get('kode_pemeliharaan'),
@@ -118,7 +128,8 @@ class PemeliharaanController extends Controller
             'biaya'             => $request->get('biaya'),
             'status'            => $request->get('status'),
             'yang_mengajukan'   => Auth::user()->karyawan->nama,
-            'gambar'            => $gambar
+            'gambar'            => $gambar,
+            'video'             => $video
         ]);
 
         $pemeliharaan->aset->where('id', $pemeliharaan->aset_id)

@@ -97,18 +97,28 @@ class PemeliharaanAutocareController extends Controller
             'kode_pemeliharaan' => 'required|string|max:255',
             'asetac_id' => 'required',
         ]);
+        
+        $dt = Carbon::now();
 
         if ($request->file('gambar')) {
             $file = $request->file('gambar');
-            $dt = Carbon::now();
             $acak  = $file->getClientOriginalExtension();
             $fileName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $acak;
             $request->file('gambar')->move("images/pemeliharaan", $fileName);
             $gambar = $fileName;
         } else {
-            $gambar = NULL;
+            $gambar = null;
         }
 
+        if ($request->file('video')) {
+            $fileVideo = $request->file('video');
+            $random  = $fileVideo->getClientOriginalExtension();
+            $fileVideoName = rand(11111, 99999) . '-' . $dt->format('Y-m-d-H-i-s') . '.' . $random;
+            $request->file('video')->move("video/pemeliharaan", $fileVideoName);
+            $video = $fileVideoName;
+        } else {
+            $video = null;
+        }
 
         $pemeliharaanac = PemeliharaanAutocare::create([
             'kode_pemeliharaan' => $request->get('kode_pemeliharaan'),
@@ -117,7 +127,8 @@ class PemeliharaanAutocareController extends Controller
             'biaya'             => $request->get('biaya'),
             'status'            => $request->get('status'),
             'yang_mengajukan'   => Auth::user()->karyawan->nama,
-            'gambar'            => $gambar
+            'gambar'            => $gambar,
+            'video'             => $video
         ]);
 
         $pemeliharaanac->asetac->where('id', $pemeliharaanac->asetac_id)

@@ -50,6 +50,9 @@
               </strong></h5>
             </span>
             @endif
+            <div style="text-align: right !important">
+              <a href="{{route('forgot-password.index')}}">Lupa Password</a>
+            </div>
             <button class="btn btn-primary submit-btn btn-block" type="submit">Login</button>
           </div>
         </form>
